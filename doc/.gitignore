@@ -1,0 +1,25 @@
+# Compiled python modules
+*.pyc
+
+# Setuptools distribution folder
+/dist/
+
+# Python egg metadata
+/*.egg-info
+/*.egg
+
+# Ignore platform configuration file 
+cl_platform_config.ini
+
+# Ignore jupyter notebook checkpoints
+**\.ipynb_checkpoints*\**
+/**/.ipynb_checkpoints/**
+.ipynb_checkpoints/**/*
+
+combined_kernels.tmp.cl
+
+.vscode/**/*
+__pycache__/**/*
+
+# ignore git push shortcut log
+git_response.txt.tmp
