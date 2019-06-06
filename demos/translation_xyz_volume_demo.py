@@ -74,6 +74,7 @@ translator.xyz_translate(x_focus = 0,y_focus = 0, z_focus = 100e-3,
 world.propagate()
 
 # Visualise the acoustic field.
-
+print('pre vis')
 handybeam.visualise.visualise_translation_3D(world, original_pressure_field = original_field,
                                              sampler = volume_sampler, threshold = 50)
+print('post vis')
