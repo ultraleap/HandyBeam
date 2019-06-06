@@ -9,8 +9,7 @@ Some of them might be awaiting refactoring or deletion.
 
 
 def copy_docstring(from_function, separator="\n", prepend=True):
-   """
-    Decorator. Copies the docstring of `from_function` into the decorated function.
+    """ Decorator. Copies the docstring of `from_function` into the decorated function.
 
     This is used to make the documentation of the overriding methods nicer: enables to join the documentation of the super class and the current class in a single place.
 
@@ -18,7 +17,6 @@ def copy_docstring(from_function, separator="\n", prepend=True):
 
     Modified and extended from `https://stackoverflow.com/questions/13741998 <https://stackoverflow.com/questions/13741998/is-there-a-way-to-let-classes-inherit-the-documentation-of-their-superclass-with>`_
     """
-
     def _decorator(func):
         """ creates a new, modified function, to be returned instead of the original.
 
