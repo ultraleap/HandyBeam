@@ -7,18 +7,18 @@ warnings.filterwarnings("ignore")
 
 sys.path.append("../.")
 
-import handybeam_core
-import handybeam_core.world
-import handybeam_core.tx_array_library
-import handybeam_core.visualise
-import handybeam_core.samplers.clist_sampler as clist_sampler
-from handybeam_core.solver import Solver
+import handybeam
+import handybeam.world
+import handybeam.tx_array_library
+import handybeam.visualise
+import handybeam.samplers.clist_sampler as clist_sampler
+from handybeam.solver import Solver
 
 
 
 # Initialise the world 
 
-world = handybeam_core.world.World()
+world = handybeam.world.World()
 
 # Initialise a solver
 
@@ -26,7 +26,7 @@ solver = Solver(parent = world)
 
 # Add a transmitter array to the world
 
-world.tx_array = handybeam_core.tx_array_library.rectilinear(parent = world)
+world.tx_array = handybeam.tx_array_library.rectilinear(parent = world)
 
 # Instruct the solver to solve for the activation coefficients
 

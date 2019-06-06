@@ -7,22 +7,22 @@ warnings.filterwarnings("ignore")
 
 sys.path.append("../")  
 
-import handybeam_core
-import handybeam_core.world
-import handybeam_core.tx_array_library
-import handybeam_core.visualise
-import handybeam_core.samplers.clist_sampler as clist_sampler
-from handybeam_core.translator import Translator
-from handybeam_core.solver import Solver
+import handybeam
+import handybeam.world
+import handybeam.tx_array_library
+import handybeam.visualise
+import handybeam.samplers.clist_sampler as clist_sampler
+from handybeam.translator import Translator
+from handybeam.solver import Solver
 
 
 # Create world.
 
-world = handybeam_core.world.World()
+world = handybeam.world.World()
 
 # Add a transmitter array to the world.
 
-world.tx_array = handybeam_core.tx_array_library.rectilinear(parent=world)
+world.tx_array = handybeam.tx_array_library.rectilinear(parent=world)
 
 # Instantiate translator and solver objects.
 
@@ -75,5 +75,5 @@ world.propagate()
 
 # Visualise the acoustic field.
 
-handybeam_core.visualise.visualise_translation_3D(world,original_pressure_field = original_field,
-                                            sampler = volume_sampler,threshold = 50)
+handybeam.visualise.visualise_translation_3D(world, original_pressure_field = original_field,
+                                             sampler = volume_sampler, threshold = 50)

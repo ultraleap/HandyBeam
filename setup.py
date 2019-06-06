@@ -9,7 +9,7 @@ def readme():
         return f.read()
 
 setup(
-        name = 'handybeam_core',
+        name = 'handybeam',
         version = '1.0',
         long_description = readme(),
         classifiers=[
@@ -25,7 +25,7 @@ setup(
         ],
         author_email = '',
         license = '',
-        packages = ['handybeam_core'],
+        packages = ['handybeam'],
         install_requires = [
                 'markdown',
                 'numpy',
