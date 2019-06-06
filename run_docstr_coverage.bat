@@ -1,0 +1,1 @@
+conda activate handybeam & docstr-coverage handybeam > doc_coverage_report.txt & conda deactivate
