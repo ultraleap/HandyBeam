@@ -1,5 +1,16 @@
 # Change log and devel blog
 
+## 2019-06-06 History cleanup
+
+A new superproject structure is being set up:
+
+in the root folder:
+ 
+* `handybeam` repository contains core share-able core only
+* `handybeam_extension` contains optional extensions to the core share-able code, to work on specific problems
+* `handybeam_username` contains non-share-able code bits, figures and garbage
+* `tmp` contains temporary files
+
 ## 2019-05-24 Documentation rush
 
 * Jurek picks up development of the HandyBeam core
