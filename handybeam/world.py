@@ -107,8 +107,7 @@ class World():
 
         return self.samplers[-1]
 
-    def propagate(self,print_performance_feedback = False):
-        
+    def propagate(self, print_performance_feedback=False):
         '''
         ---------------------------------------------
         propagate(self,print_performance_feedback)

@@ -12,9 +12,9 @@ def copy_docstring(from_function, separator="\n", prepend=True):
 
 
     '''
-    ---------------------------------------------
+    -----------------------------------------------
     copy_docstring(from_function,separator,prepend)
-    ---------------------------------------------
+    -----------------------------------------------
             
     DESCRIPTION HERE
 
@@ -44,7 +44,6 @@ def copy_docstring(from_function, separator="\n", prepend=True):
 
 
     def _decorator(func):
-
         '''
         ---------------------------------------------
         _decorator(func)
@@ -78,3 +77,43 @@ def copy_docstring(from_function, separator="\n", prepend=True):
 
         return func
     return _decorator
+
+
+class HandyDict(dict):
+    """
+
+    Provides matlab-like setting/storage of items in a dict
+
+    q=HandyDict()
+    q.new_key = 'Hello world!'
+    print(q.new_key)
+
+
+
+    happily copypasted from https://stackoverflow.com/questions/2352181/how-to-use-a-dot-to-access-members-of-dictionary
+    """
+    def __init__(self, args={'True': True, 'False':False}):
+        super(HandyDict, self).__init__(args)
+        if isinstance(args, dict):
+            for k, v in args.items():
+                if not isinstance(v, dict):
+                    self[k] = v
+                else:
+                    self.__setattr__(k, HandyDict(v))
+
+    def __getattr__(self, attr):
+        return self.get(attr)
+
+    def __setattr__(self, key, value):
+        self.__setitem__(key, value)
+
+    def __setitem__(self, key, value):
+        super(HandyDict, self).__setitem__(key, value)
+        self.__dict__.update({key: value})
+
+    def __delattr__(self, item):
+        self.__delitem__(item)
+
+    def __delitem__(self, key):
+        super(HandyDict, self).__delitem__(key)
+        del self.__dict__[key]
