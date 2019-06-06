@@ -8,6 +8,7 @@ import unittest
 # Include path to handybeam  directory
 
 sys.path.append('../.')
+sys.path.append('../..')
 
 ## Class
 
@@ -49,10 +50,8 @@ class WorldTests(unittest.TestCase):
 
         self.assertEqual(fail,False)
 
-        
 
-## Script 
-
+# Script
 if __name__ == '__main__':
 
     unittest.main()
