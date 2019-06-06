@@ -12,6 +12,7 @@ tau = 2*np.pi
 
 ## Class
 
+
 class RectilinearSampler(AbstractSampler):
 
     '''
