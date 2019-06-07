@@ -1,9 +1,9 @@
 """
 .. _world:
 
-===================
-world
-===================
+======================
+module :code:`handybeam.world`
+======================
 
 Describes the virtual world, in which the acoustic propagation occurs.
 

@@ -38,7 +38,7 @@ volume_sampler = world.add_sampler(clist_sampler.ClistSampler(parent=world))
 
 # Specify points in the volume to sample the acoustic field on
 
-no_points = 150
+no_points = 350
 
 x = np.linspace(-500e-3, 500e-3, no_points)
 y = np.linspace(-500e-3, 500e-3, no_points)
