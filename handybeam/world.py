@@ -69,7 +69,7 @@ class World():
         self.device = use_device
         self.platform = use_platform
         self.tx_array = handybeam.tx_array_library.USX(parent=self)
-        self.propagator = handybeam.opencl_wrappers.propagator_wrappers.Propagator(parent=self,use_device = self.device, use_platform = self.platform)
+        self.propagator = handybeam.opencl_wrappers.propagator_wrappers.Propagator(parent=self.parent,use_device = self.device, use_platform = self.platform)
 
     def add_sampler(self, sampler=None):
         """ Adds a new field sampler to the world
