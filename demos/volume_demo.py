@@ -3,9 +3,9 @@
 import sys
 import numpy as np
 import warnings
-warnings.filterwarnings("ignore")
 
-sys.path.append("../.")
+warnings.filterwarnings("ignore")
+sys.path.append("../.")  
 
 import handybeam
 import handybeam.world

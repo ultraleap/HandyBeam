@@ -6,8 +6,8 @@ import matplotlib
 from matplotlib import pyplot as plt
 import warnings
 warnings.filterwarnings("ignore")
+sys.path.append("../.")  
 
-sys.path.append("../.")
 
 import handybeam
 import handybeam.world
