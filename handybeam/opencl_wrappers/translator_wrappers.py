@@ -27,7 +27,7 @@ class Translator(
 
     '''    
 
-    def __init__(self,parent=None):
+    def __init__(self,parent=None,use_device = 2, use_platform = 0):
        
         ## TODO - Provide description and type for the handybeam world object.
         
@@ -52,7 +52,7 @@ class Translator(
         super(Translator, self).__init__()
 
         self.parent = parent
-        self.cl_system = handybeam.cl_system.OpenCLSystem(parent=self.parent)
+        self.cl_system = handybeam.cl_system.OpenCLSystem(parent=self.parent,use_device = self.parent.device, use_platform = self.parent.platform)
 
         # Run the _register methods for each of mixin classes to initialise the high-performance opencl kernels.
 
