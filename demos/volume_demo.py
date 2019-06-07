@@ -18,7 +18,7 @@ from handybeam.solver import Solver
 
 # Initialise the world 
 
-world = handybeam.world.World(use_platform=0,use_device=0)
+world = handybeam.world.World(use_platform=0, use_device=0)
 
 # Initialise a solver
 
@@ -34,17 +34,17 @@ solver.single_focus_solver(x_focus = 0, y_focus = 0, z_focus = 100e-3)
 
 # Add clist sampler object to the world
 
-volume_sampler = world.add_sampler(clist_sampler.ClistSampler( parent=world ))
+volume_sampler = world.add_sampler(clist_sampler.ClistSampler(parent=world))
 
 # Specify points in the volume to sample the acoustic field on
 
 no_points = 150
 
-x = np.linspace(-500e-3,500e-3,no_points)
-y = np.linspace(-500e-3,500e-3,no_points)
-z = np.linspace(10e-3,500e-3,no_points)
+x = np.linspace(-500e-3, 500e-3, no_points)
+y = np.linspace(-500e-3, 500e-3, no_points)
+z = np.linspace(  10e-3, 500e-3, no_points)
 
-x_mesh,y_mesh,z_mesh = np.meshgrid(x,y,z)
+x_mesh, y_mesh, z_mesh = np.meshgrid(x, y, z)
 
 x_list = x_mesh.ravel()
 y_list = y_mesh.ravel()
@@ -52,7 +52,7 @@ z_list = z_mesh.ravel()
 
 # Add these sample points to the sampler
 
-volume_sampler.add_sampling_points(x_list,y_list,z_list)
+volume_sampler.add_sampling_points(x_list, y_list, z_list)
 
 # Propagate the field
 
