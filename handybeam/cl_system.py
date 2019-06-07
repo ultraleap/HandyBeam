@@ -63,10 +63,9 @@ class OpenCLSystem():
                                     'cl/_hbk_xyz_translator.cl',
                                 }
                                 
-        self.use_device = use_device
         self.use_config_file = use_config_file
         self.use_this_config_file_full_path = use_this_config_file_full_path
-        self.platform = use_platform
+        self.use_platform = use_platform
         self.use_device = use_device
         self.print_feedback = print_feedback
         self.compiled_kernels = None
@@ -97,29 +96,8 @@ class OpenCLSystem():
         if self.print_feedback:
             print('cl_system.__init__: this_folder is {}'.format(this_folder))
 
-        if self.use_config_file:
-
-            if self.use_this_config_file_full_path is None:
-
-                config_file_full_path = os.path.join(this_folder, cl_config_file_name)
-
-            else:
-                config_file_full_path = self.use_this_config_file_full_path
-
-            cl_config = configparser.ConfigParser()
-            
-            configs = cl_config.read(config_file_full_path)
-
-            if not configs:
-                
-                if self.print_feedback:
-                    print('please select from the following OpenCL platforms:')
-                    self.print_cl_platforms()
-                RuntimeError(
-                    'call handybeam.calculator.select_cl_platform to create a config file. Call handybeam.calculator.print_cl_platforms to see what CL platforms do You have ')
-
-            use_platform = int(cl_config.get('what_to_use', 'use_platform'))
-            use_device = int(cl_config.get('what_to_use', 'use_device'))
+        use_platform = self.use_platform
+        use_device = self.use_device
 
         if self.print_feedback:
             print('cl_system.__init__: got use_platform={}, use_device={}'.format(use_platform, use_device))

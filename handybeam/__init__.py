@@ -4,6 +4,8 @@ This module contains all the submodules for the handybeam software package.
 
 """
 
+name = "handybeam"
+
 __all__ = [
     'cl_py_ref_code',
     'opencl_wrappers',
@@ -21,5 +23,6 @@ __all__ = [
     'visualise',
     'world',
 ]
+
 
 
