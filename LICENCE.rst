@@ -29,7 +29,7 @@ Disclaimer
 
 ----
 
-Complying with the license, be notified that **HandyBeam is a descendant of cueBeam** which was developed between 2008-2018 in `University of Strathclyde <https://www.strath.ac.uk/research/subjects/electronicelectricalengineering/instituteforsensorssignalscommunications/centreforultrasonicengineering>`_.
+Note:  **HandyBeam is a descendant of cueBeam** which was developed between 2008-2018 in `University of Strathclyde <https://www.strath.ac.uk/research/subjects/electronicelectricalengineering/instituteforsensorssignalscommunications/centreforultrasonicengineering>`_.
 The original source code can be had from `here. <https://github.com/CentreForUltrasonicEngineering/cueBeam_EngD>`_
 
 Although the core technology is based on the same principles, Note that virtually no source code is shared with cueBEAM. For example, the cueBEAM has been written for Matlab, MEX and CUDA. HandyBeam is a complete rewrite in Python and OpenCl.
