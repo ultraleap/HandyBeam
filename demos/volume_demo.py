@@ -18,7 +18,7 @@ from handybeam.solver import Solver
 
 # Initialise the world 
 
-world = handybeam.world.World()
+world = handybeam.world.World(use_platform=0,use_device=0)
 
 # Initialise a solver
 
