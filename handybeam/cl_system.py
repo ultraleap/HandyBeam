@@ -1,3 +1,16 @@
+"""
+.. _cl_system:
+
+----------------------------------
+Module :code:`handybeam.cl_system`
+----------------------------------
+
+Provides wrappers to the OpenCL high-performance code and functions
+
+these include e.g. beam forming coefficient solvers, propagators, e.t.c
+
+
+"""
 ## Imports
 
 import configparser
@@ -13,22 +26,21 @@ cl_config_file_name = 'cl_platform_config.ini'
 """
 
 class OpenCLSystem():
-
-    '''
-    ---------------------------------------------
+    """
+    ------------
     OpenCLSystem
-    ---------------------------------------------
+    ------------
     
-    DESCRIPTION HERE
-
-    '''
+    usage: :code:`q=handybeam.cl_system.OpenCLSystem()`
+    initializes the OpenCL subsystem, stores session info
+    """
 
     def __init__(self,
                  parent=None,
                  use_config_file=True,
                  use_this_config_file_full_path=None,
                  use_platform=0,
-                 use_device=2,
+                 use_device=0,
                  print_feedback=False):
         
 
@@ -159,28 +171,6 @@ class OpenCLSystem():
             print(', done.')
 
 
-        
-    def print_cl_platforms(self):
-
-        '''
-        ---------------------------------------------
-        print_cl_platforms()
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
-
-        '''
-     
-        platforms = cl.get_platforms()
-
-        for platform_idx, platform in enumerate(platforms):
-            print('------------')
-            print('platform: {}, name = {}'.format(platform_idx, platform.name))
-            devices = platform.get_devices()
-            for device_idx, device in enumerate(devices):
-                print('--- platform {}, device {} : name= {}'.format(platform_idx, device_idx, device.name))
-
-
     def select_cl_platform(self,use_platform=0, use_device=0):
     
         '''
@@ -274,3 +264,24 @@ class OpenCLSystem():
             print(idx, '->',
                   all_kernels[idx].function_name,
                   '(', all_kernels[idx].num_args, 'arguments )')
+
+def print_cl_platforms():
+    """
+    ----------------------------------------
+    handybeam.cl_system.print_cl_platforms()
+    ----------------------------------------
+
+    usage: :code:`handybeam.cl_system.print_cl_platforms()`
+
+    print the available OpenCL platforms.
+
+    """
+
+    platforms = cl.get_platforms()
+
+    for platform_idx, platform in enumerate(platforms):
+        print('------------')
+        print('platform: {}, name = {}'.format(platform_idx, platform.name))
+        devices = platform.get_devices()
+        for device_idx, device in enumerate(devices):
+            print('--- platform {}, device {} : name= {}'.format(platform_idx, device_idx, device.name))
