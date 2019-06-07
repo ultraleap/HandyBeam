@@ -50,7 +50,7 @@ class World():
 
     """
 
-    def __init__(self, frequency=40000, sound_velocity=343):
+    def __init__(self, frequency=40000, sound_velocity=343,use_device=2,use_platform=0):
         """ instance constructor.
 
                 Upon creation, add an example array, initialize the propagator, and have no samplers.
@@ -66,8 +66,10 @@ class World():
         self.medium_wavelength = np.float32(self.sound_velocity / self.frequency)
         self.medium_wavenumber = 1 / self.medium_wavelength
         self.samplers = []
+        self.device = use_device
+        self.platform = use_platform
         self.tx_array = handybeam.tx_array_library.USX(parent=self)
-        self.propagator = handybeam.opencl_wrappers.propagator_wrappers.Propagator(parent=self)
+        self.propagator = handybeam.opencl_wrappers.propagator_wrappers.Propagator(parent=self,use_device = self.device, use_platform = self.platform)
 
     def add_sampler(self, sampler=None):
         """ Adds a new field sampler to the world
