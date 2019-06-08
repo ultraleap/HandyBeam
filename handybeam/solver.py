@@ -67,20 +67,15 @@ class Solver:
         self.parent.tx_array.tx_array_element_descriptor = kernel_output
      
     def set_parent(self, new_parent):
-        
-        '''
-        ---------------------------------------------
-        set_parent(parent)
-        ---------------------------------------------
-        
-        This method changes the parent of an instance of the class Solver.
+        """ changes the parent of an instance of the class Solver.
 
         Parameters
         ----------
 
-        parent : handybeam world
+        new_parent : handybeam.world.World()
                 This is an instance of the handybeam world class.
-        '''
+
+        """
         
         self.parent = new_parent
 

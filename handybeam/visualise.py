@@ -177,12 +177,7 @@ def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, fi
 
 def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dpi=80):
     
-    '''
-    ---------------------------------------------
-    visualise_all_in_one(world,sampler,filename,figsize,dpi)
-    ---------------------------------------------
-        
-    This method visualises the amplitude and phase of the pressure field and the transducers.
+    '''visualises the amplitude and phase of the pressure field and the transducers.
 
     Parameters
     ----------
@@ -197,6 +192,7 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
             This tuple sets the size of the figure used to display the visualisation image.
     dpi : int
             This int sets the resolution of the visualisation image.
+
     '''
 
     los = dict()
@@ -547,7 +543,25 @@ def visualise_translation_3D(world = None,original_pressure_field = None,sampler
     
     fig.show(run=True)
  
-def visualise_3D(world = None,sampler = None,threshold = 50,colour_map = 'cubehelix'):
+def visualise_3D(world = None, sampler = None,threshold = 50,colour_map = 'cubehelix'):
+    """  show a 3D volume visualisation using VisPy
+
+    :param world : handybeam.world.World
+         the world from which to take the data
+
+    :param sampler: handybeam.samplers.abstract_sampler
+         the sampler from which to take the data
+
+    :param threshold:
+         threshold of visibility for volume visualisation
+
+    :param colour_map:
+         colour map for volume visualisation
+
+    :return:
+        creates the figure, and shows it.
+
+    """
 
     fig = vp.Fig(bgcolor='white', size=(2000, 2000), show=False)
 
