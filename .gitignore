@@ -20,3 +20,5 @@ __pycache__/**/*
 
 # ignore git push shortcut log
 git_response.txt.tmp
+
+doc_coverage_report.txt
