@@ -1,0 +1,1 @@
+sphinx-build -b html -j 12 -E source build
