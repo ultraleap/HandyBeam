@@ -99,8 +99,8 @@ def hbk_lamb_propagator_ref(
                 pixel_z_coordinate = lambert_z + z0
 
 
-            # This first section is about propagating the acoustic field on to the
-            # generated lambert sampling grid coordinates.
+                # This first section is about propagating the acoustic field on to the
+                # generated lambert sampling grid coordinates.
               
                 # Initialise the real and imaginary components of the acoustic pressure.
 

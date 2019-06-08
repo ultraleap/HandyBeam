@@ -99,118 +99,118 @@ def hbk_rect_propagator_ref(
               
                 # Initialise the real and imaginary components of the acoustic pressure.
 
-                pressure_re = 0
-                pressure_im = 0
+            pressure_re = 0
+            pressure_im = 0
 
-                # Loop through the transducers.
-                for tx_idx in range(0,tx_count):
+            # Loop through the transducers.
+            for tx_idx in range(0,tx_count):
 
-                    # Unpack the tx_array_element_descriptor data structure to obtain 
-                    # necessary information about the transducers.
+                # Unpack the tx_array_element_descriptor data structure to obtain
+                # necessary information about the transducers.
 
-                    # Transducer position coordinates.
+                # Transducer position coordinates.
 
-                    tx_x = tx_array_element_descriptor[tx_idx,0]
-                    tx_y = tx_array_element_descriptor[tx_idx,1]
-                    tx_z = tx_array_element_descriptor[tx_idx,2]
+                tx_x = tx_array_element_descriptor[tx_idx,0]
+                tx_y = tx_array_element_descriptor[tx_idx,1]
+                tx_z = tx_array_element_descriptor[tx_idx,2]
 
-                    # Vectors normal to the transducers. 
+                # Vectors normal to the transducers.
 
-                    tx_xnormal = tx_array_element_descriptor[tx_idx,3]
-                    tx_ynormal = tx_array_element_descriptor[tx_idx,4]
-                    tx_znormal = tx_array_element_descriptor[tx_idx,5]
+                tx_xnormal = tx_array_element_descriptor[tx_idx,3]
+                tx_ynormal = tx_array_element_descriptor[tx_idx,4]
+                tx_znormal = tx_array_element_descriptor[tx_idx,5]
 
-                    # Coefficients describing the polynomial that models the amplitude and
-                    # phase directivity of the transducers. 
+                # Coefficients describing the polynomial that models the amplitude and
+                # phase directivity of the transducers.
 
-                    directivity_phase_poly1_c1 = tx_array_element_descriptor[tx_idx,6]
-                    directivity_amplitude_poly2_c0 = tx_array_element_descriptor[tx_idx,7]
-                    directivity_amplitude_poly2_c1 = tx_array_element_descriptor[tx_idx,8]
-                    directivity_amplitude_poly2_c2 = tx_array_element_descriptor[tx_idx,9]
+                directivity_phase_poly1_c1 = tx_array_element_descriptor[tx_idx,6]
+                directivity_amplitude_poly2_c0 = tx_array_element_descriptor[tx_idx,7]
+                directivity_amplitude_poly2_c1 = tx_array_element_descriptor[tx_idx,8]
+                directivity_amplitude_poly2_c2 = tx_array_element_descriptor[tx_idx,9]
 
-                    # Amplitude and phase of the transducers.
+                # Amplitude and phase of the transducers.
 
-                    tx_amp = tx_array_element_descriptor[tx_idx,10]
-                    tx_phase = tx_array_element_descriptor[tx_idx,11]
+                tx_amp = tx_array_element_descriptor[tx_idx,10]
+                tx_phase = tx_array_element_descriptor[tx_idx,11]
 
-                    # Calculate the distance from the sampling point to the transducer.
+                # Calculate the distance from the sampling point to the transducer.
 
-                    delta_x = pixel_x_coordinate - tx_x
-                    delta_y = pixel_y_coordinate - tx_y
-                    delta_z = pixel_z_coordinate - tx_z
+                delta_x = pixel_x_coordinate - tx_x
+                delta_y = pixel_y_coordinate - tx_y
+                delta_z = pixel_z_coordinate - tx_z
 
-                    # Find the reciprocal distance. 
+                # Find the reciprocal distance.
 
-                    recp_distance = 1/np.sqrt(delta_x*delta_x + delta_y*delta_y + delta_z*delta_z)
-                        
-                    # If the sampling point is inside a transducer then do not sample.
+                recp_distance = 1/np.sqrt(delta_x*delta_x + delta_y*delta_y + delta_z*delta_z)
 
-                    if (recp_transducer_nan_size<recp_distance):
+                # If the sampling point is inside a transducer then do not sample.
 
-                        pressure_re = float('nan')
-                        pressure_im = float('nan')
-                            
-                    # Find the cosine of the angle between the vector connected the transducer and the point
-                    # and the normal to the transducer.
+                if (recp_transducer_nan_size<recp_distance):
 
-                    cosine_of_angle_to_normal =  ( delta_x*tx_xnormal + delta_y*tx_ynormal + delta_z * tx_znormal ) * recp_distance 
+                    pressure_re = float('nan')
+                    pressure_im = float('nan')
 
-                    # If the sampling point is behind the transducer then do not sample.
+                # Find the cosine of the angle between the vector connected the transducer and the point
+                # and the normal to the transducer.
 
-                    if (cosine_of_angle_to_normal<0.0):
-                        
-                        pressure_re = float('nan')
-                        pressure_im = float('nan')
-                    
-                    # Calculate the phase distance shift.
+                cosine_of_angle_to_normal =  ( delta_x*tx_xnormal + delta_y*tx_ynormal + delta_z * tx_znormal ) * recp_distance
 
-                    phase_distance_shift =  tau  * medium_wavenumber * (1.0 / recp_distance)
+                # If the sampling point is behind the transducer then do not sample.
 
-                    # Unwrap the phase distance shift. 
+                if (cosine_of_angle_to_normal<0.0):
 
-                    phase_distance_shift_wrapped = np.mod(phase_distance_shift, tau)
+                    pressure_re = float('nan')
+                    pressure_im = float('nan')
 
-                    # Calculate the amplitude drop due to distance. 
+                # Calculate the phase distance shift.
 
-                    amplitude_distance_drop = recp_distance * medium_wavelength
+                phase_distance_shift =  tau  * medium_wavenumber * (1.0 / recp_distance)
 
-                    ca = 1.0 - cosine_of_angle_to_normal
-                        
-                    # Calculate the phase change due to phase directivity.
+                # Unwrap the phase distance shift.
 
-                    directivity_phase = directivity_phase_poly1_c1 * ca
+                phase_distance_shift_wrapped = np.mod(phase_distance_shift, tau)
 
-                    # Calculate the amplitude drop due to amplitude directivity.
-                    ca2 = ca*ca
-                    directivity_amplitude_drop =                    \
-                                directivity_amplitude_poly2_c0          \
-                            + directivity_amplitude_poly2_c1 * ca     \
-                            + directivity_amplitude_poly2_c2 * ca2
+                # Calculate the amplitude drop due to distance.
 
-                    # Find the amplitude and phase generated by this transducer at the given sampling point.
+                amplitude_distance_drop = recp_distance * medium_wavelength
 
-                    rx_amplitude = tx_amp   * amplitude_distance_drop * directivity_amplitude_drop
-                    rx_phase     = tx_phase + phase_distance_shift_wrapped  + directivity_phase
-                                
-                    # Accumulate the results.
+                ca = 1.0 - cosine_of_angle_to_normal
 
-                    pressure_re = pressure_re + np.cos(rx_phase) * rx_amplitude
-                    pressure_im = pressure_im + np.sin(rx_phase) * rx_amplitude
-                    
-                # Add the sampling coordinate to the lists.
+                # Calculate the phase change due to phase directivity.
 
-                x_points.append(pixel_x_coordinate)
-                y_points.append(pixel_y_coordinate)
-                z_points.append(pixel_z_coordinate)
-                
-                # Add the real and imaginary components of the complex acoustic pressure to the lists.
+                directivity_phase = directivity_phase_poly1_c1 * ca
 
-                pressure_re.append(pressure_re)
-                pressure_im.append(pressure_im)      
-        
+                # Calculate the amplitude drop due to amplitude directivity.
+                ca2 = ca*ca
+                directivity_amplitude_drop =                    \
+                            directivity_amplitude_poly2_c0          \
+                        + directivity_amplitude_poly2_c1 * ca     \
+                        + directivity_amplitude_poly2_c2 * ca2
+
+                # Find the amplitude and phase generated by this transducer at the given sampling point.
+
+                rx_amplitude = tx_amp   * amplitude_distance_drop * directivity_amplitude_drop
+                rx_phase     = tx_phase + phase_distance_shift_wrapped  + directivity_phase
+
+                # Accumulate the results.
+
+                pressure_re = pressure_re + np.cos(rx_phase) * rx_amplitude
+                pressure_im = pressure_im + np.sin(rx_phase) * rx_amplitude
+
+            # Add the sampling coordinate to the lists.
 
             x_points.append(pixel_x_coordinate)
             y_points.append(pixel_y_coordinate)
             z_points.append(pixel_z_coordinate)
+
+            # Add the real and imaginary components of the complex acoustic pressure to the lists.
+
             pressure_re.append(pressure_re)
             pressure_im.append(pressure_im)
+        
+
+        x_points.append(pixel_x_coordinate)
+        y_points.append(pixel_y_coordinate)
+        z_points.append(pixel_z_coordinate)
+        pressure_re.append(pressure_re)
+        pressure_im.append(pressure_im)
