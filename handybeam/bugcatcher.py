@@ -4,11 +4,11 @@ file :code:`bugcatcher.py` -- error reporting tool
 Should an error or exception occur, it will be automatically submitted to BugSnag with stack trace.
 This will help me to debug the problem quicker.
 
-Note: At this time, this facility it is completely disabled, but could be enabled in some circumstances.
+.. Note:: At this time, this facility it is completely disabled, but could be enabled in some circumstances.
 
 """
 
-enable_bugsnag = False
+enable_bugsnag = True
 """ flag: set to True to enable error reporting using bugsnag."""
 
 enable_hostname_reporting = True
@@ -29,6 +29,7 @@ if enable_bugsnag:  # disable error reporting for development
 
     current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     # print('starting bugcatcher at {}'.format(current_dir))
+
     def install_and_import(package):
         """
         install and import package
@@ -92,7 +93,6 @@ if enable_bugsnag:  # disable error reporting for development
 
     # pylint: disable = E0602
     # attempt to load the version ID from "previous_commit_hash.txt"
-
 
     git_commit = 'None'
     try:
