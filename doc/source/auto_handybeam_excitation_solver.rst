@@ -7,11 +7,15 @@ handybeam.excitation_solver
 
     Documentation unfinished
 
+.. todo:
+
+    rename "solver" to "excitation_solver" to reduce confusion as to what is being solved for
+
 .. note::
     for single focal point, use :meth:`handybeam.solve_singlepoint_py`
 
 
-.. automodule:: handybeam.excitation_solver
+.. automodule:: handybeam.solver
     :members:
 
 

@@ -11,7 +11,8 @@ these include e.g. beam forming coefficient solvers, propagators, e.t.c
 
 
 """
-## Imports
+
+# Imports
 
 import configparser
 import os
@@ -19,20 +20,18 @@ import pyopencl as cl
 import numpy as np
 import handybeam
 
-## Global variables
+# Global variables
 
 cl_config_file_name = 'cl_platform_config.ini'
 """ string: constant, file name to store the configuration of the OpenCL subsystem.
 """
 
+
 class OpenCLSystem():
-    """
-    ------------
-    OpenCLSystem
-    ------------
+    """ initializes the OpenCL subsystem, stores session info
     
     usage: :code:`q=handybeam.cl_system.OpenCLSystem()`
-    initializes the OpenCL subsystem, stores session info
+
     """
 
     def __init__(self,
@@ -42,26 +41,21 @@ class OpenCLSystem():
                  use_platform=0,
                  use_device=0,
                  print_feedback=False):
-        
+        """ Boots the OpenCL subsystem.
 
-        '''
-        ---------------------------------------------
-        __init__(parent, use_config_file,use_this_config_file_full_path,use_platform, use_device, print_feedback)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
+        Selects the execution device, compiles the source codes e.t.c.
 
         Parameters
         ----------
 
-        parent :  DESCRIPTION HERE
-        use_config_file : DESCRIPTION HERE
+        parent :  link to the parent object
+        use_config_file : if :code:`True`, an attempt will be made to read the configuration from the :code:`cl_platform_config.ini` file.
         use_this_config_file_full_path : DESCRIPTION HERE
         use_platform : DESCRIPTION HERE
         use_device : DESCRIPTION HERE
         print_feedback : DESCRIPTION HERE
 
-        '''
+        """
 
         self.parent = parent
 
@@ -90,15 +84,15 @@ class OpenCLSystem():
         self.checks_and_feedback()
  
     def checks_and_feedback(self):
+        """ DESCRIPTION HERE
 
-        '''
-        ---------------------------------------------
-        checks_and_feedback()
-        ---------------------------------------------
-        
+        .. todo:: Note To Salvador. Your automatically generated docstrings are actually NOT compatible with the Numpy standard.
+
+        See the: `numpydoc docstring guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_
+
         DESCRIPTION HERE
 
-        '''
+        """
 
         if self.print_feedback:
             print('cl_system.__init__: parent is {}'.format(self.parent))
@@ -132,7 +126,7 @@ class OpenCLSystem():
         constants_path = os.path.join(this_folder,'cl/constants.cl')
 
         if self.parent is not None:
-            with open(constants_path,'w') as f:
+            with open(constants_path, 'w') as f:
 
                 f.write('\n#define tau ' + str(2*np.pi) + 'f\n')
                 f.write('#define root_2 ' + str(1.4142135623730951) + 'f\n')
@@ -166,66 +160,32 @@ class OpenCLSystem():
         # self.print_current_device(endtype='')
         self.compiled_kernels = cl.Program(self.context, entire_source_text).build()
 
-       
         if self.print_feedback:
             print(', done.')
 
+    def print_current_device(self, end='\n'):
+        """ Reports on the currently selected device.
 
-    def select_cl_platform(self,use_platform=0, use_device=0):
-    
-        '''
-        ---------------------------------------------
-        select_cl_platform(use_platform,use_device)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
+        The name of the currently selected device is channeled to :code:'print'
+
+        does :code:`print('Current compute device:{}'.format(self.device.name), end=end)`
 
         Parameters
         ----------
 
-        use_platform : DESCRIPTION HERE
-        use_device : DESCRIPTION HERE
+        end : string
+            the character to attach to the end of the "print" command.
+            Set to :code:` ` to disable newline. Default: :code:`\\n`
 
-        '''
-
-        cl_config = configparser.ConfigParser()
-        cl_config.add_section('what_to_use')
-        cl_config.set('what_to_use', 'use_platform', '{}'.format(use_platform))
-        cl_config.set('what_to_use', 'use_device', '{}'.format(use_device))
-
-        this_folder = os.path.dirname(os.path.abspath(__file__))
-        config_file_name = os.path.join(this_folder, cl_config_file_name)
-        with open(config_file_name, 'w') as out:
-            cl_config.write(out)
-
-    def print_current_device(self, endtype='\n'):
-        
-        '''
-        ---------------------------------------------
-        print_current_device(endtype)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
-
-        Parameters
-        ----------
-
-        endtype : DESCRIPTION HERE
-
-        '''
+        """
     
-        print('Current compute device:{}'.format(self.device.name), end=endtype)
+        print('Current compute device:{}'.format(self.device.name), end=end)
 
     def print_sysinfo(self):
+        """ prints detailed OpenCL system information.
 
-        '''
-        ---------------------------------------------
-        print_sysinfo()
-        ---------------------------------------------
-        
-        Prints OpenCL system information.
 
-        '''
+        """
 
         print('--system info--')
         print('current folder: ', os.getcwd())
@@ -266,14 +226,9 @@ class OpenCLSystem():
                   '(', all_kernels[idx].num_args, 'arguments )')
 
 def print_cl_platforms():
-    """
-    ----------------------------------------
-    handybeam.cl_system.print_cl_platforms()
-    ----------------------------------------
+    """ print the available OpenCL platforms.
 
     usage: :code:`handybeam.cl_system.print_cl_platforms()`
-
-    print the available OpenCL platforms.
 
     """
 
@@ -285,3 +240,28 @@ def print_cl_platforms():
         devices = platform.get_devices()
         for device_idx, device in enumerate(devices):
             print('--- platform {}, device {} : name= {}'.format(platform_idx, device_idx, device.name))
+
+
+def select_cl_platform(use_platform=0, use_device=0):
+    """ attempts to store the platform ID and device ID to a configuration file, to reduce the hassle of selecting it when the world starts.
+
+    Parameters
+    ----------
+
+    use_platform : integer
+        platform ID number. Typically, 0-3. Use :code:`print_cl_platforms()` to figure out. Default: 0.
+
+    use_device : integer
+        device ID number. Typically, 0-3. Use :code:`print_cl_platforms()` to figure out. default: 0.
+
+    """
+
+    cl_config = configparser.ConfigParser()
+    cl_config.add_section('what_to_use')
+    cl_config.set('what_to_use', 'use_platform', '{}'.format(use_platform))
+    cl_config.set('what_to_use', 'use_device', '{}'.format(use_device))
+
+    this_folder = os.path.dirname(os.path.abspath(__file__))
+    config_file_name = os.path.join(this_folder, cl_config_file_name)
+    with open(config_file_name, 'w') as out:
+        cl_config.write(out)

@@ -45,9 +45,9 @@ def hbk_sf_solver_ref(
 
     for tx_idx in range(len(tx_array_element_descriptor)):
 
-        tx_x = tx_array_element_descriptor[tx_idx,0]
-        tx_y = tx_array_element_descriptor[tx_idx,1]
-        tx_z = tx_array_element_descriptor[tx_idx,2]
+        tx_x = tx_array_element_descriptor[tx_idx, 0]
+        tx_y = tx_array_element_descriptor[tx_idx, 1]
+        tx_z = tx_array_element_descriptor[tx_idx, 2]
     
         # Find the distance from the transducer to the focal point. 
 
@@ -66,8 +66,8 @@ def hbk_sf_solver_ref(
         # Store the calculated amplitude and pressure in the tx_array_element_descriptor
         # data structure.
 
-        tx_array_element_descriptor[tx_idx,10] = 1
-        tx_array_element_descriptor[tx_idx,11] = - wrapped_wavelength 
+        tx_array_element_descriptor[tx_idx, 10] = 1
+        tx_array_element_descriptor[tx_idx, 11] = - wrapped_wavelength
 
          
          
