@@ -1,3 +1,19 @@
+"""
+
+.. _evaluators:
+
+=====================================
+module: :code:`handybeam.evaluators`
+=====================================
+
+Contains methods to measure various things about the acoustic field.
+
+Typically applied AFTER the acoustic field calculation is complete.
+
+Could be used for numerical optimisation runs.
+
+
+"""
 ## Imports
 
 import numpy as np
@@ -8,8 +24,13 @@ import handybeam.samplers.clist_sampler as clist_sampler
 
 # Global variables
 
-acoustic_impedance = 420
+acoustic_impedance = 420.0
+""" constant for evaluations. default: air=420.0
+"""
+
 rms_factor = (np.sqrt(2) / 2)
+""" constant. 
+"""
 
 # Please use this as reference for opencv thresholding functions. 
 #  https://docs.opencv.org/3.4/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a147222a96556ebc1d948b372bcd7ac59
@@ -20,7 +41,6 @@ rms_factor = (np.sqrt(2) / 2)
 #### TODO - Need to change the intensity stuff to match up with what is in now in the surface metrics stuff
 
 class Evaluator3D():
-
     '''
     ---------------------------------------------
     Evaluator3D
