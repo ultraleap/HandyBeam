@@ -67,6 +67,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.napoleon',
 ]
 
@@ -246,3 +247,4 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 todo_include_todos = True
 todo_emit_warnings = False
 
+autosectionlabel_prefix_document = True
