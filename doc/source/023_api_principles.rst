@@ -79,6 +79,8 @@ Remarks
 PEP8 short summary
 ------------------
 
+
+
 1. Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
 2. When an extension module written in C or C++ has an accompanying Python module that provides a higher level (e.g. more object oriented) interface, the C/C++ module has a leading underscore (e.g. _socket)
 3. Class names should normally use the CapWords convention.
@@ -89,6 +91,7 @@ PEP8 short summary
 8. method names: Use the function naming rules: lowercase with words separated by underscores as necessary to improve readability.
 9. method names: Use one leading underscore only for non-public methods and instance variables.
 
+see `the full PEP8 text here. <https://www.python.org/dev/peps/pep-0008/>`_
 
 .. include:: footer_licence_note.rst
 
