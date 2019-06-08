@@ -1,9 +1,9 @@
 """
 .. _world:
 
-======================
+===============================
 module :code:`handybeam.world`
-======================
+===============================
 
 Describes the virtual world, in which the acoustic propagation occurs.
 
@@ -46,7 +46,10 @@ class World():
         .. code-block:: python
 
             world=handybeam.world.World()
-            TODO: (?)field_yz=world.add_field(handybeam.yz_field.YZ_field())
+
+        .
+
+        .. todo:: (?)field_yz=world.add_field(handybeam.yz_field.YZ_field())
 
     """
 
@@ -76,7 +79,9 @@ class World():
 
         .. code-block:: python
 
-            TODO: (?) sampler_yz = world.add_sampler(handybeam.samplers.RectilinearSampler())
+            sampler_yz = world.add_sampler(handybeam.samplers.RectilinearSampler())
+
+        .. TODO:: check if the above is correct -- samplers have changed!
 
         :param sampler: the sampler instance to add
         :return: handle to the new sampler instance
