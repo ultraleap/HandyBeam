@@ -1,46 +1,42 @@
-## Imports
+"""
+.. the following is a link to enable linking to this file:
+.. solver_:
+
+Contains excitation solvers.
+
+A basic single-point-focus excitation solver is :meth:`handybeam.solver.Solver.single_focus_solver`
+
+"""
+# Imports
 
 import handybeam.opencl_wrappers.solver_wrappers as solver_wrappers
 
-## Class
+# Class
 
-class Solver():
 
-    '''
-    ---------------------------------------------
-    Solver
-    ---------------------------------------------
+class Solver:
+    """" Contains the OpenCL subsystem for single focus solver.
     
     This class calls the OpenCL wrapper for the single focus solver. 
 
-    '''
+    """
 
-    def __init__(self, parent = None):
-
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of class Solver.
+    def __init__(self, parent=None):
+        """ Initializes an instance of class Solver.
 
         Parameters
         ----------
 
-        parent : handybeam world
+        parent : handybeam.world.World()
                 This is an instance of the handybeam world class.
         
-        '''
+        """
         
         self.parent = parent
         self.solver = solver_wrappers.Solver(parent=self.parent)
     
-    def single_focus_solver(self,x_focus,y_focus,z_focus,local_work_size = (1,1,1),print_performance_feedback= False):
-
-        '''
-        ---------------------------------------------
-        single_focus_solver(x_focus,y_focus,z_focus,local_work_size,print_performance_feedback)
-        ---------------------------------------------
+    def single_focus_solver(self, x_focus, y_focus, z_focus, local_work_size=(1, 1, 1), print_performance_feedback=False):
+        """ Solve excitation coefficients for a single focal point
         
         This method calls the OpenCL wrapper mixin class single_focus_solver which determines
         the set of activation coefficients required to produce a single focal point a given point in space. 
@@ -57,15 +53,15 @@ class Solver():
         local_work_size : tuple
                 Tuple containing the local work sizes for the GPU.
         print_performance_feedback : boolean
-                Boolean value determining whether or not to output the GPU performance.
+                Boolean value determining whether or not to output the GPU performance statistics.
         
-        '''
+        """
 
         kernel_output = self.solver.single_focus_solver(    
                                                             self.parent.tx_array,
-                                                            x_focus,y_focus,z_focus,
-                                                            local_work_size = local_work_size,
-                                                            print_performance_feedback = print_performance_feedback
+                                                            x_focus, y_focus, z_focus,
+                                                            local_work_size=local_work_size,
+                                                            print_performance_feedback=print_performance_feedback
                                                         )
 
         self.parent.tx_array.tx_array_element_descriptor = kernel_output
