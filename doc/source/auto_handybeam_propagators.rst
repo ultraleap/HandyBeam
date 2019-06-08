@@ -2,86 +2,91 @@
 handybeam.propagators
 ##############################
 
+.. Warning::
 
-== Production
-=============
+    All the user-visible code for propagators got absorbed into :ref:`handybeam_samplers`. See that documentation first.
 
-The following propagators are well tested and OK to use in production code.
+.. code-block:: rst
 
-"c" stands for complex-valued output
+     Production
+    =============
 
-"xyz" stands for the sampling grid being defined as regular XYZ-axes aligned sampling grid.
+    The following propagators are well tested and OK to use in production code.
 
-"list" stands for sampling points defined from a flat list of XYZ coordinates.
+    "c" stands for complex-valued output
 
-cxyz
-==========================
+    "xyz" stands for the sampling grid being defined as regular XYZ-axes aligned sampling grid.
 
-see also: :doc:`OpenCL kernel : "cxyz" <051__handybeam1kernel_cxyz.cl>`
+    "list" stands for sampling points defined from a flat list of XYZ coordinates.
 
-.. note::
+    cxyz
+    ==========================
 
-    Use this module as 1st preferred propagator.
+    see also: :doc:`OpenCL kernel : "cxyz" <051__handybeam1kernel_cxyz.cl>`
 
-.. automodule:: handybeam.propagators.cxyz
-    :members:
+    .. note::
 
-clist
-===========================
+        Use this module as 1st preferred propagator.
 
-see also: :doc:`OpenCL kernel : "clist" <051__handybeam1kernel_clist.cl>`
+    .. automodule:: handybeam.propagators.cxyz
+        :members:
 
-.. note::
+    clist
+    ===========================
 
-    Use this module as 2nd preferred propagator.
+    see also: :doc:`OpenCL kernel : "clist" <051__handybeam1kernel_clist.cl>`
 
-.. automodule:: handybeam.propagators.clist
-    :members:
+    .. note::
 
+        Use this module as 2nd preferred propagator.
 
-== Development
-==============
-
-The following propagators are either experimental, in development, or partially broken.
-
-:code:`Do not use unless you really know what you are doing`.
+    .. automodule:: handybeam.propagators.clist
+        :members:
 
 
-calculator_py_yz
-===========================
+    == Development
+    ==============
 
-.. automodule:: handybeam.propagators.calculator_py_yz
-    :members:
+    The following propagators are either experimental, in development, or partially broken.
 
-devel_calculator_py_yz
-============================================
-
-.. automodule:: handybeam.propagators.devel_calculator_py_yz
-    :members:
+    :code:`Do not use unless you really know what you are doing`.
 
 
-legacy_calculate_xy_frequency_domain_py
-=============================================================
+    calculator_py_yz
+    ===========================
+
+    .. automodule:: handybeam.propagators.calculator_py_yz
+        :members:
+
+    devel_calculator_py_yz
+    ============================================
+
+    .. automodule:: handybeam.propagators.devel_calculator_py_yz
+        :members:
 
 
-.. automodule:: handybeam.propagators.legacy_calculate_xy_frequency_domain_py
-    :members:
+    legacy_calculate_xy_frequency_domain_py
+    =============================================================
 
 
-legacy_calculator_XYPlane_frequencyDomain_cl
-========================================================
+    .. automodule:: handybeam.propagators.legacy_calculate_xy_frequency_domain_py
+        :members:
 
 
-.. automodule:: handybeam.propagators.legacy_calculator_XYPlane_frequencyDomain_cl
-    :members:
+    legacy_calculator_XYPlane_frequencyDomain_cl
+    ========================================================
 
 
-legacy_calculator_YZPlane_frequencyDomain_cl
-========================================================
+    .. automodule:: handybeam.propagators.legacy_calculator_XYPlane_frequencyDomain_cl
+        :members:
 
 
-.. automodule:: handybeam.propagators.legacy_calculator_YZPlane_frequencyDomain_cl
-    :members:
+    legacy_calculator_YZPlane_frequencyDomain_cl
+    ========================================================
+
+
+    .. automodule:: handybeam.propagators.legacy_calculator_YZPlane_frequencyDomain_cl
+        :members:
 
 
 .. include:: footer_licence_note.rst
