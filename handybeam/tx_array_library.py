@@ -42,26 +42,21 @@ def single_element(parent = None):
     
     return this
 
-def simple_linear(parent = None,element_count=16, element_pitch = 7e-3):
 
-    '''
-    ------------------------------------------------------------------------------------------
-    simple_linear(parent, element_count, element_pitch)
-    ------------------------------------------------------------------------------------------
-        
-    DESCRIPTION HERE
+def simple_linear(parent = None,element_count=16, element_pitch=7e-3):
+    """1D line of elements, starting at xyz=0, along y, with given element_pitch
 
     Parameters
     ----------
 
-    parent : handybeam world
-            DESCRIPTION HERE
+    parent : handybeam.world.World
+            the world to give to this array as parent
     element_count : int 
-            DESCRIPTION HERE
+            count of elements.
     element_pitch : float 
-            DESCRIPTION HERE
+            distance between elements
         
-    '''
+    """
 
     this = TxArray(parent)
     this.name = 'a line of elements, starting at xyz=0, along y, spaced by {:0.1f}mm'.format(element_pitch*1e3)

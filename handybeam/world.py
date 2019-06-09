@@ -146,9 +146,13 @@ class World(RememberInstanceCreationInfo):
 
     def __str__(self):
         """ returns a short info about this world."""
-        return self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} samplers"\
+        txt=self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} sampler(s)"\
             .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
                     self.medium_wavenumber, len(self.samplers))
+        for sampler in self.samplers:
+            txt = txt + linesep + sampler.__str__()
+
+        return
 
     def __repr__(self):
         """ links back to __str__()"""
