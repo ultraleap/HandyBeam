@@ -58,9 +58,9 @@ class SFSolverMixin():
 
 
         '''
-        ---------------------------------------------
+        ------------------------------------------------------------------------------------------
         single_focus_solver(tx_array, xf,yf,zf, local_work_size, print_performance_feedback)
-        ---------------------------------------------
+        ------------------------------------------------------------------------------------------
 
         This method determines the set of activation coefficients required to produce 
         a single focal point a given point in space. 
@@ -105,7 +105,8 @@ class SFSolverMixin():
 
         cl_out_buffer = cl.Buffer(self.cl_system.context, cl.mem_flags.WRITE_ONLY, py_out_buffer.data.nbytes) 
 
-        # Create a buffer on the GPU to store the transducer data and copy the data from the CPU (tx_array.tx_array_element_descriptor)
+        # Create a buffer on the GPU to store the transducer data
+        # and copy the data from the CPU (tx_array.tx_array_element_descriptor)
         # to the GPU.
 
         cl_tx_element_array_descriptor = cl.Buffer(self.cl_system.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR,hostbuf=tx_array.tx_array_element_descriptor)
@@ -150,4 +151,3 @@ class SFSolverMixin():
                                             output_buffer_size)
 
         return py_out_buffer
-   

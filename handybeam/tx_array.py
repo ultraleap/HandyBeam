@@ -1,9 +1,9 @@
 """
 .. _tx_array:
 
-===============================
-Module :code:handybeam.tx_array
-===============================
+.. ===============================
+   Module :code:handybeam.tx_array
+   ===============================
 
 contains the TxArray class
 

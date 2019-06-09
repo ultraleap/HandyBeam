@@ -10,7 +10,7 @@ handybeam.opencl_wrappers
 .. automodule:: handybeam.opencl_wrappers.abstract_wrapper
     :members:
 
-.. automodule:: handybeam.opencl_wrappers.solver_wrapper
+.. automodule:: handybeam.opencl_wrappers.solver_wrappers
     :members:
 
 .. automodule:: handybeam.opencl_wrappers.translator_wrapper

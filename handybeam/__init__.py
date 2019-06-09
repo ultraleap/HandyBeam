@@ -7,21 +7,23 @@ This module contains all the submodules for the handybeam software package.
 name = "handybeam"
 
 __all__ = [
+    'bugcatcher',
+    'cl_system',
+    'evaluators',
+    'misc',
+    'solver',
+    'translator',
+    'tx_array',
+    'tx_array_library',
+    'visiualize',
+    'world',
+    'cl',
     'cl_py_ref_code',
     'opencl_wrappers',
     'propagator_mixins',
     'samplers',
     'solver_mixins',
-    'tests',
-    'bugcatcher',
-    'cl_system',
-    'misc',
-    'solver',
-    'translator',
-    'tx_array_library',
-    'tx_array',
-    'visualise',
-    'world',
+    'translator_mixins'
 ]
 
 

@@ -25,12 +25,12 @@ API reference
 
 .. note: auto_misc_tools.rst contains: remember_instance_creation_info, bugcatcher
 
-==========================================
-code that I am not sure if it works or not
-==========================================
+============
+Frontier API
+============
 .. toctree::
     :maxdepth: 3
-    :caption: frontier API
+    :caption: Frontier API
 
     auto_handybeam_excitation_solver.rst
     auto_handybeam_propagator.rst

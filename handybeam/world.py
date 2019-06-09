@@ -1,9 +1,10 @@
 """
 .. _world:
 
-===============================
-module :code:`handybeam.world`
-===============================
+
+.. ===============================
+   module :mod:`handybeam.world`
+   ===============================
 
 Describes the virtual world, in which the acoustic propagation occurs.
 
@@ -72,12 +73,12 @@ class World(RememberInstanceCreationInfo):
     def __init__(self, frequency=40000, sound_velocity=343,use_device=0,use_platfrm=0):
         """ instance constructor.
 
-                Upon creation, add an example array, initialize the propagator, and have no samplers.
+        Upon creation, add an example array, initialize the propagator, and have no samplers.
 
-                the user must add a field sampler.
+        the user must add a field sampler.
 
-                At one point, I tried to make it to auto-give itself a default sampler,
-                but that resulted in circular references. Possibly I can find a workaround to that later on.
+        At one point, I tried to make it to auto-give itself a default sampler,
+        but that resulted in circular references. Possibly I can find a workaround to that later on.
         """
         super().__init__()
         self.sound_velocity = sound_velocity

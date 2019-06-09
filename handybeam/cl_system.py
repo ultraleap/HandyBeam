@@ -1,9 +1,9 @@
 """
 .. _cl_system:
 
-----------------------------------
-Module :code:`handybeam.cl_system`
-----------------------------------
+.. ----------------------------------
+   Module :code:`handybeam.cl_system`
+   ----------------------------------
 
 Provides wrappers to the OpenCL high-performance code and functions
 
