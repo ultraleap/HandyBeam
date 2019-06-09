@@ -1,9 +1,13 @@
 """
 .. _rectilinear_sampler:
 
-Module :code:`handybeam.samplers.rectilinear_sampler`
+Module :mod:`handybeam.samplers.rectilinear_sampler`
 
-Holds the class :class:`RectilinearSampler`
+File: :code:`rectilinear_sampler.py`
+
+Holds the class :class:`handybeam.samplers.rectilinear_sampler.RectilinearSampler`
+
+Original contributor: Salvador Catsis
 
 """
 ## Imports
@@ -22,53 +26,49 @@ tau = 2*np.pi
 
 
 class RectilinearSampler(AbstractSampler):
-    """ Takes the specification for a rectilinear sampling array and then samples the acoustic field at these points.
+    """ Takes the specification for a rectilinear sampling grid,
+    creates a grid of points, and then enables sampling the acoustic field at these points.
     """
 
-
     def __init__(self,
-                parent = None,
-                normal_vector = np.array((0,0,1)),
-                parallel_vector = np.array((0,1,0)),
-                origin = np.array((0,0,200e-3)),
-                grid_spacing_per_wavelength = 0.2,
-                grid_spacing_per_m = None,
-                grid_extent_around_origin_x = 0.2,
-                grid_extent_around_origin_y = 0.2,
-                local_work_size = (1,1,1)):
+                 parent=None,
+                 normal_vector=np.array((0.0, 0.0, 1.0)),
+                 parallel_vector=np.array((0.0, 1.0, 0.0)),
+                 origin=np.array((0.0, 0.0, 200.0e-3)),
+                 grid_spacing_per_wavelength=0.2,
+                 grid_spacing_per_m=None,
+                 grid_extent_around_origin_x=200e-3,
+                 grid_extent_around_origin_y=200e-3,
+                 local_work_size=(1, 1, 1)
+                 ):
 
-        '''
-          ---------------------------------------------
-          __init__(parent)
-          ---------------------------------------------
+        """Initialises an instance of the RectilinearSampler class.
 
-          This method intialises an instance of the RectillinearSampler class.
+        Parameters
+        ----------
 
-          Parameters
-          ----------
-
-          parent : handybeam.world.World
+        parent : handybeam.world.World
                   This is an instance of the handybeam world class.
-          normal_vector : numpy array
+        normal_vector : numpy array
                   This is the vector normal to the desired sampling grid.
-          parallel_vector : numpy array
+        parallel_vector : numpy array
                   This is a vector parallel to the desired sampling grid.
-          origin : numpy array
+        origin : numpy array
                   This is a vector specifying the origin of the sampling grid.
-          grid_spacing_per_wavelength : float
+        grid_spacing_per_wavelength : float
                   This specifies the grid spacing as a fraction of the medium wavelength.
-          grid_spacing_per_m : float
+        grid_spacing_per_m : float
                   This specifies the grid spacing in meters.
-          grid_extent_around_origin_x : float
+        grid_extent_around_origin_x : float
                   This specifies the distance between the origin of the sampling grid and the edge along the
                   x-axis.
-          grid_extent_around_origin_y : float
+        grid_extent_around_origin_y : float
                   This specifies the distance between the origin of the sampling grid and the edge along the
                   y-axis.
-          local_work_size : tuple
+        local_work_size : tuple
                   This sets the local work size for the GPU, not recommended to change unless the user
                   has experience with OpenCL and pyopencl.
-          '''
+        """
 
         super(RectilinearSampler,self).__init__()
 

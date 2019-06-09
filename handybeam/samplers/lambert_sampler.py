@@ -1,3 +1,16 @@
+"""
+.. _lambert_sampler:
+
+Module :mod:`handybeam.samplers.lambert_sampler`
+
+File: :code:`lambert_sampler.py`
+
+Holds the class :class:`handybeam.samplers.lambert_sampler.LambertSampler`
+
+Original contributor: Salvador Catsis
+
+"""
+
 ## Imports
 
 import numpy as np
@@ -14,12 +27,7 @@ root_2 = 1.4142135623730951
 
 class LambertSampler(AbstractSampler):
 
-    '''
-    ---------------------------------------------
-    LambertSampler
-    ---------------------------------------------
-    
-    This is the lambert sampling grid class. It takes the specification for a 
+    '''This is the lambert sampling grid class. It takes the specification for a
     lambert sampling array and then samples the acoustic field at these points.
 
     '''
@@ -32,12 +40,7 @@ class LambertSampler(AbstractSampler):
                 local_work_size = (1,1,1)):
 
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the LambertSampler class.
+        '''This method intialises an instance of the LambertSampler class.
 
         Parameters
         ----------
@@ -80,12 +83,7 @@ class LambertSampler(AbstractSampler):
 
     def propagate(self,print_performance_feedback = False):
 
-        '''
-        ---------------------------------------------
-        propagate(print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the lamb_propagator to propagate the acoustic field to 
+        '''This method calls the lamb_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters

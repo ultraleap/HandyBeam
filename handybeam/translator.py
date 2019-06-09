@@ -6,6 +6,8 @@ Module :mod:`handybeam.translator`
 
 Contains the :class:`handybeam.translator.Translator`
 
+Primary contributor: Salvador Catsis
+
 """
 ## Imports
 
@@ -20,8 +22,6 @@ class Translator():
     '''
 
     def __init__(self,parent = None):
-
-
         '''This method intialises an instance of class Translator.
 
         Parameters
