@@ -160,12 +160,15 @@ class TxArray(RememberInstanceCreationInfo):
         return self.tx_array_element_descriptor.shape[0]
 
     def __str__(self):
-        """
-        basic information about this array
-        :return:
+        """ information about this array.
+
+        :return: basic information about this array
         """
         return self.creation_text + linesep + "name string: " + self.name + linesep + "count of elements: {}".format(self.tx_array_element_descriptor.shape[0])
 
     def __repr__(self):
+        """ links to self.__str__()
 
+        :return: basic information about this array
+        """
         return self.__str__()
