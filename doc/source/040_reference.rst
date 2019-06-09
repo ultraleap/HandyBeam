@@ -15,6 +15,8 @@ API reference
     auto_handybeam_world.rst
     auto_handybeam_tx_array.rst
     auto_handybeam_tx_array_library.rst
+    auto_handybeam_excitation_solver.rst
+    auto_handybeam_translator.rst
     auto_handybeam_samplers.rst
     auto_handybeam_opencl_wrappers.rst
     auto_handybeam_visualise.rst
@@ -32,7 +34,7 @@ Frontier API
     :maxdepth: 3
     :caption: Frontier API
 
-    auto_handybeam_excitation_solver.rst
+
     auto_handybeam_propagator.rst
     auto_handybeam_propagators.rst
 

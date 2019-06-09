@@ -25,28 +25,19 @@ class Propagator(
                     
                 ):
 
-    '''
-    ---------------------------------------------
-    Propagator
-    ---------------------------------------------
-    
-    This is a wrapper class which inherits from the template wrapper class Wrapper and the 
+    '''This is a wrapper class which inherits from the template wrapper class Wrapper and the
     OpenCL propagator mixin classes. An instance of this class is initialised when a world
     object is initialised. 
 
     '''
 
-    def __init__(self,parent=None,use_device = 2, use_platform = 0):
-
-        ## TODO - Provide description and type for the handybeam world object.
-
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the Propagator class. During the initialisation process,
+    def __init__(self, parent=None, use_device = 0, use_platform = 0):
+        '''This method intialises an instance of the Propagator class. During the initialisation process,
         the compiled OpenCL propagator kernels are assigned to the appropriate propagator mixin classes.
+
+        .. TODO::
+
+            Provide description and type for the handybeam world object.
 
         Parameters
         ----------

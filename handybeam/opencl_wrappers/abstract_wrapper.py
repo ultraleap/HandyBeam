@@ -6,24 +6,14 @@ import handybeam
 
 class Wrapper():
 
-    '''
-    ---------------------------------------------
-    Wrapper
-    ---------------------------------------------
-    
-    This is a template wrapper class for the OpenCL wrapper classes Propagator, Solver and
+    '''This is a template wrapper class for the OpenCL wrapper classes Propagator, Solver and
     Translator.
 
     '''
 
     def __init__(self):
 
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-        
-        This method intialises an instance of the template wrapper class Wrapper. 
+        '''This method intialises an instance of the template wrapper class Wrapper.
 
         '''
 
@@ -37,14 +27,11 @@ class Wrapper():
                                    output_buffer_size
                                    ):
 
-        ## TODO - Jurek wrote this stuff so it's up to him to comment.
+        '''  This method ...
 
-        '''
-        ----------------------------------------------------------------------------------------------------------------------------------------------
-        print_performance_feedback( cl_profiling_kernel_event, cl_profiling_mem_copy_event, t_elapsed_wall_time, ray_count, output_buffer_size )
-        ----------------------------------------------------------------------------------------------------------------------------------------------
+        .. ToDo::
 
-        This method ... 
+             Jurek wrote this stuff so it's up to him to comment.
 
         Parameters
         ----------

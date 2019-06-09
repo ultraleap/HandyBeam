@@ -1,29 +1,28 @@
+"""
+
+File: :code:`translator.py`
+
+Module :mod:`handybeam.translator`
+
+Contains the :class:`handybeam.translator.Translator`
+
+"""
 ## Imports
 
 import handybeam.opencl_wrappers.translator_wrappers as hb_translator_wrappers
 
 ## Class
 
-class Translator():
 
-    '''
-    ---------------------------------------------
-    Translator
-    ---------------------------------------------
-    
-    This class calls the OpenCL wrapper for the translator functions.
+class Translator():
+    ''' calls the OpenCL wrapper for the translator functions.
 
     '''
 
     def __init__(self,parent = None):
 
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of class Translator.
+        '''This method intialises an instance of class Translator.
 
         Parameters
         ----------
@@ -39,12 +38,7 @@ class Translator():
     
     def xy_translate(self,x_translate,y_translate,plane_height,local_work_size = (1,1,1),print_performance_feedback= False):
 
-        '''
-        ---------------------------------------------
-        xy_translate(x_translate,y_translate,plane_height,local_work_size,print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the OpenCL wrapper mixin class xy_translator which translates 
+        ''' Calls the OpenCL wrapper mixin class xy_translator which translates
         a given focal point, created at a height plane_height,by a distance x_translate
         along the x-axis and y_translate along the y-axis.
 
@@ -76,12 +70,7 @@ class Translator():
     def xyz_translate(self,x_focus,y_focus,z_focus,x_translate,y_translate,z_translate,
                     local_work_size = (1,1,1),print_performance_feedback = False):
 
-        '''
-        ---------------------------------------------
-        xyz_translate(x_focus,y_focus,z_focus,x_translate,y_translate,z_translate,local_work_size,print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the OpenCL wrapper mixin class xyz_translator which translates a given focal point, created at a height plane_height,
+        ''' Calls the OpenCL wrapper mixin class xyz_translator which translates a given focal point, created at a height plane_height,
         by a distance x_translate along the x-axis and y_translate along the y-axis.
 
         Parameters
@@ -118,12 +107,7 @@ class Translator():
      
     def set_parent(self, new_parent):
         
-        '''
-        ---------------------------------------------
-        set_parent(parent)
-        ---------------------------------------------
-        
-        This method changes the parent of an instance of the class Translator.
+        '''This method changes the parent of an instance of the class Translator.
 
         Parameters
         ----------
