@@ -16,9 +16,47 @@ phase_colormap = cmocean.cm.phase
 
 ## Functions
 
+
+def tx_array_basic(tx_array=None, filename=None, figsize=[15, 10], dpi=150, show=True):
+    """ visualize the transmitter array, with dots where elements are located.
+
+    :param handybeam.tx_array.TxArray tx_array: reference to the array descriptor to visualize.
+    :param filename: if set, save the figure contents to a file using :code:`plt.savefig(filename)`. If unset, do nothing.
+    :param figsize: figure size for the :code:`plt.figure(figsize=xxx)` command.
+    :param dpi: resolution for the :code:`plt.figure(dpi=xxx)` command.
+    :param show: if True, call :code:`plt.show()`. If false, do not do that and return the handle to :code:`plt.figure()` object instead. Default: :code:`True`
+    :return: handle to the plt.figure object if show==False. Nothing otherwise.
+    """
+
+    hf = plt.figure(figsize=figsize, dpi=dpi)
+    plt.plot(tx_array.tx_array_element_descriptor[:, 0]*1e3, tx_array.tx_array_element_descriptor[:, 1]*1e3, 'o')
+    plt.grid(True)
+    plt.axis('equal')
+    plt.xlabel('x [mm]')
+    plt.ylabel('y [mm]')
+    plt.title(tx_array.name)
+
+    if filename is not None:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        if show:
+            plt.show()
+        else:
+            return hf
+
+
 def visualise_flat_tx_array(world = None,filename = None, figsize=[15,10], dpi=150 ):
-  
-    ''' This method visualises the location of the sampling grid points.
+    ''' Create a figure with plot of the location of the array's elements.
+
+    .. warning::
+
+        This is Sal's method -- do not use for Jurek's scripts, as it might be incompatible.
+
+    .. warning::
+
+        Depreciated. Use :meth:`handybeam.visualize.tx_array_basic` instead.
+
 
     Parameters
     ----------

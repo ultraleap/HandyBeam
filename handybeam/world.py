@@ -70,7 +70,7 @@ class World(RememberInstanceCreationInfo):
 
     """
 
-    def __init__(self, frequency=40000, sound_velocity=343,use_device=0,use_platfrm=0):
+    def __init__(self, frequency=40000, sound_velocity=343, use_device=0, use_platform=0):
         """ instance constructor.
 
         Upon creation, add an example array, initialize the propagator, and have no samplers.

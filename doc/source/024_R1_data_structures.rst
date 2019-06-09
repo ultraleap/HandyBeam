@@ -17,9 +17,9 @@ _____________________________
 Introduction
 ~~~~~~~~~~~~
 
-the :code:`tx_element_array_descriptor_a` data structure is intended to be a compact description of a set of radiators to be placed in the world for purpose of energising the acoustic field.
+the tx_element_array_descriptor_a_ data structure is intended to be a compact description of a set of radiators to be placed in the world for purpose of energising the acoustic field.
 
-
+It is used primarily in the :class:`handybeam.tx_array.TxArray`, and for benefit of :class:`handybeam.solver.Solver`
 
 From python's point of view, the data set is a numpy array of size :code:`tx_count` x 16 and type :code:`numpy.float32`
 
@@ -29,7 +29,7 @@ From python's point of view, the data set is a numpy array of size :code:`tx_cou
 
 The 1st dimension corresponds to each new transducer; the 2nd dimension are the fields.
 
-The fields are best described by looking at the source of the :code:`handybeam.tx_element.TxElement().v1_property_vector` below:
+The fields are best described by looking at the source of the :meth:`handybeam.tx_array.TxArray.generate_tx_array_element` below:
 
 
 Usage in the source code
@@ -38,57 +38,40 @@ Usage in the source code
 Python side
 ^^^^^^^^^^^
 
-in :code:`tx_element.py` :
+in :code:`tx_array.py` :
 
 .. code-block:: python
 
-    @property
-    def v1_property_vector(self):
-        """ get/set the transducer property vector formatted for the high performance propagator
-
-        :return: a ((1, 16), dtype=np.float) numpy array with values filled in.
-        """
-        q = np.zeros((1, 16), dtype=np.float)
-        q.fill(np.NaN)
-        q[0, 0] = self.x
-        q[0, 1] = self.y
-        q[0, 2] = self.z
-        q[0, 3] = self.xnormal
-        q[0, 4] = self.ynormal
-        q[0, 5] = self.znormal
-        q[0, 6] = self.directivity_phase_poly1_c1
-        q[0, 7] = self.directivity_amplitude_poly2_c0
-        q[0, 8] = self.directivity_amplitude_poly2_c1
-        q[0, 9] = self.directivity_amplitude_poly2_c2
-        q[0, 10] = self.amplitude_ratio_setting
-        q[0, 11] = self.phase_setting
-        # q[12]=np.NaN
-        # q[13]=np.NaN
-        # q[14]=np.NaN
-        # q[15]=np.NaN
-        return q
+    tx_single_element_descriptor = np.zeros((1, 16), dtype=np.float32)
+    tx_single_element_descriptor.fill(np.float32(np.NaN))
+    tx_single_element_descriptor[0, 0] = np.float32(x)
+    tx_single_element_descriptor[0, 1] = np.float32(y)
+    tx_single_element_descriptor[0, 2] = np.float32(z)
+    tx_single_element_descriptor[0, 3] = np.float32(xnormal)
+    tx_single_element_descriptor[0, 4] = np.float32(ynormal)
+    tx_single_element_descriptor[0, 5] = np.float32(znormal)
+    tx_single_element_descriptor[0, 6] = np.float32(directivity_phase_poly1_c1)
+    tx_single_element_descriptor[0, 7] = np.float32(directivity_amplitude_poly2_c0)
+    tx_single_element_descriptor[0, 8] = np.float32(directivity_amplitude_poly2_c1)
+    tx_single_element_descriptor[0, 9] = np.float32(directivity_amplitude_poly2_c2)
+    tx_single_element_descriptor[0, 10] = np.float32(amplitude_ratio_setting)
+    tx_single_element_descriptor[0, 11] = np.float32(phase_setting)
+    tx_single_element_descriptor[0, 12] = np.float32(np.NaN)
+    tx_single_element_descriptor[0, 13] = np.float32(np.NaN)
+    tx_single_element_descriptor[0, 14] = np.float32(np.NaN)
+    tx_single_element_descriptor[0, 15] = np.float32(np.NaN)
 
 
-In the version 1.0, the kernel launcher assembles the :code:`tx_element_array_descriptor_a`
-from :class:`handybeam.tx_element.TxElement`. Note that this approach is due to be refactored:
-:code:`tx_element_array_descriptor_a` will be a property of a :code:`handybeam.tx_array.TxArray` instance,
-and that will become the primary authority. The :code:`handybeam.tx_element.TxElement`
-will become a browser-editor-visualizer only for the data.
+.. note:: Historical note
+
+    In the version 1.0, the kernel launcher assembles the :code:`tx_element_array_descriptor_a`
+    from :class:`handybeam.tx_element.TxElement`. Note that this approach is due to be refactored:
+    :code:`tx_element_array_descriptor_a` will be a property of a :code:`handybeam.tx_array.TxArray` instance,
+    and that will become the primary authority. The :code:`handybeam.tx_element.TxElement`
+    will become a browser-editor-visualizer only for the data.
 
 
 
-in :code:`clist.py` :
-
-
-.. code-block:: python
-
-    tx_count = len(tx_element_list)
-    tx_element_array_descriptor_a = np.zeros((tx_count, 16), np.float32)
-    # marshall the pythonic descriptor into CL-ic descriptor
-    # format - R1 format of : [x,y,z,xnormal,ynormal,znormal,dpc1,dac0,dac1,dac2,amp,phase,NaN,NaN,NaN,NaN] * TxCount
-    for tx_idx in range(tx_count):
-        element_descriptor = tx_element_list[tx_idx].v1_property_vector
-        tx_element_array_descriptor_a[tx_idx, :] = element_descriptor
 
 
 OpenCL side

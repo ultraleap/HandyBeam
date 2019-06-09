@@ -17,6 +17,7 @@ from pyquaternion import Quaternion
 from handybeam .misc import copy_docstring
 from handybeam .samplers.abstract_sampler import AbstractSampler
 import handybeam .visualise
+from os import linesep
 
 ## Global variables
 
@@ -188,12 +189,7 @@ class RectilinearSampler(AbstractSampler):
 
     def propagate(self,print_performance_feedback = False):
     
-        '''
-        ---------------------------------------------
-        propagate(print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the rect_propagator to propagate the acoustic field to 
+        '''Calls the rect_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters
@@ -209,13 +205,20 @@ class RectilinearSampler(AbstractSampler):
                                                             self.N_x,
                                                             self.N_y,
                                                             self.delta,
-                                                            self.x0,self.y0,self.z0,
-                                                            self.vx1,self.vy1,self.vz1,
-                                                            self.vx2,self.vy2,self.vz2,
+                                                            self.x0, self.y0, self.z0,
+                                                            self.vx1, self.vy1, self.vz1,
+                                                            self.vx2, self.vy2, self.vz2,
                                                             local_work_size = self.local_work_size,
-                                                            print_performance_feedback = print_performance_feedback
+                                                            print_performance_feedback=print_performance_feedback
                                                         )
                          
-        self.coordinates = kernel_output[:,:,0:3]
-        self.pressure_field = kernel_output[:,:,3] + np.complex(0,1)*kernel_output[:,:,4]
+        self.coordinates = kernel_output[:, :, 0:3]
+        self.pressure_field = kernel_output[:, :, 3] + np.complex(0, 1)*kernel_output[:, :, 4]
+
+    def __repr__(self):
+        """ links to self.__str__()"""
+        return self.__str__()
+
+    def __str__(self):
+        return "RectilinearSampler: {}x{} points, spacing {:0.3f}mm".format(self.N_x,self.N_y,self.delta*1e3)
    

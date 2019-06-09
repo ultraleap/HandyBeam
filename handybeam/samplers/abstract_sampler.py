@@ -2,11 +2,11 @@
 
 from handybeam.misc import copy_docstring
 import handybeam.visualise
-
+from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
 ## Class
 
 
-class AbstractSampler():
+class AbstractSampler(RememberInstanceCreationInfo):
     """ Defines the common attributes of each sampler class.
     """
 
@@ -20,6 +20,7 @@ class AbstractSampler():
                 This is an instance of the handybeam world class. 
 
         """
+        super(AbstractSampler, self).__init__()
 
         self.parent = None
         self.pressure_field = None

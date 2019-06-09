@@ -19,7 +19,7 @@ example usage:
 ## Imports
 
 import numpy as np
-from handybeam.visualise import visualise_flat_tx_array
+import handybeam.visualise
 from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
 from os import linesep
 
@@ -29,9 +29,12 @@ from os import linesep
 
 
 class TxArray(RememberInstanceCreationInfo):
-    """ Describes the transmiter array
+    """ Describes the transmitter array
 
     Primarily holds the :code:`tx_array_element_descriptor`
+
+    Attributes:
+        tx_array_element_descriptor: (numpy.array) compact buffer describing the array. See :ref:`024_R1_data_structures:tx_element_array_descriptor_a`
 
 
     """
@@ -73,12 +76,7 @@ class TxArray(RememberInstanceCreationInfo):
                          phase_setting: float = 0.0
                          ):
 
-        '''
-        ---------------------------------------------
-        generate_tx_array_element()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        ''' builds a single line of :ref:`024_R1_data_structures:tx_element_array_descriptor_a` buffer out of provided named parameters.
 
         
         Parameters
@@ -132,31 +130,25 @@ class TxArray(RememberInstanceCreationInfo):
         return tx_single_element_descriptor
 
     def visualise(self):
+        """ Run the visualizer.
 
-        '''
-        ---------------------------------------------
-        visualise()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        Run the :meth:`handybeam.visualise.visualise_flat_tx_array()`.
 
-        '''
+        Note: runs the visualizer on the array that is attached to the parent of this array. So might be misleading sometimes.
 
-        visualise_flat_tx_array(self.parent)
+        """
+
+        handybeam.visualise.tx_array_basic(self.parent)
 
     ## Read-only attributes 
 
     @property
     def element_count(self):
-                
-        '''
-        ---------------------------------------------
-        element_count()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        """ return count of transmiter elements in this array.
 
-        '''
+        does :code:`return self.tx_array_element_descriptor.shape[0]`
+
+        """
         return self.tx_array_element_descriptor.shape[0]
 
     def __str__(self):
