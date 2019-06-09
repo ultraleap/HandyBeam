@@ -104,7 +104,7 @@ class RectilinearSampler(AbstractSampler):
 
         self.transducer_count = self.parent.tx_array.element_count
 
-        self.pressure_field= np.zeros((self.N_x,self.N_y,1),dtype = np.complex)
+        self.pressure_field = np.zeros((self.N_x, self.N_y, 1), dtype=np.complex)
         self.coordinates = np.zeros((self.N_x,self.N_y,3),dtype = np.float32)
         self.coefficient_matrix = np.zeros((256,256),dtype = np.complex)
         self.generate_propagation_parameters()
