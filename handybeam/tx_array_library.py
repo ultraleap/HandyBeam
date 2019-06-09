@@ -45,9 +45,9 @@ def single_element(parent = None):
 def simple_linear(parent = None,element_count=16, element_pitch = 7e-3):
 
     '''
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
     simple_linear(parent, element_count, element_pitch)
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
         
     DESCRIPTION HERE
 
@@ -110,9 +110,9 @@ def USX(parent = None):
 def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
 
     '''
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
     rectilinear(parent,element_count_x,element_count_y,element_pitch_x, element_pitch_y)
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
         
     DESCRIPTION HERE
 

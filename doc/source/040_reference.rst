@@ -9,17 +9,14 @@ API reference
 =============
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: API
 
     auto_handybeam_world.rst
-    auto_handybeam_samplers.rst
-    auto_handybeam_tx_element.rst
     auto_handybeam_tx_array.rst
     auto_handybeam_tx_array_library.rst
-    auto_handybeam_excitation_solver.rst
-    auto_handybeam_propagator.rst
-    auto_handybeam_propagators.rst
+    auto_handybeam_samplers.rst
+    auto_handybeam_opencl_wrappers.rst
     auto_handybeam_visualize.rst
     auto_handybeam_cl_system.rst
     manual_cl_platform_config.ini.rst
@@ -28,14 +25,27 @@ API reference
 
 .. note: auto_misc_tools.rst contains: remember_instance_creation_info, bugcatcher
 
+==========================================
+code that I am not sure if it works or not
+==========================================
+.. toctree::
+    :maxdepth: 3
+    :caption: frontier API
+
+    auto_handybeam_excitation_solver.rst
+    auto_handybeam_propagator.rst
+    auto_handybeam_propagators.rst
+
+
 =======================
 Obsolete code reference
 =======================
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: Obsoletes
 
+    auto_handybeam_tx_element.rst
     auto_handybeam_visualize_obsolete.rst
     auto_misc_tools_obsolete.rst
     auto_handybeam_sampler_abstract.rst

@@ -60,9 +60,9 @@ def visualise_flat_tx_array(world = None,filename = None, figsize=[15,10], dpi=1
 def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=150):
 
     '''
-    ---------------------------------------------
+    -------------------------------------------------------
     visualise_sampling_grid(sampler,filename,figsize,dpi)
-    ---------------------------------------------
+    -------------------------------------------------------
         
     This method visualises the location of the transducers.
 
@@ -106,9 +106,9 @@ def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=15
 def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, figsize=[15,10], dpi=150):
 
     '''
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
     visualise_sampling_grid_and_array(world,sampler,filename,figsize,dpi)
-    ---------------------------------------------
+    ------------------------------------------------------------------------------------------
         
     This method visualises the location of the samnpling grid points and the 
     transducers.

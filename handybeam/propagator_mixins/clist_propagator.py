@@ -58,9 +58,9 @@ class ClistPropMixin():
 
 
         '''
-        ---------------------------------------------
+        --------------------------------------------------------------------------------------------------
         clist_propagator(tx_array, sampling_point_list, local_work_size, print_performance_feedback)
-        ---------------------------------------------
+        --------------------------------------------------------------------------------------------------
 
         This method simulates the acoustic pressure field on a set of provided sampling points. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 

@@ -67,11 +67,9 @@ class HexPropMixin():
                        ):
 
         '''
-        ---------------------------------------------
-        hex_propagator( tx_array, side_length, delta, x0, y0, z0,
-                        vx1,vy1,vz1,vx2,vy2,vz2, local_work_size,
-                        print_performance_feedback)
-        ---------------------------------------------
+        ----------------------------------------------------------------------------------------------------------------------------------------
+        hex_propagator( tx_array, side_length, delta, x0, y0, z0, vx1,vy1,vz1,vx2,vy2,vz2, local_work_size, print_performance_feedback)
+        ----------------------------------------------------------------------------------------------------------------------------------------
 
         This method simulates the acoustic pressure field on a hexagonal sampling grid. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 

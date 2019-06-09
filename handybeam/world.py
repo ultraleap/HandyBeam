@@ -29,7 +29,7 @@ import handybeam.bugcatcher
 import handybeam.tx_array_library
 import handybeam.opencl_wrappers.propagator_wrappers
 from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
-import os
+from os import linesep
 ## Global variables 
 
 __license__ = "Apache 2.0"
@@ -40,21 +40,36 @@ tau = 2*np.pi
 class World(RememberInstanceCreationInfo):
     """ Root descriptor of the simulated universe
 
-        Contains what is needed to quickly serve typical use cases for HandyBeam
+    Contains what is needed to quickly serve typical use cases for HandyBeam.
 
-        Example use:
+    Example use:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            world=handybeam.world.World()
+        world=handybeam.world.World()
+        world.tx_array = handybeam.tx_array_library.rectilinear(parent = world)
+        rectilinear_sampler = world.add_sampler(handybeam.samplers.rectilinear_sampler.RectilinearSampler(parent=world))
 
-        .
+    .. note::
 
-        .. todo:: (?)field_yz=world.add_field(handybeam.yz_field.YZ_field())
+        Note that OpenCL kernels are compiled with sound velocity and frequency as constants. This is for performance purposes.
+
+
+    Attributes:
+        sound_velocity (numpy.float): Sound velocity. Set only via creating a new world.
+        frequency (numpy.float): fundamental frequency of operation for the transmitter array. Set only via creating a new world.
+        medium_wavelength (numpy.float): computed wavelength for this world. constant.
+        medium_wavenumber (numpy.float): computed wavenumber for this world. constant.
+        samplers (list[handybeam.samplers.*]): list of the field sampler objects.
+        tx_array (handybeam.tx_array.TxArray): the transmitter array object.
+        propagator (handybeam.opencl_wrappers.propagator_wrappers.Propagator): the object that holds the OpenCL code for calculating (propagating) the acoustic field.
+        platform (int): OpenCL platform ID
+        device (int): OpenCL device ID
+
 
     """
 
-    def __init__(self, frequency=40000, sound_velocity=343,use_device=0,use_platform=0):
+    def __init__(self, frequency=40000, sound_velocity=343,use_device=0,use_platfrm=0):
         """ instance constructor.
 
                 Upon creation, add an example array, initialize the propagator, and have no samplers.
@@ -80,12 +95,13 @@ class World(RememberInstanceCreationInfo):
 
         .. code-block:: python
 
-            sampler_yz = world.add_sampler(handybeam.samplers.RectilinearSampler())
+            rectilinear_sampler = world.add_sampler(handybeam.samplers.rectilinear_sampler.RectilinearSampler(parent=world))
 
-        .. TODO:: check if the above is correct -- samplers have changed!
+        :param handybeam.samplers.* sampler:
+            the sampler instance to add
 
-        :param sampler: the sampler instance to add
-        :return: handle to the new sampler instance
+        :return:
+            handle to the new sampler instance
 
         """
         if sampler is None:
@@ -129,7 +145,7 @@ class World(RememberInstanceCreationInfo):
 
     def __str__(self):
         """ returns a short info about this world."""
-        return self.creation_text+os.linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} samplers"\
+        return self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} samplers"\
             .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
                     self.medium_wavenumber, len(self.samplers))
 

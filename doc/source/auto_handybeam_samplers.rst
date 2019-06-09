@@ -4,6 +4,11 @@
 handybeam.samplers
 ############################
 
+.. automodule:: handybeam.samplers.rectilinear_sampler
+    :members:
+
+----
+
 .. automodule:: handybeam.samplers.abstract_sampler
     :members:
 
@@ -16,8 +21,7 @@ handybeam.samplers
 .. automodule:: handybeam.samplers.lambert_sampler
     :members:
 
-.. automodule:: handybeam.samplers.rectilinear_sampler
-    :members:
+
 
 
 .. include:: footer_licence_note.rst

@@ -1,3 +1,11 @@
+"""
+.. _rectilinear_sampler:
+
+Module :code:`handybeam.samplers.rectilinear_sampler`
+
+Holds the class :class:`RectilinearSampler`
+
+"""
 ## Imports
 
 import numpy as np
@@ -14,16 +22,9 @@ tau = 2*np.pi
 
 
 class RectilinearSampler(AbstractSampler):
+    """ Takes the specification for a rectilinear sampling array and then samples the acoustic field at these points.
+    """
 
-    '''
-    ---------------------------------------------
-    RectilinearSampler
-    ---------------------------------------------
-    
-    This is the rectillinear sampling grid class. It takes the specification for a 
-    rectillinear sampling array and then samples the acoustic field at these points.
-
-    '''
 
     def __init__(self,
                 parent = None,

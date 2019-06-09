@@ -64,10 +64,9 @@ class LambPropMixin():
                         ):
 
         '''
-        ---------------------------------------------
-        lamb_propagator( tx_array, radius, N, delta, x0, y0, z0,
-                        local_work_size,print_performance_feedback)
-        ---------------------------------------------
+        --------------------------------------------------------------------------------------------------------
+        lamb_propagator( tx_array, radius, N, delta, x0, y0, z0, local_work_size,print_performance_feedback)
+        --------------------------------------------------------------------------------------------------------
 
         This method simulates the acoustic pressure field on a lambert sampling grid. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 

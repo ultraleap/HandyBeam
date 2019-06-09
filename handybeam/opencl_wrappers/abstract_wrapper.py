@@ -37,13 +37,13 @@ class Wrapper():
                                    output_buffer_size
                                    ):
 
-        ## TODO - You wrote this stuff so I have left it for you to comment.
+        ## TODO - Jurek wrote this stuff so it's up to him to comment.
 
         '''
-        ---------------------------------------------
-        print_performance_feedback( cl_profiling_kernel_event, cl_profiling_mem_copy_event,
-                                    t_elapsed_wall_time, ray_count, output_buffer_size )
-        ---------------------------------------------
+        ----------------------------------------------------------------------------------------------------------------------------------------------
+        print_performance_feedback( cl_profiling_kernel_event, cl_profiling_mem_copy_event, t_elapsed_wall_time, ray_count, output_buffer_size )
+        ----------------------------------------------------------------------------------------------------------------------------------------------
+
         This method ... 
 
         Parameters

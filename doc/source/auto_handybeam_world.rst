@@ -1,4 +1,4 @@
-.. _handybeam.world:
+.. _handybeam_world:
 
 ############################
 handybeam.world

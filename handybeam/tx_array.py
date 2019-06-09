@@ -1,42 +1,53 @@
+"""
+.. _tx_array:
+
+===============================
+Module :code:handybeam.tx_array
+===============================
+
+contains the TxArray class
+
+example usage:
+
+.. code-block:: python
+
+    world.tx_array = handybeam.tx_array_library.rectilinear(parent = world)
+
+
+"""
+
 ## Imports
 
 import numpy as np
 from handybeam.visualise import visualise_flat_tx_array
+from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
+from os import linesep
 
 ## Global variables
 
 ## Class
 
 
-class TxArray:
+class TxArray(RememberInstanceCreationInfo):
+    """ Describes the transmiter array
 
-    '''
-    ---------------------------------------------
-    TxArray
-    ---------------------------------------------
-    
-    DESCRIPTION HERE
+    Primarily holds the :code:`tx_array_element_descriptor`
 
-    '''
 
-    def __init__(self,parent = None):
+    """
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+    def __init__(self, parent=None):
+        """ Constructor
 
-        Parameters
-        ----------
+        :param parent: handybeam.world.World
+            set to current world instance.
 
-        parent : handybeam world
-                DESCRIPTION HERE
-        '''
+        """
 
+        super().__init__()
         self.parent = parent
         self.tx_array_element_descriptor = self.generate_tx_array_element()
+        self.name = "default single-element array"
 
     def generate_empty_tx_element_descriptor(self):
         
@@ -147,3 +158,14 @@ class TxArray:
 
         '''
         return self.tx_array_element_descriptor.shape[0]
+
+    def __str__(self):
+        """
+        basic information about this array
+        :return:
+        """
+        return self.creation_text + linesep + "name string: " + self.name + linesep + "count of elements: {}".format(self.tx_array_element_descriptor.shape[0])
+
+    def __repr__(self):
+
+        return self.__str__()
