@@ -28,7 +28,8 @@ import numpy as np
 import handybeam.bugcatcher
 import handybeam.tx_array_library
 import handybeam.opencl_wrappers.propagator_wrappers
-
+from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
+import os
 ## Global variables 
 
 __license__ = "Apache 2.0"
@@ -36,7 +37,7 @@ tau = 2*np.pi
 
 ## Class
 
-class World():
+class World(RememberInstanceCreationInfo):
     """ Root descriptor of the simulated universe
 
         Contains what is needed to quickly serve typical use cases for HandyBeam
@@ -63,7 +64,7 @@ class World():
                 At one point, I tried to make it to auto-give itself a default sampler,
                 but that resulted in circular references. Possibly I can find a workaround to that later on.
         """
-
+        super().__init__()
         self.sound_velocity = sound_velocity
         self.frequency = frequency
         self.medium_wavelength = np.float32(self.sound_velocity / self.frequency)
@@ -126,4 +127,12 @@ class World():
         for sampler in self.samplers:
             sampler.visualise(colour_scale=colour_scale)
 
+    def __str__(self):
+        """ returns a short info about this world."""
+        return self.creation_text+os.linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} samplers"\
+            .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
+                    self.medium_wavenumber, len(self.samplers))
 
+    def __repr__(self):
+        """ links back to __str__()"""
+        return self.__str__()

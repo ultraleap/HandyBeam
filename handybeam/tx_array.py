@@ -8,7 +8,7 @@ from handybeam.visualise import visualise_flat_tx_array
 ## Class
 
 
-class TxArray():
+class TxArray:
 
     '''
     ---------------------------------------------
