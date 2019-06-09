@@ -2,7 +2,7 @@
 handybeam.visualize
 ############################
 
-.. automodule:: handybeam.visualize
+.. automodule:: handybeam.visualise
     :members:
 
 

@@ -18,12 +18,7 @@ phase_colormap = cmocean.cm.phase
 
 def visualise_flat_tx_array(world = None,filename = None, figsize=[15,10], dpi=150 ):
   
-    '''
-    ---------------------------------------------
-    visualise_flat_tx_array(world,filename,figsize,dpi)
-    ---------------------------------------------
-        
-    This method visualises the location of the sampling grid points.
+    ''' This method visualises the location of the sampling grid points.
 
     Parameters
     ----------
@@ -60,9 +55,6 @@ def visualise_flat_tx_array(world = None,filename = None, figsize=[15,10], dpi=1
 def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=150):
 
     '''
-    -------------------------------------------------------
-    visualise_sampling_grid(sampler,filename,figsize,dpi)
-    -------------------------------------------------------
         
     This method visualises the location of the transducers.
 
@@ -106,9 +98,6 @@ def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=15
 def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, figsize=[15,10], dpi=150):
 
     '''
-    ------------------------------------------------------------------------------------------
-    visualise_sampling_grid_and_array(world,sampler,filename,figsize,dpi)
-    ------------------------------------------------------------------------------------------
         
     This method visualises the location of the samnpling grid points and the 
     transducers.
@@ -317,10 +306,6 @@ def visualise_translation(  world=None, original_pressure_field=None,
                             sampler=None,filename=None, figsize=(15, 10), dpi=150):
 
     '''
-    ---------------------------------------------
-    visualise_translation(world,original_pressure_field,sampler,
-                          filename,figsize,dpi)
-    ---------------------------------------------
         
     This method visualises the effect of the (x-y) translation algorithm on the
     amplitude and phase of the acoustic field.
@@ -482,10 +467,6 @@ def visualise_translation_3D(world = None,original_pressure_field = None,sampler
         threshold = 50, colour_map = 'cubehelix'):
 
     '''
-    ---------------------------------------------
-    visualise_translation(world,original_pressure_field,sampler,
-                          filename,figsize,dpi)
-    ---------------------------------------------
         
     This method visualises the effect of the (x-y) translation algorithm on the
     amplitude and phase of the acoustic field.

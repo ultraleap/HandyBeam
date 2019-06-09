@@ -10,9 +10,6 @@ import handybeam.tx_array
 class XYTranslatorMixin():
 
     '''
-    ---------------------------------------------
-    XYTranslatorMixin
-    ---------------------------------------------
     
     This is a mixin class for the compiled OpenCL kernel _hbk_xy_translator. It assigns
     the compiled OpenCL kernel to this Python class which can then be called by the appropriate
@@ -23,9 +20,6 @@ class XYTranslatorMixin():
     def __init__(self):
 
         '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
         
         This method intialises an instance of the mixin class XYTranslatorMixin.
 
@@ -36,9 +30,6 @@ class XYTranslatorMixin():
     def _register_xy_translator(self):
 
         '''
-        ---------------------------------------------
-        _register_xy_translator()
-        ---------------------------------------------
 
         This method assigns the compiled OpenCL propagator kernel _hbk_xy_translator to this 
         class and then sets the correct data types for the input to the assigned kernel.
@@ -53,9 +44,6 @@ class XYTranslatorMixin():
                       x_translate, y_translate, plane_height, local_work_size = (1,1,1), print_performance_feedback = False):
 
         '''
-        ---------------------------------------------
-        xy_translator(tx_array, x_translate,y_translate,plane_height, local_work_size, print_performance_feedback)
-        ---------------------------------------------
 
         This method translates a given focal point, created at a height plane_height,
         by a distance x_translate along the x-axis and y_translate along the y-axis.

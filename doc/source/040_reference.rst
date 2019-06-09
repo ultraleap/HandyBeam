@@ -17,7 +17,7 @@ API reference
     auto_handybeam_tx_array_library.rst
     auto_handybeam_samplers.rst
     auto_handybeam_opencl_wrappers.rst
-    auto_handybeam_visualize.rst
+    auto_handybeam_visualise.rst
     auto_handybeam_cl_system.rst
     manual_cl_platform_config.ini.rst
     auto_misc_tools.rst
@@ -46,7 +46,6 @@ Obsolete code reference
     :caption: Obsoletes
 
     auto_handybeam_tx_element.rst
-    auto_handybeam_visualize_obsolete.rst
     auto_misc_tools_obsolete.rst
     auto_handybeam_sampler_abstract.rst
     auto_handybeam_sampler_abstract_ortho.rst

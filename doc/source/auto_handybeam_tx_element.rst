@@ -2,8 +2,13 @@
 handybeam.tx_element
 ########################################
 
-.. automodule:: handybeam.tx_element
-    :members:
+.. warning::
+
+    This module is obsolete. Do not use.
+
+.. obsolete:
+    .. automodule:: handybeam.tx_element
+        :members:
 
 
 .. include:: footer_licence_note.rst
