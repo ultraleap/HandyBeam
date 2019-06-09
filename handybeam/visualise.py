@@ -17,7 +17,7 @@ phase_colormap = cmocean.cm.phase
 ## Functions
 
 
-def tx_array_basic(tx_array=None, filename=None, figsize=[15, 10], dpi=150, show=True):
+def tx_array_basic(tx_array=None, filename=None, figsize=[8, 4], dpi=150, show=True):
     """ visualize the transmitter array, with dots where elements are located.
 
     :param handybeam.tx_array.TxArray tx_array: reference to the array descriptor to visualize.

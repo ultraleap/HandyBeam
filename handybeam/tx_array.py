@@ -138,7 +138,7 @@ class TxArray(RememberInstanceCreationInfo):
 
         """
 
-        handybeam.visualise.tx_array_basic(self.parent)
+        handybeam.visualise.tx_array_basic(self)
 
     ## Read-only attributes 
 
