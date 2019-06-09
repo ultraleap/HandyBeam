@@ -149,10 +149,12 @@ class World(RememberInstanceCreationInfo):
         txt=self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} sampler(s)"\
             .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
                     self.medium_wavenumber, len(self.samplers))
-        for sampler in self.samplers:
-            txt = txt + linesep + sampler.__str__()
+        for idx, sampler in enumerate(self.samplers):
+            txt = txt + linesep + "sampler {}: {}".format(idx, str(sampler))
 
-        return
+        if self.tx_array is not None:
+            txt = txt + linesep + "Tx array: {}".format(self.tx_array)
+        return txt
 
     def __repr__(self):
         """ links back to __str__()"""
