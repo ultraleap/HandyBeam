@@ -66,18 +66,22 @@ class TxArray(RememberInstanceCreationInfo):
         q[0, 5] = np.float(1.0)  # make sure that this element has a non-broken normal vector
         return q
 
-    def generate_tx_array_element(self,x: float = 0.0, y: float = 0.0, z: float = 0.0,
-                         xnormal: float = 0.0, ynormal: float = 0.0, znormal: float = 1.0,
-                         directivity_phase_poly1_c1: float = 0.0,
-                         directivity_amplitude_poly2_c0: float = 318.5,
-                         directivity_amplitude_poly2_c1: float = -682.4,
-                         directivity_amplitude_poly2_c2: float = 461.33,
-                         amplitude_ratio_setting: float = 1.0,
-                         phase_setting: float = 0.0
+    def generate_tx_array_element(self,
+                                  x: float = 0.0, y: float = 0.0, z: float = 0.0,
+                                  xnormal: float = 0.0, ynormal: float = 0.0, znormal: float = 1.0,
+                                  directivity_phase_poly1_c1: float = 0.0,
+                                  directivity_amplitude_poly2_c0: float = 318.5,
+                                  directivity_amplitude_poly2_c1: float = -682.4,
+                                  directivity_amplitude_poly2_c2: float = 461.33,
+                                  amplitude_ratio_setting: float = 1.0,
+                                  phase_setting: float = 0.0
                          ):
-
         ''' builds a single line of :ref:`024_R1_data_structures:tx_element_array_descriptor_a` buffer out of provided named parameters.
 
+        Please note that the directivity defaults are set to match the murata transducer.
+
+        In order to generate an ominidirectional transducer with a reference amplitude of "1" - set
+        `directivity_phase_poly1_c1` to 0.0, `directivity_amplitude_poly2_c0` to 1.0, `directivity_amplitude_poly2_c1` to 0.0, and `directivity_amplitude_poly2_c2` to 0.0
         
         Parameters
         ----------

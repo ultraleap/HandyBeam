@@ -43,7 +43,7 @@ def single_element(parent = None):
     return this
 
 
-def simple_linear(parent = None,element_count=16, element_pitch=7e-3):
+def simple_linear(parent = None, element_count=16, element_pitch=7e-3):
     """1D line of elements, starting at xyz=0, along y, with given element_pitch
 
     Parameters
