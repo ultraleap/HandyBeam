@@ -23,21 +23,15 @@ Go straight to :doc:`040_reference`
    :maxdepth: 4
    :caption: Documents:
 
-
    010_philosophy.rst
    011_wave_propagation_maths.rst
    021_implementation_details.rst
    023_api_principles.rst
-   022_R1_architecture_concept.rst
-   022_R2_architecture_concept.rst
    024_R1_data_structures.rst
-   005_user_stories.rst
    019_data_collection.rst
    031_installation_guide.rst
    032_quick_start.rst
    040_reference.rst
-   065_kernel_performance_stats.rst
-   ZZ_rst_scratchpad.rst
 
 
 ==================
