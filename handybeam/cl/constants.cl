@@ -5,4 +5,4 @@
 #define medium_wavelength 0.008575f
 #define medium_wavenumber 116.61807758509084f
 #define translation_medium_wavenumber 732.7329916341719f
-#define emission_frequency 40000
+#define emission_frequency 40000.0
