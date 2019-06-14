@@ -29,6 +29,16 @@ From python's point of view, the data set is a numpy array of size :code:`tx_cou
 
 The 1st dimension corresponds to each new transducer; the 2nd dimension are the fields.
 
+The data could be shortly described as :code:`xyznnnddddap____` where:
+
+* xyz - xyz location of the radiator. naturalily :code:`(0,0,0)` is the origin.
+* nnn - xyz vector of *normal* of the radiator. set to :code:`(0,0,1)` for z-oriented
+* dddd - 4 components for the transducer directivity model. set to :code:`(0,1,0,0)` for omini-directional behaviour.
+* a - the amplitude ratio setting. By convention, goes from zero to unity, but negative and large values will also work. it is called "ratio" because the directivity model should contain the absolute scaling of the transducer output capability.
+* p - phase setting in radians.
+* :code:`____` - 4x NaNs. They are these mostly for data chunk alignment, but could also be used in the future for something.
+
+
 The fields are best described by looking at the source of the :meth:`handybeam.tx_array.TxArray.generate_tx_array_element` below:
 
 

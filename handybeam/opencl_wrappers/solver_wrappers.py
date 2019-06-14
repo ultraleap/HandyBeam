@@ -25,7 +25,7 @@ class Solver(
 
     '''    
 
-    def __init__(self,parent=None,use_device = 2, use_platform = 0):
+    def __init__(self, parent=None, use_device = 2, use_platform = 0):
 
         ## TODO - Provide description and type for the handybeam world object.
 

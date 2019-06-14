@@ -136,7 +136,7 @@ class OpenCLSystem():
                 f.write('#define translation_medium_wavenumber ' + str(self.parent.medium_wavenumber * 2*np.pi) + 'f\n')
                 f.write('#define emission_frequency ' + str(self.parent.frequency) + '\n')
 
-        with open(constants_path,'r') as f:
+        with open(constants_path, 'r') as f:
             kernel_text = f.read()
 
         entire_source_text += kernel_text
