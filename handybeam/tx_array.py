@@ -35,9 +35,17 @@ class TxArray(RememberInstanceCreationInfo):
 
     Attributes:
         tx_array_element_descriptor: (numpy.array) compact buffer describing the array. See :ref:`024_R1_data_structures:tx_element_array_descriptor_a`
+        name: (string). user-readable string/descriptor
 
 
     """
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def set_name(self, value):
+        self._name = value
 
     def __init__(self, parent=None):
         """ Constructor
@@ -50,7 +58,7 @@ class TxArray(RememberInstanceCreationInfo):
         super().__init__()
         self.parent = parent
         self.tx_array_element_descriptor = self.generate_tx_array_element()
-        self.name = "default single-element array"
+        self._name = "default single-element array"
 
     def generate_empty_tx_element_descriptor(self):
         
