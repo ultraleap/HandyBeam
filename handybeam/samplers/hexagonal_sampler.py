@@ -15,12 +15,7 @@ tau = 2*np.pi
 
 class HexagonalSampler(AbstractSampler):
 
-    '''
-    ---------------------------------------------
-    HexagonalSampler
-    ---------------------------------------------
-    
-    This is the hexagonal sampling grid class. It takes the specification for a 
+    '''This is the hexagonal sampling grid class. It takes the specification for a
     hexagonal sampling array and then samples the acoustic field at these points.
 
     '''
@@ -35,12 +30,7 @@ class HexagonalSampler(AbstractSampler):
                 grid_extent_around_origin = 0.2,
                 local_work_size = (1,1,1)):
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the HexagonalSampler class.
+        '''This method intialises an instance of the HexagonalSampler class.
 
         Parameters
         ----------
@@ -105,12 +95,7 @@ class HexagonalSampler(AbstractSampler):
 
     def find_hex_grid_area(self):
 
-        '''
-        ---------------------------------------------
-        find_hex_grid_area()
-        ---------------------------------------------
-        
-        This method finds the area of the requested sampling grid.
+        '''This method finds the area of the requested sampling grid.
 
         '''
 
@@ -124,12 +109,7 @@ class HexagonalSampler(AbstractSampler):
      
     def generate_propagation_parameters(self):
 
-        '''
-        ---------------------------------------------
-        generate_propagation_parameters()
-        ---------------------------------------------
-        
-        This method finds the parameters to pass to the opencl kernel to correctly
+        '''This method finds the parameters to pass to the opencl kernel to correctly
         define the sampling grid. 
 
         '''
@@ -185,12 +165,7 @@ class HexagonalSampler(AbstractSampler):
 
     def propagate(self,print_performance_feedback = False):
 
-        '''
-        ---------------------------------------------
-        propagate(print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the hex_propagator to propagate the acoustic field to 
+        '''This method calls the hex_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters

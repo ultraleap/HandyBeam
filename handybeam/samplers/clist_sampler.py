@@ -7,24 +7,14 @@ from handybeam.samplers.abstract_sampler import AbstractSampler
 
 class ClistSampler(AbstractSampler):
 
-    '''
-    ---------------------------------------------
-    ClistSampler
-    ---------------------------------------------
-    
-    This is the general sampling grid class. It takes a list of sampling points
+    '''This is the general sampling grid class. It takes a list of sampling points
     and samples the acoustic field at these points.
 
     '''
 
     def __init__(self,parent=None, local_work_size = (128,1,1)):
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the ClistSampler class.
+        '''This method intialises an instance of the ClistSampler class.
 
         Parameters
         ----------
@@ -47,12 +37,7 @@ class ClistSampler(AbstractSampler):
 
     def find_clist_grid_volume(self):
         
-        '''
-        ---------------------------------------------
-        find_clist_grid_volume()
-        ---------------------------------------------
-        
-        This method finds the volume of the requested sampling grid.
+        '''This method finds the volume of the requested sampling grid.
 
         '''
 
@@ -80,12 +65,7 @@ class ClistSampler(AbstractSampler):
 
     def add_sampling_points(self, x_list, y_list, z_list):
 
-        '''
-        ---------------------------------------------
-        add_sampling_points(x_list,y_list,z_list)
-        ---------------------------------------------
-        
-        This method adds the requested sampling points to the sampler object. 
+        '''This method adds the requested sampling points to the sampler object.
 
         Parameters
         ----------
@@ -107,12 +87,7 @@ class ClistSampler(AbstractSampler):
 
     def clear_data(self):
 
-        '''
-        ---------------------------------------------
-        clear_data ()
-        ---------------------------------------------
-        
-        This method clears the data assigned to the object.
+        '''This method clears the data assigned to the object.
 
         '''
 
@@ -121,12 +96,7 @@ class ClistSampler(AbstractSampler):
 
     def propagate(self, print_performance_feedback=False):
 
-        '''
-        ---------------------------------------------
-        propagate(print_performance_feedback)
-        ---------------------------------------------
-        
-        This method calls the clist_propagator to propagate the acoustic field to 
+        '''This method calls the clist_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters
