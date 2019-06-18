@@ -7,6 +7,8 @@ Some of them might be awaiting refactoring or deletion.
 
 """
 
+import numpy as np
+
 
 def copy_docstring(from_function, separator="\n", prepend=True):
     """ Decorator. Copies the docstring of `from_function` into the decorated function.
@@ -36,6 +38,16 @@ def copy_docstring(from_function, separator="\n", prepend=True):
         return func
 
     return _decorator
+
+
+def handyround(value, base=64):
+    """ rounds the provided value to the nearest multiple of the base
+
+    :param value: the number to round. preferably, a numpy type
+    :param base: the number to round to.
+    :return: :code:`return np.int(base * np.rint(value / base))`
+    """
+    return np.int(base * np.ceil(value / base))
 
 
 class HandyDict(dict):
