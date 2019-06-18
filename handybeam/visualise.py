@@ -17,7 +17,7 @@ phase_colormap = cmocean.cm.phase
 ## Functions
 
 
-def tx_array_basic(tx_array=None, filename=None, figsize=[8, 4], dpi=150, show=True):
+def tx_array_basic(tx_array=None, filename=None, figsize=(4, 3), dpi=150, show=True):
     """ visualize the transmitter array, with dots where elements are located.
 
     :param handybeam.tx_array.TxArray tx_array: reference to the array descriptor to visualize.
@@ -133,12 +133,14 @@ def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=15
     else:
         plt.show()
 
-def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, figsize=[15,10], dpi=150):
 
-    '''
-        
-    This method visualises the location of the samnpling grid points and the 
-    transducers.
+def visualise_sampling_grid_and_array(
+        world=None,
+        sampler=None,
+        filename=None,
+        figsize=(4, 3),
+        dpi=150):
+    """visualises the location of the sampling grid points and the transducers.
 
     Parameters
     ----------
@@ -153,13 +155,13 @@ def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, fi
             This tuple sets the size of the figure used to display the visualisation image.
     dpi : int
             This int sets the resolution of the visualisation image.
+    """
 
-    '''
     los = dict()
 
-    sg_x_points = sampler.coordinates[:,:,0] 
-    sg_y_points = sampler.coordinates[:,:,1] 
-    sg_z_points = sampler.coordinates[:,:,2] 
+    sg_x_points = sampler.coordinates[:, :, 0]
+    sg_y_points = sampler.coordinates[:, :, 1]
+    sg_z_points = sampler.coordinates[:, :, 2]
 
     arr_x_points = world.tx_array.tx_array_element_descriptor[:,0]
     arr_y_points = world.tx_array.tx_array_element_descriptor[:,1]
@@ -202,6 +204,120 @@ def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, fi
     else:
         plt.show()
 
+# ====================================================================================================
+# ====================================================================================================
+# ====================================================================================================
+# ====================================================================================================
+# ====================================================================================================
+
+
+def visualize_3D_only(world=None,
+                      samplers=(),
+                      alpha=0.01,
+                      filename=None,
+                      figsize=(4, 3),
+                      dpi=150):
+    """ visualizes location of the probe, phase on the probe, and any compatible samplers, in a single figure
+
+    Parameters
+    ----------
+
+    world: handybeam.world.World
+        An instance of the handybeam.world class.
+    samplers: world.samplers.abstract_sampler
+        list of samplers to include. Note that this has to be a list.
+        If set to None, samplers are loaded from the world.
+    filename: string
+        if set, image is saved to the file named. Do not forget to add the extension, e.g. :code:`.png`
+    figsize: tuple
+        size of the figure in inches
+    dpi: integer
+        resolution of the figure, in points per inch
+
+    """
+
+    hf = plt.figure(figsize=figsize, dpi=dpi)
+    ha = Axes3D(hf)
+
+    # plot the array first so that it is covered later
+    arr_x_points = world.tx_array.tx_array_element_descriptor[:, 0]
+    arr_y_points = world.tx_array.tx_array_element_descriptor[:, 1]
+    arr_z_points = world.tx_array.tx_array_element_descriptor[:, 2]
+    # keep track of xmax and xmin
+    xmax = np.max(arr_x_points)
+    xmin = np.min(arr_x_points)
+    ymax = np.max(arr_y_points)
+    ymin = np.min(arr_y_points)
+    zmax = np.max(arr_z_points)
+    zmin = np.min(arr_z_points)
+
+    array_points = ha.scatter(
+        arr_x_points,
+        arr_y_points,
+        arr_z_points,
+        c=world.tx_array.tx_array_element_descriptor[:, 11],
+        cmap=phase_colormap, marker=",")
+
+    if samplers is None:
+        print('samplers is not none.')
+        samplers = world.samplers
+
+    for idx, sampler in enumerate(samplers):
+        sg_x_points = sampler.coordinates[:, :, 0]
+        sg_y_points = sampler.coordinates[:, :, 1]
+        sg_z_points = sampler.coordinates[:, :, 2]
+        xmax = np.max((xmax, np.max(sg_x_points)))
+        xmin = np.min((xmin, np.min(sg_x_points)))
+        ymax = np.max((ymax, np.max(sg_y_points)))
+        ymin = np.min((ymin, np.min(sg_y_points)))
+        zmax = np.max((zmax, np.max(sg_z_points)))
+        zmin = np.min((zmin, np.min(sg_z_points)))
+        pressure_field = np.nan_to_num(sampler.pressure_field)
+        # If there are a lot of points in the sampling grid then just display a subset of them.
+
+        if len(sg_x_points) > 50:
+            stepper = int(np.ceil(len(sg_x_points) / 50))
+
+            sg_x_points = sg_x_points[0::stepper]
+            sg_y_points = sg_y_points[0::stepper]
+            sg_z_points = sg_z_points[0::stepper]
+            pressure_field = pressure_field[0::stepper]
+
+
+        sampling_points_amp = ha.scatter(
+            sg_x_points,
+            sg_y_points,
+            sg_z_points,
+            c=np.abs(pressure_field).ravel(),
+            cmap=amplitude_colormap, marker="o", alpha=alpha)
+
+
+    ha.set_xlabel('x-dimension[m]\npassive aperture')
+    ha.set_ylabel('y-dimension[m]\nactive aperture')
+    ha.set_zlabel('z-dimension[m]\ntarget depth')
+
+    # plt.axes('equal')
+    # create equal axes
+    # Create cubic bounding box to simulate equal aspect ratio
+    max_range = np.array([xmax - xmin, ymax - ymin, zmax - zmin]).max()
+    Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][0].flatten() + 0.5 * (xmax + xmin)
+    Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][1].flatten() + 0.5 * (ymax + ymin)
+    Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][2].flatten() + 0.5 * (zmax + zmin)
+    # Comment or uncomment following both lines to test the fake bounding box:
+    for xb, yb, zb in zip(Xb, Yb, Zb):
+        ha.plot([xb], [yb], [zb], 'w')
+
+    if filename is not None:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
+
+
+
+
+
+
 def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dpi=80):
     
     '''visualises the amplitude and phase of the pressure field and the transducers.
@@ -209,7 +325,7 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
     Parameters
     ----------
 
-    world : handybeam_core.world
+    world : handybeam.world.World
             An instance of the handybeam.world class.
     sampler : handybeam.sampler
             An instance of one of the handybeam sampler classes.
@@ -245,50 +361,76 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
         sg_z_points = sg_z_points[0::stepper]
 
         pressure_field = pressure_field[0::stepper]
-  
-  
+
     gs = gridspec.GridSpec(2, 2)    
 
-    fig = pl.figure(figsize=figsize,dpi=dpi)
+    fig = pl.figure(figsize=figsize, dpi=dpi)
 
-    los['amplitude'] = pl.subplot(gs[0,0],projection = '3d')
-    los['phase'] = pl.subplot(gs[0,1],projection = '3d')
-    los['trans_amp'] = pl.subplot(gs[1,0])
-    los['trans_phase'] = pl.subplot(gs[1,1])
+    los['amplitude'] = pl.subplot(gs[0, 0], projection='3d')
+    # plt.axis('equal')
+    los['phase'] = pl.subplot(gs[0, 1], projection='3d')
+    # plt.axis('equal')
+    los['trans_amp'] = pl.subplot(gs[1, 0])
+    plt.axis('equal')
+    los['trans_phase'] = pl.subplot(gs[1, 1])
+    plt.axis('equal')
     
-    sampling_points_amp = los['amplitude'].scatter(sg_x_points,sg_y_points,sg_z_points,
-                                c = np.abs(pressure_field).ravel(),
-                                cmap = amplitude_colormap)
-    array_points = los['amplitude'].scatter(arr_x_points,arr_y_points,arr_z_points,
-                                c = world.tx_array.tx_array_element_descriptor[:,11],
-                                cmap = phase_colormap)
+    sampling_points_amp = los['amplitude']\
+        .scatter(
+            sg_x_points,
+            sg_y_points,
+            sg_z_points,
+            c=np.abs(pressure_field).ravel(),
+            cmap=amplitude_colormap)
+
+    array_points = los['amplitude']\
+        .scatter(
+            arr_x_points,
+            arr_y_points,
+            arr_z_points,
+            c=world.tx_array.tx_array_element_descriptor[:, 11],
+            cmap=phase_colormap,
+            marker = ",")
 
     array_points.set_label('Transducer coordinates')
  
-    los['amplitude'].set_zlabel('z [m]',FontSize  = 15 )
-    los['amplitude'].set_ylabel('y [m]',FontSize  = 15 )
-    los['amplitude'].set_xlabel('x [m]',FontSize  = 15 )
+    los['amplitude'].set_zlabel('z [m]', FontSize=15)
+    los['amplitude'].set_ylabel('y [m]', FontSize=15)
+    los['amplitude'].set_xlabel('x [m]', FontSize=15)
 
     los['amplitude'].set_proj_type('persp')
 
-    amp_cbar = plt.colorbar(sampling_points_amp,ax = los['amplitude'],cmap = amplitude_colormap)
-    amp_cbar.ax.set_ylabel('SPL (Pa)',rotation = 0, y = 0,FontSize = 15)
+    amp_cbar = plt.colorbar(
+        sampling_points_amp,
+        ax=los['amplitude'],
+        cmap=amplitude_colormap)
 
-    los['amplitude'].set_title('Amplitude of the pressure field.', FontSize = 15,y=1.08)
-    los['amplitude'].legend(loc=9, bbox_to_anchor=(0.5, -0.01),ncol = 2,prop={'size': 15})
+    amp_cbar.ax.set_ylabel('SPL (Pa)', rotation=0, y=0, FontSize=15)
+
+    los['amplitude'].set_title('Amplitude of the pressure field.', FontSize=15, y=1.08)
+    los['amplitude'].legend(loc=9, bbox_to_anchor=(0.5, -0.01), ncol=2, prop={'size': 15})
     
-    sampling_points_phase = los['phase'].scatter(sg_x_points,sg_y_points,sg_z_points,
-                                c = np.angle(pressure_field).ravel(),
-                                cmap = phase_colormap)
-    array_points = los['phase'].scatter(arr_x_points,arr_y_points,arr_z_points,
-                                c = world.tx_array.tx_array_element_descriptor[:,11],
-                                cmap = phase_colormap)
+    sampling_points_phase = los['phase']\
+        .scatter(
+            sg_x_points,
+            sg_y_points,
+            sg_z_points,
+            c=np.angle(pressure_field).ravel(),
+            cmap=phase_colormap)
+
+    array_points = los['phase']\
+        .scatter(
+            arr_x_points,
+            arr_y_points,
+            arr_z_points,
+            c=world.tx_array.tx_array_element_descriptor[:, 11],
+            cmap=phase_colormap)
 
     array_points.set_label('Transducer coordinates')
  
-    los['phase'].set_zlabel('z [m]',FontSize  = 15 )
-    los['phase'].set_ylabel('y [m]',FontSize  = 15 )
-    los['phase'].set_xlabel('x [m]',FontSize  = 15 )
+    los['phase'].set_zlabel('z [m]', FontSize=15)
+    los['phase'].set_ylabel('y [m]', FontSize=15)
+    los['phase'].set_xlabel('x [m]', FontSize=15)
 
     los['phase'].set_proj_type('persp')
 
