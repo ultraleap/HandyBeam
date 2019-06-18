@@ -80,7 +80,9 @@ in :code:`tx_array.py` :
     and that will become the primary authority. The :code:`handybeam.tx_element.TxElement`
     will become a browser-editor-visualizer only for the data.
 
+.. warning::
 
+    A typical problem -- if the computed field is full of NaNs -- check that the data passed is of the correct shape `(n,16)` and type `numpy.float32`
 
 
 
