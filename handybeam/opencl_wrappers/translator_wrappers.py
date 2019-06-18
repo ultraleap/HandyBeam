@@ -16,12 +16,7 @@ class Translator(
                     handybeam.translator_mixins.xyz_translator.XYZTranslatorMixin
                 ):
 
-    '''
-    ---------------------------------------------
-    Translator
-    ---------------------------------------------
-    
-    This is a wrapper class which inherits from the template wrapper class Wrapper and the 
+    '''This is a wrapper class which inherits from the template wrapper class Wrapper and the
     OpenCL translator mixin classes. An instance of this class is initialised when a translator
     object is initialised. 
 
@@ -31,12 +26,7 @@ class Translator(
        
         ## TODO - Provide description and type for the handybeam world object.
         
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the Translator class. During the initialisation process,
+        '''This method intialises an instance of the Translator class. During the initialisation process,
         the compiled OpenCL translator kernels are assigned to the appropriate translator mixin classes.
 
         Parameters

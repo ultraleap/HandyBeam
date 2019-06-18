@@ -12,16 +12,36 @@ cl_config_file_name = 'cl_platform_config.ini'
 """ string: constant, file name to store the configuration of the OpenCL subsystem.
 """
 
+
+def print_all_info_of_device(use_platform=0, use_device=0):
+    """ print lots of information about the selected device in given platform
+
+    uses :code:`dir(device)` to get a list properties, and then, queries them
+
+    :param use_platform:
+    :param use_device:
+    :return:
+    """
+    device0 = cl.get_platforms()[use_platform].get_devices()[use_device]
+    for idx, thing in enumerate(dir(device0)):
+        print('idx:{}, thing:{}'.format(idx, thing))
+        try:
+            print(eval("device0.{}".format(thing)))
+        except Exception as einstance:
+            print('Throws error')
+            print(einstance)
+        print('-----')
+
+
 class OpenCLSystem():
+    """ DESCRIPTION HERE
 
-    '''
-    ---------------------------------------------
-    OpenCLSystem
-    ---------------------------------------------
-    
-    DESCRIPTION HERE
+    .. ToDo::
 
-    '''
+        docs...
+
+
+    """
 
     def __init__(self,
                  parent=None,
@@ -30,14 +50,7 @@ class OpenCLSystem():
                  use_platform=0,
                  use_device=2,
                  print_feedback=False):
-        
-
-        '''
-        ---------------------------------------------
-        __init__(parent, use_config_file,use_this_config_file_full_path,use_platform, use_device, print_feedback)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
+        """ DESCRIPTION HERE
 
         Parameters
         ----------
@@ -49,7 +62,7 @@ class OpenCLSystem():
         use_device : DESCRIPTION HERE
         print_feedback : DESCRIPTION HERE
 
-        '''
+        """
 
         self.parent = parent
 
@@ -78,15 +91,9 @@ class OpenCLSystem():
         self.checks_and_feedback()
  
     def checks_and_feedback(self):
+        """DESCRIPTION HERE
 
-        '''
-        ---------------------------------------------
-        checks_and_feedback()
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
-
-        '''
+        """
 
         if self.print_feedback:
             print('cl_system.__init__: parent is {}'.format(self.parent))
@@ -154,22 +161,14 @@ class OpenCLSystem():
         # self.print_current_device(endtype='')
         self.compiled_kernels = cl.Program(self.context, entire_source_text).build()
 
-       
         if self.print_feedback:
             print(', done.')
 
 
-        
     def print_cl_platforms(self):
+        """DESCRIPTION HERE
 
-        '''
-        ---------------------------------------------
-        print_cl_platforms()
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
-
-        '''
+        """
      
         platforms = cl.get_platforms()
 
@@ -182,21 +181,17 @@ class OpenCLSystem():
 
 
     def select_cl_platform(self,use_platform=0, use_device=0):
-    
-        '''
-        ---------------------------------------------
-        select_cl_platform(use_platform,use_device)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
+        """Save a selected platform and device index to a configuration file. This config file will then be read on next startup.
 
         Parameters
         ----------
 
-        use_platform : DESCRIPTION HERE
-        use_device : DESCRIPTION HERE
+        use_platform : integer
+            platform ID
+        use_device : integer
+            device ID for given platform ID
 
-        '''
+        """
 
         cl_config = configparser.ConfigParser()
         cl_config.add_section('what_to_use')
@@ -209,54 +204,36 @@ class OpenCLSystem():
             cl_config.write(out)
 
     def print_current_device(self, endtype='\n'):
-        
-        '''
-        ---------------------------------------------
-        print_current_device(endtype)
-        ---------------------------------------------
-        
-        DESCRIPTION HERE
+        """ prints the name of the current device
 
-        Parameters
-        ----------
-
-        endtype : DESCRIPTION HERE
-
-        '''
-    
+        :param endtype: leave default to add newline at the end. set to :code:`` to ommit the newline.
+        :return: just prints.
+        """
         print('Current compute device:{}'.format(self.device.name), end=endtype)
 
-    def print_sysinfo(self):
 
-        '''
-        ---------------------------------------------
-        print_sysinfo()
-        ---------------------------------------------
-        
-        Prints OpenCL system information.
+def print_sysinfo():
+    """Prints condensed OpenCL system information.
 
-        '''
-
-        print('--system info--')
-        print('current folder: ', os.getcwd())
-        print('------------')
-        print('platforms:')
-        for idx, platform in enumerate(self.platforms):
-            print(idx, " ->", platform.name)
+    """
+    cl.get_platforms()
+    print('--system info--')
+    print('current folder: ', os.getcwd())
+    print('------------')
+    print('platforms:')
+    for idxp, platform in enumerate(cl.get_platforms()):
+        print(idxp, " ->", platform.name)
         print('------------')
         print('devices:')
         # print the devices in the system, marking out the selected one.
-        for idx, qdevice in enumerate(self.devices):
-            print(idx, ' -> ', end='')
-            if self.device == qdevice:
-                print('{selected} ', end='')
-            else:
-                print('           ', end='')
+        for idxd, qdevice in enumerate(platform.get_devices()):
+            print(idxd, ' -> ', end='')
+            print('           ', end='')
             print(qdevice.name)
         print('------------')
         print('')
         print("Machine capabilities:")
-        for idx, device in enumerate(self.devices):
+        for idx, device in enumerate(platform.get_devices()):
             print('')
             print("-------------------- device {}: ----------------".format(idx))
             print("|   Name: ", device.name)
@@ -266,11 +243,14 @@ class OpenCLSystem():
             print("|version: ", device.version, " ")
             print("--------------------------------------------------- ")
 
-        print('------------')
-        print('compiled kernels:')
-        all_kernels = self.compiled_kernels.all_kernels()
-        # pylint: disable=C0200
-        for idx in range(len(all_kernels)):
-            print(idx, '->',
-                  all_kernels[idx].function_name,
-                  '(', all_kernels[idx].num_args, 'arguments )')
+    print('------------')
+    print('compiled kernels:')
+    all_kernels = self.compiled_kernels.all_kernels()
+    # pylint: disable=C0200
+    for idx in range(len(all_kernels)):
+        print(idx, '->',
+              all_kernels[idx].function_name,
+              '(', all_kernels[idx].num_args, 'arguments )')
+
+
+

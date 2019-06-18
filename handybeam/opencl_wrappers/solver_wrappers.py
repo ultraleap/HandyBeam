@@ -14,12 +14,7 @@ class Solver(
                 handybeam.solver_mixins.single_focus_solver.SFSolverMixin
             ):
 
-    '''
-    ---------------------------------------------
-    Solver
-    ---------------------------------------------
-    
-    This is a wrapper class which inherits from the template wrapper class Wrapper and the 
+    '''This is a wrapper class which inherits from the template wrapper class Wrapper and the
     OpenCL solver mixin classes. An instance of this class is initialised when a solver
     object is initialised. 
 
@@ -29,12 +24,7 @@ class Solver(
 
         ## TODO - Provide description and type for the handybeam world object.
 
-        '''
-        ---------------------------------------------
-        __init__(parent)
-        ---------------------------------------------
-        
-        This method intialises an instance of the Solver class. During the initialisation process,
+        '''This method intialises an instance of the Solver class. During the initialisation process,
         the compiled OpenCL solver kernels are assigned to the appropriate solver mixin classes.
 
         Parameters
