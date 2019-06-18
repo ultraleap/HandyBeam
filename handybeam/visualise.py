@@ -263,9 +263,18 @@ def visualize_3D_only(world=None,
         samplers = world.samplers
 
     for idx, sampler in enumerate(samplers):
-        sg_x_points = sampler.coordinates[:, :, 0]
-        sg_y_points = sampler.coordinates[:, :, 1]
-        sg_z_points = sampler.coordinates[:, :, 2]
+
+        if len(sampler.coordinates.shape) == 3:  # surface sampler, 2D list of points
+            sg_x_points = sampler.coordinates[:, :, 0]
+            sg_y_points = sampler.coordinates[:, :, 1]
+            sg_z_points = sampler.coordinates[:, :, 2]
+        else:  # a clist sampler, 1D list of points
+            # numpy.expand_dims
+            sg_x_points = sampler.coordinates[:, 0]
+            sg_y_points = sampler.coordinates[:, 1]
+            sg_z_points = sampler.coordinates[:, 2]
+
+
         xmax = np.max((xmax, np.max(sg_x_points)))
         xmin = np.min((xmin, np.min(sg_x_points)))
         ymax = np.max((ymax, np.max(sg_y_points)))
@@ -314,6 +323,44 @@ def visualize_3D_only(world=None,
         plt.show()
 
 
+def plot_1D_pressure_vs_angle(world=None,
+                              angles=None,
+                              pressure=None,
+                              figsize=(4, 3),
+                              dpi=150,
+                              filename=None):
+    hf = plt.figure(figsize=figsize, dpi=dpi)
+    plt.plot(angles, pressure)
+
+    plt.grid(True)
+    plt.xlabel('angle from normal[rad]')
+    plt.ylabel('pressure,linear[-]')
+    if filename is not None:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
+
+
+def plot_1D_pressure_vs_angle_db_normalized( world=None,
+                                  angles=None,
+                                  pressure=None,
+                                  figsize=(4, 3),
+                                  dpi=150,
+                                  filename=None):
+    hf = plt.figure(figsize=figsize, dpi=dpi)
+    p_db = 20 * np.log10(np.abs(pressure))
+    p_db = p_db - np.max(p_db)
+    plt.plot(angles, p_db)
+    plt.ylim(-40,1)
+    plt.grid(True)
+    plt.xlabel('angle from normal[rad]')
+    plt.ylabel('pressure,linear[-]')
+    if filename is not None:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
 
 
 
