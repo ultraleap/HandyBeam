@@ -72,7 +72,7 @@ class RectPropMixin():
         ------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        This method simulates the acoustic pressure field on a rectillinear sampling grid. It does this by
+        This method simulates the acoustic pressure field on a rectilinear sampling grid. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 
         to the appropriate OpenCl kernel and executes the computation of the pressure field on the GPU. This
         data is then copied over to the pressure field buffer on the CPU.
@@ -115,8 +115,8 @@ class RectPropMixin():
 
         # Set the types correctly.
 
-        N_x  = int(N_x)
-        N_y  = int(N_y)
+        # N_x = int(N_x) # note: the types must be OK before.
+        # N_y = int(N_y)
 
         # Start the timer to measure wall time.
 
@@ -124,7 +124,24 @@ class RectPropMixin():
 
         # Set the global work size for the GPU. 
 
-        global_work_size = (N_x,N_y,1)
+        global_work_size = (N_x, N_y, 1)
+
+        # hardcoded: attempt to optimise the work size by finding the largest work group that will divide the work equally.
+        # find a highest divisor of the N_x that is smaller than max_local_worksize
+        max_local_worksize = 1024  # TODO: currently hard-coded, later on grab straight from the device.
+        current_local_worksize = max_local_worksize
+
+        while current_local_worksize > 0:
+            if N_x % current_local_worksize == 0:
+                # print(' divisor ', i)
+                break
+            current_local_worksize = current_local_worksize - 1
+
+        local_work_size = (current_local_worksize, 1, 1)
+
+        if print_performance_feedback:
+            print("global_work_size: {}".format(global_work_size))
+            print("local_work_size:  {}".format(local_work_size))
 
         # Determine the limits of the sampling grid.
 
@@ -137,18 +154,24 @@ class RectPropMixin():
 
         # Create a numpy array, of the correct type, to store the real and imaginary pressure values for
         # the acoustic field. The format is:
-        #  ( x,y,z,Real(p),Imag(p) ) 
+        #  ( x,y,z,Real(p), Imag(p) )
                
-        py_out_buffer = np.zeros((N_x,N_y,5),dtype = np.float32)
+        py_out_buffer = np.zeros((N_x, N_y, 5), dtype=np.float32)
 
         # Create a buffer on the GPU to store the pressure values for the acoustic field.
 
         cl_field = cl.Buffer(self.cl_system.context, cl.mem_flags.WRITE_ONLY, py_out_buffer.data.nbytes) 
 
-        # Create a buffer on the GPU to store the transducer data and copy the data from the CPU (tx_array.tx_array_element_descriptor)
+        # Create a buffer on the GPU to store the transducer data
+        # and copy the data from the CPU (tx_array.tx_array_element_descriptor)
         # to the GPU.
 
-        cl_tx_element_array_descriptor = cl.Buffer(self.cl_system.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR,hostbuf=tx_array.tx_array_element_descriptor)
+        # note! hostbuf must be a np.float32 --
+        # it is not checked here (for performance), just do it correctly the first time around!
+        cl_tx_element_array_descriptor = cl.Buffer(
+            self.cl_system.context,
+            cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR,
+            hostbuf=tx_array.tx_array_element_descriptor)
       
         # Create and execute an OpenCL event with the initialised queue, work sizes and data.
 
@@ -174,7 +197,7 @@ class RectPropMixin():
 
         # Copy the results from the GPU buffer to the associated CPU buffer. 
 
-        cl_profiling_mem_copy_event = cl.enqueue_copy(self.cl_system.queue,py_out_buffer, cl_field)
+        cl_profiling_mem_copy_event = cl.enqueue_copy(self.cl_system.queue, py_out_buffer, cl_field)
 
         # Block until the kernel event has completed and then until the copy event has completed. 
 
