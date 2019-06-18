@@ -63,12 +63,7 @@ class TxArray(RememberInstanceCreationInfo):
 
     def generate_empty_tx_element_descriptor(self):
         
-        '''
-        ---------------------------------------------
-        generate_empty_tx_element_descriptor()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
 
         '''
         q = np.zeros((1, 16), dtype=np.float)
@@ -142,7 +137,7 @@ class TxArray(RememberInstanceCreationInfo):
 
         return tx_single_element_descriptor
 
-    def visualise(self):
+    def visualise(self, figsize=(4, 3), dpi=150):
         """ Run the visualizer.
 
         Run the :meth:`handybeam.visualise.visualise_flat_tx_array()`.
@@ -151,7 +146,7 @@ class TxArray(RememberInstanceCreationInfo):
 
         """
 
-        handybeam.visualise.tx_array_basic(self)
+        handybeam.visualise.tx_array_basic(self, figsize=figsize ,dpi=dpi)
 
     ## Read-only attributes 
 
@@ -179,14 +174,14 @@ class TxArray(RememberInstanceCreationInfo):
         return self.creation_text + linesep + "name string: " + self.__str__() + linesep + "count of elements: {}".format(self.tx_array_element_descriptor.shape[0])
 
     def describe_element(self, idx):
-        ed=self.tx_array_element_descriptor[idx, :]
+        ed = self.tx_array_element_descriptor[idx, :]
         txt = "element {}: ".format(idx)+linesep
         txt = txt + " >        (xyz) =({:0.1f}, {:0.1f}, {:0.1f})mm".format(ed[0]*1e3, ed[1]*1e3, ed[2]*1e3)+linesep
         txt = txt + " >    (normals) =({}, {}, {})".format(ed[3], ed[4], ed[5])+linesep
         txt = txt + " > (dir coeffs) =(phase_c1:{}, | amp:({}, {}, {})".format(ed[6], ed[7], ed[8], ed[9])+linesep
         txt = txt + " >  amp setting ={}".format(ed[10]) + linesep
         txt = txt + " >        phase ={}".format(ed[11]) + linesep
-        txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12],ed[13],ed[14],ed[15])+linesep
+        txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12], ed[13], ed[14], ed[15])+linesep
         return txt
 
 
