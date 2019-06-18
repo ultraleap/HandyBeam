@@ -17,6 +17,8 @@ from pyquaternion import Quaternion
 from handybeam .misc import copy_docstring
 from handybeam .samplers.abstract_sampler import AbstractSampler
 import handybeam .visualise
+
+from handybeam.misc import handyround
 from os import linesep
 
 ## Global variables
@@ -40,7 +42,8 @@ class RectilinearSampler(AbstractSampler):
                  grid_spacing_per_m=None,
                  grid_extent_around_origin_x=200e-3,
                  grid_extent_around_origin_y=200e-3,
-                 local_work_size=(1, 1, 1)
+                 local_work_size=(1, 1, 1),
+                 align_grid_size_to_gpu=64
                  ):
 
         """Initialises an instance of the RectilinearSampler class.
@@ -69,9 +72,11 @@ class RectilinearSampler(AbstractSampler):
         local_work_size : tuple
                   This sets the local work size for the GPU, not recommended to change unless the user
                   has experience with OpenCL and pyopencl.
+        align_grid_size_to_gpu : int
+                  if set to true, the precise sampling density will be adjusted so that the count of pixels is a multiply of 256. This increases overall throughput of the GPU
         """
 
-        super(RectilinearSampler,self).__init__()
+        super(RectilinearSampler, self).__init__()
 
         self.parent = parent
         self.normal_vector = normal_vector
@@ -79,18 +84,16 @@ class RectilinearSampler(AbstractSampler):
         self.vector_2 = None
         self.origin = origin
         self.local_work_size = local_work_size
-  
-        if grid_spacing_per_m is None:
 
+        if grid_spacing_per_m is None:
             self.delta = grid_spacing_per_wavelength * self.parent.medium_wavelength
-            self.N_x = np.int(np.ceil((2*grid_extent_around_origin_x)/self.delta))
-            self.N_y = np.int(np.ceil((2*grid_extent_around_origin_y)/self.delta))
-        
         else:
-            
-            self.delta = grid_spacing_per_m 
-            self.N_x = np.int(np.ceil((2*grid_extent_around_origin_x)/self.delta))
-            self.N_y = np.int(np.ceil((2*grid_extent_around_origin_y)/self.delta))
+            self.delta = grid_spacing_per_m
+
+        # print((2*grid_extent_around_origin_x)/self.delta)
+        self.N_x = handyround((2*grid_extent_around_origin_x)/self.delta, align_grid_size_to_gpu)
+        self.N_y = handyround((2*grid_extent_around_origin_y)/self.delta, align_grid_size_to_gpu)
+        # print(self.N_x)
 
         self.x_lim = None
         self.y_lim = None
@@ -103,23 +106,32 @@ class RectilinearSampler(AbstractSampler):
         self.vx2 = None
         self.vy2 = None
         self.vz2 = None
+        self.grid_extent_around_origin_x =  grid_extent_around_origin_x
+        self.grid_extent_around_origin_y = grid_extent_around_origin_y
 
         self.transducer_count = self.parent.tx_array.element_count
 
         self.pressure_field = np.zeros((self.N_x, self.N_y, 1), dtype=np.complex)
-        self.coordinates = np.zeros((self.N_x,self.N_y,3),dtype = np.float32)
-        self.coefficient_matrix = np.zeros((256,256),dtype = np.complex)
+        self.coordinates = np.zeros((self.N_x, self.N_y, 3), dtype=np.float32)
+        self.coefficient_matrix = np.zeros((256, 256), dtype=np.complex)
         self.generate_propagation_parameters()
         self.find_rect_grid_area()
 
+    @property
+    def extent(self):
+        """ extent as for use in imshow(extent=this.extent)
+
+        :return: a tuple suitable to give to imshow
+        """
+        return (
+            -self.grid_extent_around_origin_x,
+            self.grid_extent_around_origin_x,
+            -self.grid_extent_around_origin_y,
+            self.grid_extent_around_origin_y)
+
     def find_rect_grid_area(self):
 
-        '''
-        ---------------------------------------------
-        find_rect_grid_area()
-        ---------------------------------------------
-        
-        This method finds the area of the requested sampling grid.
+        '''This method finds the area of the requested sampling grid.
 
         '''
 
@@ -127,12 +139,7 @@ class RectilinearSampler(AbstractSampler):
 
     def generate_propagation_parameters(self):
 
-        '''
-        ---------------------------------------------
-        generate_propagation_parameters()
-        ---------------------------------------------
-        
-        This method finds the parameters to pass to the opencl kernel to correctly
+        '''This method finds the parameters to pass to the opencl kernel to correctly
         define the sampling grid. 
 
         '''
@@ -185,11 +192,11 @@ class RectilinearSampler(AbstractSampler):
         self.vx2 = np.float32(np.round(self.vector_2[0],4))
         self.vy2 = np.float32(np.round(self.vector_2[1],4))
         self.vz2 = np.float32(np.round(self.vector_2[2],4))
-        
 
-    def propagate(self,print_performance_feedback = False):
-    
-        '''Calls the rect_propagator to propagate the acoustic field to
+    def propagate(self,
+                  print_performance_feedback=False,
+                  local_work_size=None):
+        """Calls the rect_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters
@@ -197,8 +204,14 @@ class RectilinearSampler(AbstractSampler):
 
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance.
+        local_work_size : tuple or None
+                Tuple e.g. (1,1,1) - set to use that work unit size.
+                Note that correct setting require in-depth understanding of the GPU properties. Do not change away from (1,1,1) unless you know what You are doing.
 
-        '''
+        """
+
+        if local_work_size is None:
+            local_work_size = self.local_work_size
 
         kernel_output = self.parent.propagator.rect_propagator(    
                                                             self.parent.tx_array,
@@ -208,7 +221,7 @@ class RectilinearSampler(AbstractSampler):
                                                             self.x0, self.y0, self.z0,
                                                             self.vx1, self.vy1, self.vz1,
                                                             self.vx2, self.vy2, self.vz2,
-                                                            local_work_size = self.local_work_size,
+                                                            local_work_size=local_work_size,
                                                             print_performance_feedback=print_performance_feedback
                                                         )
                          
@@ -220,5 +233,5 @@ class RectilinearSampler(AbstractSampler):
         return self.__str__()
 
     def __str__(self):
-        return "RectilinearSampler: {}x{} points, spacing {:0.3f}mm".format(self.N_x,self.N_y,self.delta*1e3)
+        return "RectilinearSampler: {}x{} points, spacing {:0.5f}mm".format(self.N_x,self.N_y,self.delta*1e3)
    
