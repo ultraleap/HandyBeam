@@ -20,12 +20,7 @@ _tx_array_library__default_directivity_cos_power = 3.376
 
 def single_element(parent = None):
   
-    '''
-    ---------------------------------------------
-    single_element(parent)
-    ---------------------------------------------
-        
-    DESCRIPTION HERE
+    '''DESCRIPTION HERE
 
     Parameters
     ----------
@@ -81,12 +76,7 @@ def simple_linear(parent = None, element_count=16, element_pitch=7e-3):
 
 def USX(parent = None):
 
-    '''
-    ---------------------------------------------
-    USX(parent)
-    ---------------------------------------------
-        
-    DESCRIPTION HERE
+    '''DESCRIPTION HERE
 
     Parameters
     ----------
@@ -104,12 +94,7 @@ def USX(parent = None):
 
 def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
 
-    '''
-    ------------------------------------------------------------------------------------------
-    rectilinear(parent,element_count_x,element_count_y,element_pitch_x, element_pitch_y)
-    ------------------------------------------------------------------------------------------
-        
-    DESCRIPTION HERE
+    '''DESCRIPTION HERE
 
     Parameters
     ----------
