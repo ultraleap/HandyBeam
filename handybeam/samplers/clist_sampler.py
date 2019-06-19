@@ -6,7 +6,6 @@ from handybeam.samplers.abstract_sampler import AbstractSampler
 # Class
 
 class ClistSampler(AbstractSampler):
-
     '''This is the general sampling grid class. It takes a list of sampling points
     and samples the acoustic field at these points.
 
@@ -95,8 +94,8 @@ class ClistSampler(AbstractSampler):
         self.pressure_field = None
 
     def propagate(self, print_performance_feedback=False):
-
-        '''This method calls the clist_propagator to propagate the acoustic field to
+        """
+        This method calls the clist_propagator to propagate the acoustic field to
         the desired sampling points.
 
         Parameters
@@ -105,7 +104,7 @@ class ClistSampler(AbstractSampler):
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance.
 
-        '''
+        """
 
         kernel_output = self.parent.propagator.clist_propagator(
                                                         tx_array=self.parent.tx_array,
@@ -113,6 +112,20 @@ class ClistSampler(AbstractSampler):
                                                         local_work_size= self.local_work_size,
                                                         print_performance_feedback=print_performance_feedback
                                                     )
-        self.pressure_field = np.nan_to_num(kernel_output[:,0] + np.complex(0,1) * kernel_output[:,1])
+        self.pressure_field = np.nan_to_num(kernel_output[:, 0] + np.complex(0, 1) * kernel_output[:, 1])
         
         self.no_points = len(self.coordinates[:,0])
+
+    def __repr__(self):
+        """links to :meth:`__str__`"""
+        return self.__str__()
+
+    def __str__(self):
+        """
+        .. ToDo:
+
+            write something usefull for this method.
+
+        :return: a formatted string representing some fun fucts about this instance . . .
+        """
+        return "This is a ToDo. Yup, nothing smart here yet."
