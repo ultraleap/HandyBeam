@@ -352,17 +352,15 @@ def plot_1D_pressure_vs_angle_db_normalized( world=None,
     p_db = 20 * np.log10(np.abs(pressure))
     p_db = p_db - np.max(p_db)
     plt.plot(angles, p_db)
-    plt.ylim(-40,1)
+    plt.ylim(-40, 1)
     plt.grid(True)
     plt.xlabel('angle from normal[rad]')
-    plt.ylabel('pressure,linear[-]')
+    plt.ylabel('pressure, dB re max(p) [-]')
     if filename is not None:
         plt.savefig(filename)
         plt.close()
     else:
         plt.show()
-
-
 
 
 def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dpi=80):
