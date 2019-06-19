@@ -43,25 +43,24 @@ def copy_docstring(from_function, separator="\n", prepend=True):
 def handyround(value, base=64):
     """ rounds the provided value to the nearest multiple of the base
 
+    Useful for coercing size of the parallel run to the executor width.
+
     :param value: the number to round. preferably, a numpy type
     :param base: the number to round to.
-    :return: :code:`return np.int(base * np.rint(value / base))`
+    :return: :code:`np.int(base * np.ceil(value / base))`
     """
     return np.int(base * np.ceil(value / base))
 
 
 class HandyDict(dict):
-    """
-
-    Provides matlab-like setting/storage of items in a dict
+    """Provides matlab-like setting/storage of items in a dict (dictionary)
 
     q=HandyDict()
     q.new_key = 'Hello world!'
     print(q.new_key)
 
 
-
-    happily copypasted from https://stackoverflow.com/questions/2352181/how-to-use-a-dot-to-access-members-of-dictionary
+    happily copypasted from https://stackoverflow.com/questions/2352181/how-to-use-a-dot-to-access-members-of-dictionary , and modified only slightly.
     """
     def __init__(self, args={'True': True, 'False':False}):
         """ starts the instance.
