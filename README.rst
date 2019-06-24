@@ -89,15 +89,25 @@ Note that as of release R1.0, compatibility with cueBEAM has been completely dro
 
 ----
 
+================
+Acknowledgements
+================
+
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 737087.
+
+
+
 =======
 Support
 =======
 
-Primary developer is Dr Jerzy Dziewierz. Contact me on [slack](https://ultrahaptics.slack.com/team/UB0RDJ24B) using [@jurek](https://ultrahaptics.slack.com/team/UB0RDJ24B)
+Primary developer is Dr Jerzy Dziewierz.
 
 ============
 Contributors
 ============
+
+
 
 in no particular order:
 
@@ -125,7 +135,6 @@ Unless there are some UH rules that I do not know about, I'd say:
     * ~~For branching workflow, use this: `<http://nvie.com/posts/a-successful-git-branching-model>`_.~~
     * ~~For new features, start a new folder, then a new submodule, and then use this: `<http://tom.preston-werner.com/2010/08/23/readme-driven-development.html>`_.~~
 * For documentation, use this: `<http://www.writethedocs.org/guide/writing/beginners-guide-to-docs>`_
-* For anything else, ask `Jerzy Dziewierz<https://ultrahaptics.slack.com/team/UB0RDJ24B>`_
 
 ----
 
@@ -150,11 +159,4 @@ Zen of HandyBeam
 **Note - all the points have their original authors, whom I sometimes cannot properly attribute. No claim is made to authorship of these.**
 
 ----
-
-
-=============
-LEGACY README
-=============
-
-`https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/`_ says I need one, but nothing to write here yet.
 

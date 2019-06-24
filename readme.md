@@ -126,3 +126,9 @@ Unless there are some UH rules that I do not know about, I'd say:
 ### Note - all the points have their original authors, whom I sometimes cannot properly attribute. No claim is made to authorship of these.
 
 ----
+================
+Acknowledgements
+================
+
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 737087.
+
