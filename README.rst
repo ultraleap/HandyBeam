@@ -1,18 +1,3 @@
-######
-Readme
-######
-
-
-Readme file for gitlab repository root.
-
-Note that the links in this particular document are compatible with gitlab.
-
-*************
-Documentation
-*************
-
-There is a user manual and a sphinx-compiled documentation in `<handybeam/doc/build/index.html>`_. Most methods are documented fairly well. If anything is unclear, contact me on [slack](https://ultrahaptics.slack.com/team/UB0RDJ24B) using [@jurek](https://ultrahaptics.slack.com/team/UB0RDJ24B)
-
 ***************
 About HandyBeam
 ***************
@@ -57,7 +42,6 @@ Legal & disclaimer
 License
 =======
 
-
 Copyright 2019 Ultrahaptics
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,24 +73,16 @@ Note that as of release R1.0, compatibility with cueBEAM has been completely dro
 
 ----
 
-================
+****************
 Acknowledgements
-================
+****************
 
 This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 737087.
 
 
-
-=======
-Support
-=======
-
-Primary developer is Dr Jerzy Dziewierz.
-
-============
+****************
 Contributors
-============
-
+****************
 
 
 in no particular order:
@@ -122,9 +98,9 @@ in no particular order:
 * `Ben Long <https://www.linkedin.com/in/benjamin-long-1b455ba5/>`_ - helpful discussions
 * `University of Strathclyde <https://www.linkedin.com/school/university-of-strathclyde/>`_ - legacy code contributor
 
-============
+****************
 Contributing
-============
+****************
 
 Note that as of release R1.0, compatibility with cueBEAM has been completely dropped.
 
@@ -138,9 +114,9 @@ Unless there are some UH rules that I do not know about, I'd say:
 
 ----
 
-================
+****************
 Zen of HandyBeam
-================
+****************
 
 * *"There is no point in getting the wrong answer really, really fast"* -- speed of code matters, but only after it has been shown to operate correctly.
 
@@ -160,3 +136,8 @@ Zen of HandyBeam
 
 ----
 
+*************
+Documentation
+*************
+
+There is a user manual and a sphinx-compiled documentation in `<handybeam/doc/build/index.html>`_.
