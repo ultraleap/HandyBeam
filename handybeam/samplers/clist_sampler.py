@@ -11,7 +11,7 @@ class ClistSampler(AbstractSampler):
 
     '''
 
-    def __init__(self,parent=None, local_work_size = (128,1,1)):
+    def __init__(self, parent=None, local_work_size=(128, 1, 1)):
 
         '''This method intialises an instance of the ClistSampler class.
 
@@ -26,11 +26,11 @@ class ClistSampler(AbstractSampler):
 
         '''
         
-        super(ClistSampler,self).__init__()
+        super(ClistSampler, self).__init__()
 
         self.world = parent  
         self.pressure_field = None
-        self.coordinates = np.zeros((0,3),dtype = np.float32)
+        self.coordinates = np.zeros((0, 3), dtype=np.float32)
         self.no_points = None
         self.local_work_size = local_work_size
 
@@ -42,20 +42,20 @@ class ClistSampler(AbstractSampler):
 
         # Find the distance along the x-axis.
 
-        x_min = np.min(self.coordinates[:,0])
-        x_max = np.max(self.coordinates[:,0])
+        x_min = np.min(self.coordinates[:, 0])
+        x_max = np.max(self.coordinates[:, 0])
         x_length = x_max - x_min
 
         # Find the distance along the y-axis.
 
-        y_min = np.min(self.coordinates[:,1])
-        y_max = np.max(self.coordinates[:,1])
+        y_min = np.min(self.coordinates[:, 1])
+        y_max = np.max(self.coordinates[:, 1])
         y_length = y_max - y_min
 
         # Find the distance along the z-axis.
 
-        z_min = np.min(self.coordinates[:,2])
-        z_max = np.max(self.coordinates[:,2])
+        z_min = np.min(self.coordinates[:, 2])
+        z_max = np.max(self.coordinates[:, 2])
         z_length = z_max - z_min
 
         # Find the volume.
@@ -81,7 +81,7 @@ class ClistSampler(AbstractSampler):
 
         '''
 
-        self.coordinates = np.column_stack([x_list,y_list, z_list])
+        self.coordinates = np.column_stack([x_list, y_list, z_list])
         self.coordinates = self.coordinates.astype(np.float32)
 
     def clear_data(self):
@@ -90,7 +90,7 @@ class ClistSampler(AbstractSampler):
 
         '''
 
-        self.coordinates = np.zeros((0,3),dtype = np.float32)
+        self.coordinates = np.zeros((0, 3), dtype=np.float32)
         self.pressure_field = None
 
     def propagate(self, print_performance_feedback=False):
