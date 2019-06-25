@@ -46,28 +46,31 @@ class RememberInstanceCreationInfo:
         """
         constructor. Starts a thread to figure out the super's creation info and bails out.
         """
-        # pylint: disable = W0612
-        for frame, line in traceback.walk_stack(None):
-            varnames = frame.f_code.co_varnames
-            if varnames is ():
-                break
-            if frame.f_locals[varnames[0]] not in (self, self.__class__):
-                break
-                # if the frame is inside a method of this instance,
-                # the first argument usually contains either the instance or
-                #  its class
-                # we want to find the first frame, where this is not the case
-        else:
-            pass  # note: this is notorious when used from matlab. Just skip.
-            # raise InstancecreationError("No suitable outer frame found.")
-        # pylint: disable = W0631
-        self._outer_frame = frame
-        self.creation_module = frame.f_globals["__name__"]
-        self.creation_file, self.creation_line, self.creation_function, \
-            self.creation_text = traceback.extract_stack(frame, 1)[0]
-        self.creation_name = self.creation_text.split("=")[0].strip()
-        super().__init__()
-        threading.Thread(target=self._check_existence_after_creation).start()
+        try:
+            # pylint: disable = W0612
+            for frame, line in traceback.walk_stack(None):
+                varnames = frame.f_code.co_varnames
+                if varnames is ():
+                    break
+                if frame.f_locals[varnames[0]] not in (self, self.__class__):
+                    break
+                    # if the frame is inside a method of this instance,
+                    # the first argument usually contains either the instance or
+                    #  its class
+                    # we want to find the first frame, where this is not the case
+            else:
+                pass  # note: this is notorious when used from matlab. Just skip.
+                # raise InstancecreationError("No suitable outer frame found.")
+            # pylint: disable = W0631
+            self._outer_frame = frame
+            self.creation_module = frame.f_globals["__name__"]
+            self.creation_file, self.creation_line, self.creation_function, \
+                self.creation_text = traceback.extract_stack(frame, 1)[0]
+            self.creation_name = self.creation_text.split("=")[0].strip()
+            super().__init__()
+            threading.Thread(target=self._check_existence_after_creation).start()
+        except Exception:
+            pass
 
     def _check_existence_after_creation(self):
         """
