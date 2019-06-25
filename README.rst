@@ -102,15 +102,12 @@ in no particular order:
 Contributing
 ****************
 
+.. ToDo::
+
+    Describe the new core/plug-in/development/trash system
+
+
 Note that as of release R1.0, compatibility with cueBEAM has been completely dropped.
-
-Unless there are some UH rules that I do not know about, I'd say:
-
-* For version number, use `semantic versioning 2.0.0 <https://semver.org>`_
-* For new features and bugfixes, use `GitHub Flow model <https://guides.github.com/introduction/flow/>`_
-    * ~~For branching workflow, use this: `<http://nvie.com/posts/a-successful-git-branching-model>`_.~~
-    * ~~For new features, start a new folder, then a new submodule, and then use this: `<http://tom.preston-werner.com/2010/08/23/readme-driven-development.html>`_.~~
-* For documentation, use this: `<http://www.writethedocs.org/guide/writing/beginners-guide-to-docs>`_
 
 ----
 
