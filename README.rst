@@ -137,5 +137,5 @@ Zen of HandyBeam
 Documentation
 *************
 
-There is a user manual and a sphinx-compiled documentation source code in `<handybeam/doc/source>`_. This will be corrected to the deployed documentation when I get the space to host it.
+There is a user manual and a sphinx-compiled documentation source code in `<https://github.com/ultrahaptics/HandyBeam/tree/master/doc/source>`_. This will be corrected to the deployed documentation when I get the space to host it.
 
