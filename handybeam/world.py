@@ -146,7 +146,7 @@ class World(RememberInstanceCreationInfo):
 
     def __str__(self):
         """ returns a short info about this world."""
-        txt=self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} sampler(s)"\
+        txt = self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} sampler(s)"\
             .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
                     self.medium_wavenumber, len(self.samplers))
         for idx, sampler in enumerate(self.samplers):
@@ -159,3 +159,33 @@ class World(RememberInstanceCreationInfo):
     def __repr__(self):
         """ links back to __str__()"""
         return self.__str__()
+
+    def _repr_html_(self):
+        """ builds a html version of the repr. Displays some basic properties about this world instance.
+
+        :return: Jupyter/IPython uses this
+        """
+        txt = "<em>handybeam.world.World</em> object with following properties, rendered for You in genuine html table form:"
+        txt = txt + "<table><tr><th>Property</th><th>Value</th></tr>"
+        txt = txt + "<tr><td>wave velocity</td><td>{:0.1f} m/s</td></tr>".format(self.sound_velocity)
+        txt = txt + "<tr><td>frequency</td><td>{:0.1f} kHz</td></tr>".format(self.frequency*1e-3)
+        txt = txt + "<tr><td>wavelength</td><td>{:0.3f} mm</td></tr>".format(self.medium_wavelength*1e3)
+        txt = txt + "<tr><td>wavenumber</td><td>{:0.3f} waves/m</td></tr>".format(self.medium_wavenumber)
+        txt = txt + "</table>"
+
+        if self.tx_array is not None:
+            txt = txt + linesep + "<p><b>Tx array:</b> {}</p>".format(self.tx_array)
+        else:
+            txt = txt + linesep + "<p><b>No Tx Array attached. Attach at least one Tx Array.</b></p>"
+
+        if not self.samplers:
+            txt = txt + "<p><b>No field samplers. Attach at least one field sampler.</b></p>"
+
+        for idx, sampler in enumerate(self.samplers):
+            txt = txt + "<p><b>field sampler {}</b>: {}</p>".format(idx, str(sampler))
+
+        #  txt = txt+"<p>{}</p>".format(self.__str__())
+        #  txt = txt + "<p></p><p>this is a html version of <em>self.__str__()</em>"
+        return txt
+
+
