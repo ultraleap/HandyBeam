@@ -32,6 +32,9 @@ Go straight to :doc:`040_reference`
    031_installation_guide.rst
    032_quick_start.rst
    040_reference.rst
+   080_contributing.rst
+   081_contributors.rst
+
 
 
 ==================
