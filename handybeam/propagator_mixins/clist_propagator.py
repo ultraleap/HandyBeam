@@ -1,50 +1,32 @@
-## Imports
+# # Imports
 
 from timeit import default_timer as timer
 import numpy as np
 import pyopencl as cl
 import handybeam .tx_array
 
-## Class
+# # Class
+
 
 class ClistPropMixin():
-
-    '''
-    ---------------------------------------------
-    ClistPropMixin
-    ---------------------------------------------
-    
-    This is a mixin class for the compiled OpenCL kernel _hbk_clist_propagator. It assigns
+    """This is a mixin class for the compiled OpenCL kernel _hbk_clist_propagator. It assigns
     the compiled OpenCL kernel to this Python class which can then be called by the appropriate
     sampler class. 
 
-    '''
+    """
 
     def __init__(self):
+        """This method intialises an instance of the mixin class ClistPropMixin.
 
-
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-        
-        This method intialises an instance of the mixin class ClistPropMixin.
-
-        '''
+        """
 
         self._hbk_clist_propagator = None
 
     def _register_clist_propagator(self):
-
-        '''
-        ---------------------------------------------
-        _register_clist_propagator()
-        ---------------------------------------------
-
-        This method assigns the compiled OpenCL propagator kernel _hbk_clist_propagator to this 
+        """This method assigns the compiled OpenCL propagator kernel _hbk_clist_propagator to this
         class and then sets the correct data types for the input to the assigned kernel.
 
-        '''
+        """
         self._hbk_clist_propagator = self.cl_system.compiled_kernels._hbk_clist_propagator
         self._hbk_clist_propagator.set_scalar_arg_dtypes([  None,None,None,
                                                             np.uint32,np.uint32])                                           
@@ -56,13 +38,7 @@ class ClistPropMixin():
                          print_performance_feedback=False
                          ):
 
-
-        '''
-        --------------------------------------------------------------------------------------------------
-        clist_propagator(tx_array, sampling_point_list, local_work_size, print_performance_feedback)
-        --------------------------------------------------------------------------------------------------
-
-        This method simulates the acoustic pressure field on a set of provided sampling points. It does this by
+        """This method simulates the acoustic pressure field on a set of provided sampling points. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 
         to the appropriate OpenCl kernel and executes the computation of the pressure field on the GPU. This
         data is then copied over to the pressure field buffer on the CPU.
@@ -79,7 +55,7 @@ class ClistPropMixin():
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance.
 
-        '''
+        """
 
         # Start the timer to measure wall time.
 
@@ -161,3 +137,4 @@ class ClistPropMixin():
                                             output_buffer_size)
 
         return py_out_buffer
+

@@ -2,7 +2,7 @@
 
 .. note, this is an 'explicit link' so that I can link to this from other documents.
 
-.. _contributing:
+.. _contributors:
 
 ============
 Contributors

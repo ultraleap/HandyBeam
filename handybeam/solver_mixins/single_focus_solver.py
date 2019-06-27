@@ -1,49 +1,34 @@
-## Imports
+# # Imports
 
 from timeit import default_timer as timer
 import numpy as np
 import pyopencl as cl
 import handybeam.tx_array
 
-## Class
+# # Class
+
 
 class SFSolverMixin():
-
-    '''
-    ---------------------------------------------
-    SFSolverMixin
-    ---------------------------------------------
-    
-    This is a mixin class for the compiled OpenCL kernel _hbk_sf_solver. It assigns
+    """ mixin class for the compiled OpenCL kernel _hbk_sf_solver. It assigns
     the compiled OpenCL kernel to this Python class which can then be called by the appropriate
     solver class. 
 
-    '''
-    def __init__(self):
+    """
 
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-        
-        This method intialises an instance of the mixin class SFSolverMixin.
+    def __init__(self):
+        '''intialises an instance of the mixin class SFSolverMixin.
 
         '''
 
         self._hbk_sf_solver = None        
 
-    
     def _register_single_focus_solver(self):
-
-        '''
-        ---------------------------------------------
-        _register_single_focus_solver()
-        ---------------------------------------------
-
-        This method assigns the compiled OpenCL propagator kernel _hbk_sf_solver to this 
+        """Assigns the compiled OpenCL propagator kernel _hbk_sf_solver to this
         class and then sets the correct data types for the input to the assigned kernel.
 
-        '''
+        Used by the :meth:`opencl_wrappers.Solver.__init__`
+
+        """
 
         self._hbk_sf_solver = self.cl_system.compiled_kernels._hbk_sf_solver
 
@@ -57,12 +42,7 @@ class SFSolverMixin():
                             print_performance_feedback = False):
 
 
-        '''
-        ------------------------------------------------------------------------------------------
-        single_focus_solver(tx_array, xf,yf,zf, local_work_size, print_performance_feedback)
-        ------------------------------------------------------------------------------------------
-
-        This method determines the set of activation coefficients required to produce 
+        """ This method determines the set of activation coefficients required to produce
         a single focal point a given point in space. 
  
         Parameters
@@ -81,7 +61,7 @@ class SFSolverMixin():
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance.
 
-        '''
+        """
 
         # Start the timer to measure wall time.
 

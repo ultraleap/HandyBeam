@@ -1,50 +1,31 @@
-## Imports
+# # Imports
 
 from timeit import default_timer as timer
 import numpy as np
 import pyopencl as cl
 import handybeam.tx_array
 
-## Class
+# # Class
+
 
 class HexPropMixin():
-
-    '''
-    ---------------------------------------------
-    HexPropMixin
-    ---------------------------------------------
-    
-    This is a mixin class for the compiled OpenCL kernel _hbk_hex_propagator. It assigns
+    '''This is a mixin class for the compiled OpenCL kernel _hbk_hex_propagator. It assigns
     the compiled OpenCL kernel to this Python class which can then be called by the appropriate
-    sampler class. 
-
+    sampler class.
     '''
 
     def __init__(self):
+        """This method intialises an instance of the mixin class HexPropMixin.
 
-
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-        
-        This method intialises an instance of the mixin class HexPropMixin.
-
-        '''
+        """
 
         self._hbk_hex_propagator = None        
 
     def _register_hex_propagator(self):
-        
-        '''
-        ---------------------------------------------
-        _register_hex_propagator()
-        ---------------------------------------------
-
-        This method assigns the compiled OpenCL propagator kernel _hbk_hex_propagator to this 
+        """This method assigns the compiled OpenCL propagator kernel _hbk_hex_propagator to this
         class and then sets the correct data types for the input to the assigned kernel.
 
-        '''
+        """
 
         self._hbk_hex_propagator = self.cl_system.compiled_kernels._hbk_hex_propagator
 
@@ -65,13 +46,7 @@ class HexPropMixin():
                        local_work_size = (1,1,1),
                        print_performance_feedback = None
                        ):
-
-        '''
-        ----------------------------------------------------------------------------------------------------------------------------------------
-        hex_propagator( tx_array, side_length, delta, x0, y0, z0, vx1,vy1,vz1,vx2,vy2,vz2, local_work_size, print_performance_feedback)
-        ----------------------------------------------------------------------------------------------------------------------------------------
-
-        This method simulates the acoustic pressure field on a hexagonal sampling grid. It does this by
+        """This method simulates the acoustic pressure field on a hexagonal sampling grid. It does this by
         initialising a pressure field buffer on the CPU. It then passes the required information 
         to the appropriate OpenCl kernel and executes the computation of the pressure field on the GPU. This
         data is then copied over to the pressure field buffer on the CPU.
@@ -108,7 +83,7 @@ class HexPropMixin():
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance.
 
-        '''
+        """
 
         # Start the timer to measure wall time.
 
@@ -197,4 +172,4 @@ class HexPropMixin():
                                             output_buffer_size)
 
         return py_out_buffer
-   
+
