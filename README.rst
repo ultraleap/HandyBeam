@@ -80,31 +80,12 @@ Acknowledgements
 This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 737087.
 
 
-****************
-Contributors
-****************
-
-
-in no particular order:
-
-* `Tom Carter <https://www.linkedin.com/in/tom-carter/>`_ - project sponsor
-* `Jerzy Dziewierz <https://www.linkedin.com/in/jerzy-dziewierz-156b3138/>`_ - primary developer and maintainer
-* `Orestis Georgiou <https://www.linkedin.com/in/orestisgeorgiou/>`_ - legacy project sponsor
-* `Salvador Catsis <https://www.linkedin.com/in/salvador-catsis-b91956161/>`_ - code contributor
-* `Rob Malkin <https://www.linkedin.com/in/rob-malkin-84486843/>`_ - legacy code contributor
-* `Hugh Hopper <https://www.linkedin.com/in/hugh-hopper-26b37957/>`_ , `Joe Spilman <https://www.linkedin.com/in/joe-spilman-6b5618a0/>`_, `Adam Price <https://www.linkedin.com/in/adam-price-ba015877/>`_ - calibration data, legacy code (Acoustic Renderer), helpful discussions
-* `Brian Kappus <https://www.linkedin.com/in/brian-kappus-9359135b/>`_ - helpful discussions
-* `LEVITATE project <https://www.levitateproject.org/>`_ calibration data, helpful discussions
-* `Ben Long <https://www.linkedin.com/in/benjamin-long-1b455ba5/>`_ - helpful discussions
-* `University of Strathclyde <https://www.linkedin.com/school/university-of-strathclyde/>`_ - legacy code contributor
 
 ****************
 Contributing
 ****************
 
-.. ToDo::
-
-    Describe the new core/plug-in/development/trash system
+Go to the "Contributing Guide" in the documentation.
 
 
 Note that as of release R1.0, compatibility with cueBEAM has been completely dropped.
