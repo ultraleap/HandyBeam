@@ -20,10 +20,16 @@ Holds a description of things like:
 
 * The propagator (object that holds the propagation engine, and compute resources)
 
+.. TODO::
+
+    Replace all "if print feedback" with a logging module.
+    Time to grow up.
+    See `this tutorial <https://docs.python.org/3/howto/logging-cookbook.html>`_
+
 """
  
 
-## Imports
+# # Imports
 
 import numpy as np
 import handybeam.bugcatcher
@@ -31,12 +37,15 @@ import handybeam.tx_array_library
 import handybeam.opencl_wrappers.propagator_wrappers
 from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
 from os import linesep
-## Global variables 
+# # Global variables
 
 __license__ = "Apache 2.0"
-tau = 2*np.pi
 
-## Class
+tau = 2*np.pi
+"""the tau constant. It really should get implemented into numpy."""
+
+# # Class
+
 
 class World(RememberInstanceCreationInfo):
     """ Root descriptor of the simulated universe
@@ -146,14 +155,16 @@ class World(RememberInstanceCreationInfo):
 
     def __str__(self):
         """ returns a short info about this world."""
-        txt = self.creation_text+linesep+"handybeam.world.World() with sound velocity of {:0.1f}m/s, frequency {:0.1f}kHz, medium_wavelength of {:0.3f}mm, wavenumber {:0.3f}, {} sampler(s)"\
-            .format(self.sound_velocity, self.frequency*1e-3, self.medium_wavelength*1e3,
-                    self.medium_wavenumber, len(self.samplers))
+        txt = f"{self.creation_text}{linesep}handybeam.world.World() with "
+        txt = f"{txt}sound velocity of {self.sound_velocity:0.1f}m/s, "
+        txt = f"{txt}frequency {self.frequency * 1e-3:0.1f}kHz, "
+        txt = f"{txt}medium_wavelength of {self.medium_wavelength * 1e3:0.3f}mm, "
+        txt = f"{txt}wavenumber {self.medium_wavenumber:0.3f}, {len(self.samplers)} sampler(s)"
         for idx, sampler in enumerate(self.samplers):
-            txt = txt + linesep + "sampler {}: {}".format(idx, str(sampler))
+            txt = f"sampler {idx}: {str(sampler)}"
 
         if self.tx_array is not None:
-            txt = txt + linesep + "Tx array: {}".format(self.tx_array)
+            txt = f"{txt}{linesep}Tx array: {self.tx_array}"
         return txt
 
     def __repr__(self):
@@ -165,24 +176,25 @@ class World(RememberInstanceCreationInfo):
 
         :return: Jupyter/IPython uses this
         """
-        txt = "<em>handybeam.world.World</em> object with following properties, rendered for You in genuine html table form:"
-        txt = txt + "<table><tr><th>Property</th><th>Value</th></tr>"
-        txt = txt + "<tr><td>wave velocity</td><td>{:0.1f} m/s</td></tr>".format(self.sound_velocity)
-        txt = txt + "<tr><td>frequency</td><td>{:0.1f} kHz</td></tr>".format(self.frequency*1e-3)
-        txt = txt + "<tr><td>wavelength</td><td>{:0.3f} mm</td></tr>".format(self.medium_wavelength*1e3)
-        txt = txt + "<tr><td>wavenumber</td><td>{:0.3f} waves/m</td></tr>".format(self.medium_wavenumber)
-        txt = txt + "</table>"
+        txt = f"<em>handybeam.world.World</em> object with following properties, "
+        txt = f"{txt}rendered for You in genuine html table form:"
+        txt = f"{txt}<table><tr><th>Property</th><th>Value</th></tr>"
+        txt = f"{txt}<tr><td>wave velocity</td><td>{self.sound_velocity:0.1f} m/s</td></tr>"
+        txt = f"{txt}<tr><td>frequency</td><td>{self.frequency * 1e-3:0.1f} kHz</td></tr>"
+        txt = f"{txt}<tr><td>wavelength</td><td>{self.medium_wavelength * 1e3:0.3f} mm</td></tr>"
+        txt = f"{txt}<tr><td>wavenumber</td><td>{self.medium_wavenumber:0.3f} waves/m</td></tr>"
+        txt = f"{txt}</table>"
 
         if self.tx_array is not None:
-            txt = txt + linesep + "<p><b>Tx array:</b> {}</p>".format(self.tx_array)
+            txt = f"{txt}{linesep}<p><b>Tx array:</b> {self.tx_array}</p>"
         else:
-            txt = txt + linesep + "<p><b>No Tx Array attached. Attach at least one Tx Array.</b></p>"
+            txt = f"{txt}{linesep}<p><b>No Tx Array attached. Attach at least one Tx Array.</b></p>"
 
         if not self.samplers:
-            txt = txt + "<p><b>No field samplers. Attach at least one field sampler.</b></p>"
+            txt = f"{txt}<p><b>No field samplers. Attach at least one field sampler.</b></p>"
 
         for idx, sampler in enumerate(self.samplers):
-            txt = txt + "<p><b>field sampler {}</b>: {}</p>".format(idx, str(sampler))
+            txt = f"{txt}<p><b>field sampler {idx}</b>: {str(sampler)}</p>"
 
         #  txt = txt+"<p>{}</p>".format(self.__str__())
         #  txt = txt + "<p></p><p>this is a html version of <em>self.__str__()</em>"
