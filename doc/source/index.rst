@@ -3,6 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
+.. ToDo::
+
+   Make the index more pro - like `Chainer <https://docs.chainer.org/en/latest/>`_
+
+
 =====
 Index
 =====
@@ -24,12 +30,12 @@ Go straight to :doc:`040_reference`
    :caption: Documents:
 
    010_philosophy.rst
+   031_installation_guide.rst
+   023_api_principles.rst
    011_wave_propagation_maths.rst
    021_implementation_details.rst
-   023_api_principles.rst
    024_R1_data_structures.rst
    019_data_collection.rst
-   031_installation_guide.rst
    032_quick_start.rst
    040_reference.rst
    080_contributing.rst

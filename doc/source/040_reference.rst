@@ -18,8 +18,9 @@ API reference
     auto_handybeam_excitation_solver.rst
     auto_handybeam_translator.rst
     auto_handybeam_samplers.rst
-    auto_handybeam_opencl_wrappers.rst
     auto_handybeam_visualise.rst
+    auto_handybeam_evaluators.rst
+    auto_handybeam_opencl_wrappers.rst
     auto_handybeam_cl_system.rst
     manual_cl_platform_config.ini.rst
     auto_misc_tools.rst

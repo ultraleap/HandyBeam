@@ -28,8 +28,7 @@ class ClistPropMixin():
 
         """
         self._hbk_clist_propagator = self.cl_system.compiled_kernels._hbk_clist_propagator
-        self._hbk_clist_propagator.set_scalar_arg_dtypes([  None,None,None,
-                                                            np.uint32,np.uint32])                                           
+        self._hbk_clist_propagator.set_scalar_arg_dtypes([None, None, None, np.uint32, np.uint32])
 
     def clist_propagator(self,
                          tx_array: handybeam.tx_array.TxArray,

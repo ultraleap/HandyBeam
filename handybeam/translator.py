@@ -21,7 +21,7 @@ class Translator():
 
     '''
 
-    def __init__(self,parent = None):
+    def __init__(self, parent = None):
         '''This method intialises an instance of class Translator.
 
         Parameters

@@ -86,7 +86,9 @@ class OpenCLSystem():
     def checks_and_feedback(self):
         """ DESCRIPTION HERE
 
-        .. todo:: Note To Salvador. Your automatically generated docstrings are actually NOT compatible with the Numpy standard.
+        .. TODO:: Note To Salvador. Your automatically generated docstrings are actually NOT compatible with the Numpy standard.
+
+        .. TODO:: Currently, the constants are written to a file, and then reloaded and compiled. Replace this method with a dynamic templating system.
 
         See the: `numpydoc docstring guide <https://numpydoc.readthedocs.io/en/latest/format.html>`_
 

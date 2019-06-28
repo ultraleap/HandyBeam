@@ -1,23 +1,30 @@
 """
-
 .. _evaluators:
-
-=====================================
-module: :code:`handybeam.evaluators`
-=====================================
 
 Contains methods to measure various things about the acoustic field.
 
-Typically applied AFTER the acoustic field calculation is complete.
+Typically applied after the acoustic field calculation is complete.
 
 Could be used for numerical optimisation runs.
 
 
+Please use this as reference for opencv thresholding functions:
+
+https://docs.opencv.org/3.4/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a147222a96556ebc1d948b372bcd7ac59
+
+.. TODO: - Need to change the intensity stuff to match up with what is in now in the surface metrics stuff
+
+----
+
+.. TODO: - this module needs a major rework . . .
+
+
 """
-## Imports
+# # Imports
 
 import numpy as np
 import cv2 as cv
+import handybeam.samplers
 from matplotlib import pyplot as plt
 import handybeam.samplers.clist_sampler as clist_sampler
 
@@ -32,32 +39,18 @@ rms_factor = (np.sqrt(2) / 2)
 """ constant. 
 """
 
-# Please use this as reference for opencv thresholding functions. 
-#  https://docs.opencv.org/3.4/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a147222a96556ebc1d948b372bcd7ac59
 
 # Class
 
 
-#### TODO - Need to change the intensity stuff to match up with what is in now in the surface metrics stuff
-
-class Evaluator3D():
-    '''
-    ---------------------------------------------
-    Evaluator3D
-    ---------------------------------------------
-    
-    DESCRIPTION HERE
+class Evaluator3D():  # type: Type[Evaluator3D]
+    '''DESCRIPTION HERE
 
     '''
 
     def __init__(self):
 
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
 
         '''
         self.volume_sampling_field = None
@@ -66,15 +59,10 @@ class Evaluator3D():
         self.ahi_3d = None
         self.vector_3d_metrics = None
 
-    def add_sampling_field(self, volume_sampling_field):
+    def add_sampling_field(self, volume_sampling_field):  # type: (Evaluator3D, handybeam.samplers.any) -> None
         
 
-        '''
-        ---------------------------------------------
-        add_sampling_field(volume_sampling_field)
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
 
         Parameters
         ----------
@@ -86,13 +74,7 @@ class Evaluator3D():
         self.volume_sampling_field = volume_sampling_field
 
     def find_volume_metrics(self):
-
-        '''
-        ---------------------------------------------
-        find_volume_metrics()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
 
@@ -105,13 +87,7 @@ class Evaluator3D():
         return self.vector_3d_metrics
 
     def find_afi_3d(self):
-
-        '''
-        ---------------------------------------------
-        find_afi_3d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         volume_pressure_field = self.volume_sampling_field.pressure_field
@@ -147,13 +123,7 @@ class Evaluator3D():
                 / np.power(self.volume_sampling_field.parent.medium_wavelength, 3)
 
     def find_ali_3d(self):
-        
-        '''
-        ---------------------------------------------
-        find_ali_3d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         volume_pressure_field = self.volume_sampling_field.pressure_field
@@ -189,13 +159,7 @@ class Evaluator3D():
                 / np.power(self.volume_sampling_field.parent.medium_wavelength, 3)
                
     def find_ahi_3d(self):
-
-        '''
-        ---------------------------------------------
-        find_ahi_3d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         volume_pressure_field = self.volume_sampling_field.pressure_field
@@ -232,25 +196,13 @@ class Evaluator3D():
                
     
 class Evaluator2D():
-
-    '''
-    ---------------------------------------------
-    Evaluator2D
-    ---------------------------------------------
-    
-    DESCRIPTION HERE
+    '''DESCRIPTION HERE
 
     '''
 
 
     def __init__(self):
-
-        '''
-        ---------------------------------------------
-        __init__()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
 
         '''
 
@@ -267,12 +219,7 @@ class Evaluator2D():
 
     def add_sampling_field(self, plane_sampling_field):
         
-        '''
-        ---------------------------------------------
-        add_sampling_field(plane_sampling_field)
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
 
         Parameters
         ----------
@@ -285,12 +232,7 @@ class Evaluator2D():
    
     def find_area_metrics(self):
 
-        '''
-        ---------------------------------------------
-        find_area_metrics()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         self.find_focal_spot_area()
@@ -317,12 +259,7 @@ class Evaluator2D():
 
     def find_focal_spot_area(self):
 
-        '''
-        ---------------------------------------------
-        find_focal_spot_area()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -359,12 +296,7 @@ class Evaluator2D():
 
     def find_focal_spot_contrast_connected_margin_area(self):
         
-        '''
-        ---------------------------------------------
-        find_focal_spot_contrast_connected_margin_area()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -421,12 +353,7 @@ class Evaluator2D():
 
     def find_focal_peak_pressure_to_peak_sidelobe_ratio(self):
 
-        '''
-        ---------------------------------------------
-        find_focal_peak_pressure_to_peak_sidelobe_ratio()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -455,12 +382,7 @@ class Evaluator2D():
     
     def find_focal_intensity_to_total_intensity_ratio(self):
 
-        '''
-        ---------------------------------------------
-        find_focal_intensity_to_total_intensity_ratio()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -501,12 +423,7 @@ class Evaluator2D():
 
     def find_focal_spot_contrast_unconnected_margin_area(self):
 
-        '''
-        ---------------------------------------------
-        find_focal_spot_contrast_unconnected_margin_area()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
 
@@ -581,12 +498,7 @@ class Evaluator2D():
         
     def find_afi_2d(self):
 
-        '''
-        ---------------------------------------------
-        find_afi_2d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -628,12 +540,7 @@ class Evaluator2D():
        
     def find_ali_2d(self):
 
-        '''
-        ---------------------------------------------
-        find_ali_2d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)
@@ -675,12 +582,7 @@ class Evaluator2D():
 
     def find_ahi_2d(self):
 
-        '''
-        ---------------------------------------------
-        find_ahi_2d()
-        ---------------------------------------------
-            
-        DESCRIPTION HERE
+        '''DESCRIPTION HERE
                 
         '''
         plane_pressure_field = np.abs(self.plane_sampling_field.pressure_field)

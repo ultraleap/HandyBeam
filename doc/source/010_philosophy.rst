@@ -12,7 +12,6 @@ Philosophy
 The purpose is what defines us
 ------------------------------
 
-
 .. code-block:: python
 
     "The purpose of computer simulations is to reduce the total cost of doing the job, not to increase it"
@@ -35,14 +34,15 @@ However, these computations bear a cost in terms of hardware, energy and, most i
 Hence, there still exists a market for building simplified models of reality;
 ones that capture just enough of the complexity of real phenomena, but at the same time, are computably affordable.
 
-The HandyBeam approach
-----------------------
+
+The HandyBeam core
+------------------
 
 HandyBEAM R1 is a software package that, in it's core, implements the continuous-wave (monochromatic, single-frequency)
 form of the Huygens principle of wave propagation in homogeneous media.
 
 This ultra-simplified propagation model enables obtaining quick estimates of pressure field shape,
-beam width, side lobe amplitude, and more -- suitable for use in beamforming research,
+beam width, side lobe amplitude, and more -- suitable for use in beam forming research,
 NDT/NDE, acoustics research and education.
 
 The algorithm is decomposed in such a way that each thread of the GPU or OpenMP
@@ -54,7 +54,52 @@ hardware structure of the GPU, providing excellent performance.
 
 
 This approach is admittedly less accurate than other published methods, but the advantage is
-in its low computation cost, and consequently, short design cycles.
+in its low computation cost.
+
+The low computation cost translates to shorter design cycle when in design-mode, and wider area explorable when in exploration/education mode.
+
+Basic terminology
+-----------------
+
+* world = root object for describing the model's properties, settings, calculation methods, and visualizers.
+
+* solver = Excitation coefficient solver. A module that prepares the firing solution for the transducers.
+
+* sampler = acoustic field sampler. An object that describes how and where is the acoustic field sampled
+
+* propagator = acoustic field propagation engine. A module that calculates what the acoustic field looks like
+
+* visualiser = a series of short-cuts to produce figures ready for reporting and publication
+
+* metrics, evaluator = series of procedures to 'measure' the acoustic field, and generally, reduce the volume of dat and densify the information.
+
+Other modules
+-------------
+
+The HandyBeam family contains helper code organised as described in :ref:`023_api_principles:API Principles`, briefly along the following axes of use:
+
+* Design and optimisation
+    * specialized propagators
+    * metrics
+    * optimiser harness
+
+* Exploration and education
+    * specialized array generators and examples of use
+    * visualisers
+
+
+About this documentation
+------------------------
+
+It is believed that the learning process operates on three levels: Theory, practice, and continued development. Hence, there is principally three parts for this documentation.
+
+First part of this documentation will be concerned primarily with the theory - maths, physics, software engineering details. Here, various examples can be given.
+
+Second part of this documentation will be primarily concerned with giving examples on how to solve specific problems using HandyBeam.
+
+Third part of this documentation is a reference or index of keywords, methods, modules e.t.c.
+
+Best of luck, have fun, and use Your day wisely :-)
 
 History
 -------

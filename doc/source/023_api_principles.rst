@@ -1,5 +1,63 @@
 :doc:`index`
 
+=================
+Code organisation
+=================
+
+It is recognized that a scientific research package like this is to be used in an environment
+that is very fluid, in that every day, a different question is being asked,
+and the code structure needs to follow.
+
+Based on some years of experience, the following structure of folders is recommended.
+
+The root folder contains several sub-folders, which are in turn primarily root git repositories. The concept is that each repository contains a package that can be reasonably maintained by a single person or at most, a small team.
+
+Each of these folders has a different development 'time scale' and a different size of audience.
+
+
+.. code-block:: rest
+
+    ----\science_work
+        |--#\handybeam_core             [public git root] -- code that you are least likely to edit, but likely to download updates. This code is useful for a wide community. Size of audience: 5-500
+        |   |   \                       [folder root] - readme, licence, e.t.c.
+        |   |---\handybeam              [python package root] this is what you get when you say "import handybeam.*"
+        |       |---\***                [modules of the handybeam package]
+        |--#\handybeam_core_doc         [public git] -- code that you are least likely to edit, but likely to download updates
+        |   |---\                       [folder root] - readme, licence, configuration for the compiler e.t.c.
+        |   |---\source                 [source of the documentation root]
+        |   |   |---\static
+        |   |---\build                  [.git ignored] - do not include compiled version of the files into git repository.
+        |       |---\***
+        |--#\handybeam_extension1       [public git] -- Your primary long-term contributions to the community go here. This code is fairly general and useful for a wider (specialized) community. After a fervent development, you update it every month. Size of audience: 2-15
+        |    |-->\extension1
+        |        |-->\***
+        |--#\handybeam_extension1_doc   [public git] -- Your primary long-term contributions to the community go here. You update it over long periods of time, as bugs and applications emerge.
+        |   |-->\source
+        |   |-->\build
+        |--#\handybeam_extension2       [private git] -- Your newest contributions go here. You are actively adding new methods as soon as they look like you would want to use them more than once. Size of audience: 1-3
+        |   |-->\extension2
+        |       |-->\doc
+        |--#\problem_1                  [private git] -- The source code files for the current problem at hand. You edit this multiple times per day.
+        |   |-->\
+        |   |-->\**
+        |---\problem_1_subresults       [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
+        |--#\problem_1_final_results    [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
+        |---\problem_2
+        |---\problem_2_subresults
+        |--#\problem_2_final_results
+        |
+        |--#\another_editable_package   [git]
+        |--#\miscelenious_methods       [git]
+
+
+
+At first, it looks like this is "more work" - compared to just keeping everything in a single folder. If you think that, then please recall that science is only valuable if it is shared, effectively. In order to share Your work and results effectively, a consistent and maintainable structure is needed.
+
+The concept for the structure above is that each 'major module' should be small enough to be maintainable by a single person.
+
+As to the implementation and programming philosophy, see :ref:`023_api_principles:Api principles`
+
+
 ==============
 API principles
 ==============
@@ -7,7 +65,7 @@ API principles
 Programming principles
 ----------------------
 
-HandyBeam system expressed using 3 fundamental kinds of things:
+HandyBeam system is expressed using 3 fundamental kinds of things:
 
 * Data structures
 * Procedures
@@ -36,7 +94,7 @@ Procedure
 * Procedures take in data, only in data structures, and output data in data structures
 * Procedures assume that the data is correct and complete, and are not required to do much checking.
 * Procedures are only expected to work if the data structures and the data is correct and complete
-* Procedures do not care if the data is correct. They work if it is, and can fail silently if it is not
+* Procedures do not care if the data is correct. They work well if it is, and can fail silently if it is not
 * Procedures do not store any data for themselves beyond it's life time. They avoid the need to have a persistent state.
 * Procedures do not alter any external data, nor require any more data than provided in the explicit input
 * Procedures do not need to be pretty nor easy to use
@@ -53,16 +111,17 @@ Objects
 ~~~~~~~
 
 * Objects organize data and procedures, can hold them together under single name
-* Objects take care for the data to be correct and complete
+* Objects take care for the data to be correct and complete, as far as practicable
 * Objects can be optionally serialisable, but not necessarily. They can contain non-serialisable items.
 * Objects keep procedures and use them to manipulate data in data structures
-* Objects take care for allowing procedures to only run if the data is OK
-* Objects generally only carry one version of data in it's data structure
-* Objects can hold multiple procedures but only expose the one that is appropriate to the data at hand
-* Objects take care of errors and suggest action
+* Objects take care for allowing procedures to only run if the data is OK, but due to how nature works, they might sometimes be wrong
+* Objects generally only carry one version of data (single 'opinion about state of the world') in it's data structure
+* Objects can hold multiple procedures but tend to only expose the ones that are appropriate to the data at hand
+* Objects make effort to take care of errors and suggest action by the user
+* Objects make effort to be compatible with other objects as needed, and can have glue code
 * They can contain extra methods and state data to do housekeeping
-* They can use it's internal state to make shortcuts to typical uses of procedures
-* Objects are easy to use, and can even look nice in demos
+* They can use it's internal state to make shortcuts to typical uses of procedures, or even select procedures silently
+* Objects strive to be easy to use, and can even look nice in demos
 * Over time, objects can have different/evolving functionality under the same brand name. The old versions of the objects and their functionality remains with git
 * Objects support in-line help/hints (e.g. method and field lists with short docstrings)
 * Other than above, they receive third priority for documentation
@@ -78,7 +137,6 @@ Remarks
 
 PEP8 short summary
 ------------------
-
 
 
 1. Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.

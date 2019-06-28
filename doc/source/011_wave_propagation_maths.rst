@@ -30,6 +30,13 @@ The contributions form multiple radiators undergo linear summation.
 
     In the actual implementation, the above equation is extended with a model of transducer directionality, and a model of attenuation in air, and where applicable, a model of time-domain impulse response. The core idea remains tough.
 
+The following simplyfying asumptions are made in most of handybeam (except where otherwise stated):
+
+* The field is modelled as free-field, that is, no reflectors, no interfering probes e.t.c.; the boundary is at infinity and completely absorbing. see [#f3]_, [#f4]_ and [#f5]_
+
+
+
+
 
 Notes on the propagator
 -----------------------
@@ -144,10 +151,31 @@ R1 Poly2 model
 The poly2 model, used in Handybeam R1, is described in detail in :code:`HN21_calibrate_transducer_model.ipynb` file. use :code:`jupyter notebook` to see it.
 
 
+Literature
+----------
+
+Pogo - finite element simulation package -- `pogo <http://www.pogo-fea.com/>`_
+
+Common string operations in Python - `see this. <https://docs.python.org/3/library/string.html#formatstrings>`_
+
+Sphinx and RST cheat sheet -- `see here. <https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html#the-csv-table-directive>`_
+
+----
+
+
 .. rubric:: Footnotes
 
 .. [#f1] the first approach is more computationally efficient if large count of pixels is demanded. The second approach can be more efficient than the first case if the demanded pixels do not follow a regular grid structure.
 
 .. [#f2] 1 tau equals 2*pi; see `The Tau Manifesto <https://tauday.com/tau-manifesto>`_
 
+.. [#f3] `BKSV Sound Intensity BR0476 document <https://www.bksv.com/media/doc/br0476.pdf>`_, page 6,
+
+.. [#f4] `ISO 3745 <https://www.iso.org/standard/45362.html>`_
+
+.. [#f5] In a free field, the module of intensity = pressure RMS squared / ( density * wave velocity ) : Abs(I) = p*p[rms] / (Rho*C) [pa*pa/(kg/m3 * m/s)]=[W/m2] as computed `here <https://www.wolframalpha.com/input/?i=Pa*Pa%2F(kg%2F(m*m*m)+*+m%2Fs)>`_
+
 .. include:: footer_licence_note.rst
+
+
+
