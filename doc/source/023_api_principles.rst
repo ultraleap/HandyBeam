@@ -17,37 +17,50 @@ Each of these folders has a different development 'time scale' and a different s
 .. code-block:: rest
 
     ----\2018_05_science_work                   [root document folder] -- the date helps with archiving and back-ups, and later, managing Your archives and versions
+        |
         |--#\handybeam_core                     [public git root] -- code that you are least likely to edit, but likely to download updates. This code is useful for a wide community. Size of audience: 5-500
         |   |   \                               [folder root] - readme, licence, e.t.c.
         |   |---\handybeam                      [python package root] this is what you get when you say "import handybeam.*"
         |       |---\***                        [modules of the handybeam package]
+        |
         |--#\handybeam_core_doc                 [public git] -- code that you are least likely to edit, but likely to download updates
         |   |---\                               [folder root] - readme, licence, configuration for the compiler e.t.c.
         |   |---\source                         [sphinx documentation root]
         |   |   |---\static
         |   |---\build                          [.git ignored] - do not include compiled version of the files into git repository.
         |       |---\***
+        |
         |--#\handybeam_extension1               [public git] -- Your primary long-term contributions to the community go here. This code is fairly general and useful for a wider (specialized) community. After a fervent development, you update it every month. Size of audience: 2-15
         |    |-->\handybeam_extension1          [python package root]
         |        |-->\***
         |--#\handybeam_extension1_doc           [public git] -- Your primary long-term contributions to the community go here. You update it over long periods of time, as bugs and applications emerge.
-        |   |-->\source                         [sphinx documentation root]
+        |   |-->\source                         [sphinx documentation root] - note that the documentation could go into a separate git repository than the code.
         |   |-->\build
+        |
         |--#\handybeam_extension2               [private git] -- Your newest contributions go here. You are actively adding new methods as soon as they look like you would want to use them more than once. Size of audience: 1-3
         |   |-->\handybeam_extension2           [python package root]
         |       |-->\doc                        [sphinx documentation root]
-        |--#\datetime_problem_1                 [private git] -- The source code files for the current problem at hand. You edit this multiple times per day.
+        |
+        |--#\2018_05_03_problem_1                 [private git] -- The source code files for the current problem at hand. You edit this multiple times per day.
         |   |-->\
         |   |-->\**
-        |---\datetime_problem_1_subresults     [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
-        |--#\datetime_problem_1_final_results  [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
-        |---\datetime_problem_2
-        |---\datetime_problem_2_subresults     [no git!]
-        |--#\datetime_problem_2_final_results  [private git] -- the "publishable" results
         |
-        |--#\another_editable_package          [git]
-        |--#\miscellaneous_methods             [git]
-
+        |---\2018_05_03_problem_1_subresults    [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
+        |--#\2018_05_03_problem_1_final_results [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
+        |
+        |---\2018_06_14_problem_2
+        |---\2018_06_14_problem_2_subresults    [no git!]
+        |--#\2018_06_14_problem_2_final_results [private git] -- the "publishable" results
+        |
+        |---\2018_06_16_problem_3
+        |---\2018_06_16_problem_3_subresults    [no git!]
+        |--#\2018_06_16_problem_3_final_results [private git] -- the "publishable" results
+        |
+        |
+        |--#\another_editable_package           [git]
+        |
+        |--#\misc                               [git]
+        |--\tmp                                 [git]
 
 
 At first, it looks like this is "more work" - compared to just keeping everything in a single folder. If you think that, then please recall that science is only valuable if it is shared, effectively. In order to share Your work and results effectively, a consistent and maintainable structure is needed.
@@ -71,8 +84,8 @@ HandyBeam system is expressed using 3 fundamental kinds of things:
 * Objects
 
 
-Data Structure
-~~~~~~~~~~~~~~
+Data Structures
+~~~~~~~~~~~~~~~
 
 * Describes what the bits and bytes are supposed to mean in both human and machine readable language
 * Enables somewhat-meaningful data to exist
@@ -88,8 +101,8 @@ Data Structure
 
 
 
-Procedure
-~~~~~~~~~
+Procedures
+~~~~~~~~~~
 
 * Procedure is there to transform data
 * Procedures take in data, only in data structures, and output data in data structures
