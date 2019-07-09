@@ -5,8 +5,7 @@ Code organisation
 =================
 
 It is recognized that a scientific research package like this is to be used in an environment
-that is very fluid, in that every day, a different question is being asked,
-and the code structure needs to follow.
+that is very fluid: Fluid in that every day, a different question is being asked. The code structure needs to follow this usage pattern.
 
 Based on some years of experience, the following structure of folders is recommended.
 
@@ -17,37 +16,37 @@ Each of these folders has a different development 'time scale' and a different s
 
 .. code-block:: rest
 
-    ----\science_work
-        |--#\handybeam_core             [public git root] -- code that you are least likely to edit, but likely to download updates. This code is useful for a wide community. Size of audience: 5-500
-        |   |   \                       [folder root] - readme, licence, e.t.c.
-        |   |---\handybeam              [python package root] this is what you get when you say "import handybeam.*"
-        |       |---\***                [modules of the handybeam package]
-        |--#\handybeam_core_doc         [public git] -- code that you are least likely to edit, but likely to download updates
-        |   |---\                       [folder root] - readme, licence, configuration for the compiler e.t.c.
-        |   |---\source                 [source of the documentation root]
+    ----\2018_05_science_work                   [root document folder] -- the date helps with archiving and back-ups, and later, managing Your archives and versions
+        |--#\handybeam_core                     [public git root] -- code that you are least likely to edit, but likely to download updates. This code is useful for a wide community. Size of audience: 5-500
+        |   |   \                               [folder root] - readme, licence, e.t.c.
+        |   |---\handybeam                      [python package root] this is what you get when you say "import handybeam.*"
+        |       |---\***                        [modules of the handybeam package]
+        |--#\handybeam_core_doc                 [public git] -- code that you are least likely to edit, but likely to download updates
+        |   |---\                               [folder root] - readme, licence, configuration for the compiler e.t.c.
+        |   |---\source                         [sphinx documentation root]
         |   |   |---\static
-        |   |---\build                  [.git ignored] - do not include compiled version of the files into git repository.
+        |   |---\build                          [.git ignored] - do not include compiled version of the files into git repository.
         |       |---\***
-        |--#\handybeam_extension1       [public git] -- Your primary long-term contributions to the community go here. This code is fairly general and useful for a wider (specialized) community. After a fervent development, you update it every month. Size of audience: 2-15
-        |    |-->\extension1
+        |--#\handybeam_extension1               [public git] -- Your primary long-term contributions to the community go here. This code is fairly general and useful for a wider (specialized) community. After a fervent development, you update it every month. Size of audience: 2-15
+        |    |-->\handybeam_extension1          [python package root]
         |        |-->\***
-        |--#\handybeam_extension1_doc   [public git] -- Your primary long-term contributions to the community go here. You update it over long periods of time, as bugs and applications emerge.
-        |   |-->\source
+        |--#\handybeam_extension1_doc           [public git] -- Your primary long-term contributions to the community go here. You update it over long periods of time, as bugs and applications emerge.
+        |   |-->\source                         [sphinx documentation root]
         |   |-->\build
-        |--#\handybeam_extension2       [private git] -- Your newest contributions go here. You are actively adding new methods as soon as they look like you would want to use them more than once. Size of audience: 1-3
-        |   |-->\extension2
-        |       |-->\doc
-        |--#\problem_1                  [private git] -- The source code files for the current problem at hand. You edit this multiple times per day.
+        |--#\handybeam_extension2               [private git] -- Your newest contributions go here. You are actively adding new methods as soon as they look like you would want to use them more than once. Size of audience: 1-3
+        |   |-->\handybeam_extension2           [python package root]
+        |       |-->\doc                        [sphinx documentation root]
+        |--#\datetime_problem_1                 [private git] -- The source code files for the current problem at hand. You edit this multiple times per day.
         |   |-->\
         |   |-->\**
-        |---\problem_1_subresults       [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
-        |--#\problem_1_final_results    [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
-        |---\problem_2
-        |---\problem_2_subresults
-        |--#\problem_2_final_results
+        |---\datetime_problem_1_subresults     [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
+        |--#\datetime_problem_1_final_results  [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
+        |---\datetime_problem_2
+        |---\datetime_problem_2_subresults     [no git!]
+        |--#\datetime_problem_2_final_results  [private git] -- the "publishable" results
         |
-        |--#\another_editable_package   [git]
-        |--#\miscelenious_methods       [git]
+        |--#\another_editable_package          [git]
+        |--#\miscellaneous_methods             [git]
 
 
 
@@ -84,7 +83,9 @@ Data Structure
 * The data can be incomplete in sense that some more data is needed to do something or make complete sense out of it. The data structure does not make assumption that this extra data exists, nor that the extra data is compatible
 * Data structure is well documented. It has the highest priority for documentation quality
 * Data structures are fairly specialized for the purpose; their transferability is due to the good documentation only.
+* it can be serialized, but preferably with some meta-data or objects so that it can be interpreted correctly later on.
 * In block diagram, the color is light yellow
+
 
 
 Procedure
@@ -142,7 +143,7 @@ PEP8 short summary
 1. Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
 2. When an extension module written in C or C++ has an accompanying Python module that provides a higher level (e.g. more object oriented) interface, the C/C++ module has a leading underscore (e.g. _socket)
 3. Class names should normally use the CapWords convention.
-4. The naming convention for functions may be used instead in cases where the interface is documented and used primarily as a callable.
+4. [with regards to class name] The naming convention for functions may be used instead in cases where the interface is documented and used primarily as a callable.
 5. Function names should be lowercase, with words separated by underscores as necessary to improve readability.
 6. Variable names follow the same convention as function names.
 7. If a function argument's name clashes with a reserved keyword, it is generally better to append a single trailing underscore rather than use an abbreviation or spelling corruption. Thus ``class_`` is better than ``clss``. (Perhaps better is to avoid such clashes by using a synonym.)
