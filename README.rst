@@ -126,7 +126,7 @@ Zen of HandyBeam
 Documentation
 *************
 
-For a first look, see `<http://www.dziewierz.pl/handybeam-core-doc/> here`_. Note that this version is only updated periodically, so it could be a bit behind the latest commit.
+For a first look, see `here <http://www.dziewierz.pl/handybeam-core-doc/>`_. Note that this version is only updated periodically, so it could be a bit behind the latest commit.
 
 the sphinx-compilable theory, user manual, and documentation source code is at `<https://github.com/ultrahaptics/HandyBeam/tree/master/doc/source>`_. This will be corrected to the deployed documentation when I get the space to host it.
 
