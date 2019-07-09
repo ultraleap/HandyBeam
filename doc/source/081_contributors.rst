@@ -17,9 +17,16 @@ in no particular order:
 * `Salvador Catsis <https://www.linkedin.com/in/salvador-catsis-b91956161/>`_ - code contributor
 * `Hugh Hopper <https://www.linkedin.com/in/hugh-hopper-26b37957/>`_ , `Joe Spilman <https://www.linkedin.com/in/joe-spilman-6b5618a0/>`_, `Adam Price <https://www.linkedin.com/in/adam-price-ba015877/>`_ - calibration data, legacy code (Acoustic Renderer), helpful discussions
 * `Brian Kappus <https://www.linkedin.com/in/brian-kappus-9359135b/>`_ - helpful discussions
-* `LEVITATE project <https://www.levitateproject.org/>`_ calibration data, helpful discussions
 * `Ben Long <https://www.linkedin.com/in/benjamin-long-1b455ba5/>`_ - helpful discussions
+* `LEVITATE project <https://www.levitateproject.org/>`_ calibration data, helpful discussions
 * `University of Strathclyde <https://www.linkedin.com/school/university-of-strathclyde/>`_ - legacy code contributor
+
+===========
+Links
+===========
+
+* `Levitate Research project python toolbox <https://github.com/AppliedAcousticsChalmers/levitate>`_ an it's `documentation <https://appliedacousticschalmers.github.io/levitate/html/index.html>`_
+
 
 
 .. include:: footer_licence_note.rst
