@@ -2,10 +2,17 @@
 About HandyBeam
 ***************
 
+See the acoustic field. A python package to simulate output of phased arrays. Super fast calculations with Huygens model implementation for OpenCL/GPU. virtual measurement tools useful for education and research in beam forming, e.g. focal spot size measure, side lobe measures, e.t.c
+
+
 **Do use HandyBeam for:**
 
-* quick visualisation of example acoustic fields
-* throw-away checks of what-if scenarios
+* quick visualisation of example acoustic fields, focused, steered, virtual points e.t.c.
+* explore effects of array aperture shape, element count, element density, e.t.c.
+* 3D curved arrays, sparse arrays, and many 'special effects' possible
+
+
+* Throw-away checks of what-if scenarios
 * development of task-specific research code
 * demonstrating that we are nice people (e.g. that we know what we are talking about, and that we are open-sourcing things)
 * education, exploration, having fun
@@ -18,13 +25,14 @@ About HandyBeam
 
 **Be aware that:**
 
-* HandyBeam model makes **a lot** of assumptions, which might be an oversimplification of the problem that You are facing.
+* HandyBeam model makes **many** assumptions, which might be an oversimplification of the problem that You are facing.
 
 **Things that have been repeatedly asked for, but are waiting in the queue as of now**
 
 These are in their order in the queue:
 
-* time domain propagation simulation
+* time domain propagation simulation engine
+* velocity field calculation (vector field)
 * advanced excitation solvers (bessel beam, sonotweezer)
 * reflections, scattering
 
@@ -55,16 +63,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-==========
-Disclaimer
-==========
+================
+TL;DR disclaimer
+================
 
 1. If something uncool happens, it's Your fault.
 2. If it breaks, you get to keep both pieces.
 
 ----
 
-Complying with the license, be notified that **HandyBeam is a descendant of cueBeam** which was developed between 2008-2018 in `University of Strathclyde <https://www.strath.ac.uk/research/subjects/electronicelectricalengineering/instituteforsensorssignalscommunications/centreforultrasonicengineering>`_.
+**HandyBeam is a descendant of cueBeam** which was developed between 2008-2018 in `University of Strathclyde <https://www.strath.ac.uk/research/subjects/electronicelectricalengineering/instituteforsensorssignalscommunications/centreforultrasonicengineering>`_.
+
 The original source code can be had from `here. <https://github.com/CentreForUltrasonicEngineering/cueBeam_EngD>`_
 
 Although the core technology is based on the same principles, Note that virtually no source code is shared with cueBEAM. For example, the cueBEAM has been written for Matlab, MEX and CUDA. HandyBeam is a complete rewrite in Python and OpenCl.
@@ -78,7 +87,6 @@ Acknowledgements
 ****************
 
 This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 737087.
-
 
 
 ****************
@@ -100,9 +108,9 @@ Zen of HandyBeam
 
 * *"All that we have is a model"* -  using simplifying assumptions is OK, just remember to describe the model in the documentation.
 
-* *"Computer simulations are here to make the overall cost of doing the job cheaper, and not more expensive"*  (Richard O'Leary) -- Do not do time-consuming computations just because You can. Have a reason for spending Your time.
+* *"Computer simulations are here to make the overall cost of doing the job cheaper, and not more expensive"*  (Richard O'Leary) -- Do not do time-consuming computations just because You can. Have a reason for spending time and energy.
 
-* *"Things should be as simple as possible, but not simpler"* (Albert Einstein)
+* *"Things should be made as simple as possible, but not simpler"* (Albert Einstein)
 
 * *"There are no unnatural things. There are only things that we do not know about nature"*
 
@@ -118,7 +126,7 @@ Zen of HandyBeam
 Documentation
 *************
 
-For a first look, see `<http://www.dziewierz.pl/handybeam-core-doc/> here`_. Note that this version might be somewhat outdated.
+For a first look, see `<http://www.dziewierz.pl/handybeam-core-doc/> here`_. Note that this version is only updated periodically, so it could be a bit behind the latest commit.
 
 the sphinx-compilable theory, user manual, and documentation source code is at `<https://github.com/ultrahaptics/HandyBeam/tree/master/doc/source>`_. This will be corrected to the deployed documentation when I get the space to host it.
 
