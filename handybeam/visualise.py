@@ -210,6 +210,146 @@ def visualise_sampling_grid_and_array(
 # ====================================================================================================
 # ====================================================================================================
 
+def visualize_3D_only_alpha(world=None,
+                            samplers=(),
+                            filename=None,
+                            figsize=(4, 3),
+                            dpi=150,
+                            transparent_threshold=0.1,
+                            opaque_threshold=0.2,
+                            max_display_points_per_axis=80):
+    """ visualizes location of the probe, phase on the probe, and any compatible samplers, in a single figure
+
+    .. Note: the opaque_threshold must be larger than transparent_threshold, or the result is undefined
+
+    Examples:
+
+    .. image:: _static/example_visualize_3D_only_alpha_01.png
+
+    .. image:: _static/example_visualize_3D_only_alpha_02.png
+
+    Parameters
+    ----------
+
+    world: handybeam.world.World
+        An instance of the handybeam.world class.
+    samplers: world.samplers.abstract_sampler
+        list of samplers to include. Note that this has to be a list.
+        If set to None, samplers are loaded from the world.
+    filename: string
+        if set, image is saved to the file named. Do not forget to add the extension, e.g. :code:`.png`
+    figsize: tuple
+        size of the figure in inches
+    dpi: integer
+        resolution of the figure, in points per inch
+    transparent_threshold: float
+        value of 0-1, or beyond - (after-normalization) pressure values below this threshould will be transparent.
+        Use values less then zero to make zero-pressure somewhat opaque
+    opaque_threshold: float
+        value of 0-1, or beyond - (after-normalization) pressure values above this threshould will be opaque.
+        Values in between transparent* and opaque* are interpolated for varied alpha.
+        Use values of more than unity to make the peak-pressure somewhat transparent
+
+    """
+
+    hf = plt.figure(figsize=figsize, dpi=dpi)
+    ha = Axes3D(hf)
+
+    # plot the array first so that it is covered later
+    arr_x_points = world.tx_array.tx_array_element_descriptor[:, 0]
+    arr_y_points = world.tx_array.tx_array_element_descriptor[:, 1]
+    arr_z_points = world.tx_array.tx_array_element_descriptor[:, 2]
+    # keep track of xmax and xmin
+    xmax = np.max(arr_x_points)
+    xmin = np.min(arr_x_points)
+    ymax = np.max(arr_y_points)
+    ymin = np.min(arr_y_points)
+    zmax = np.max(arr_z_points)
+    zmin = np.min(arr_z_points)
+
+    array_points = ha.scatter(
+        arr_x_points,
+        arr_y_points,
+        arr_z_points,
+        c=world.tx_array.tx_array_element_descriptor[:, 11],
+        cmap=phase_colormap, marker=",")
+
+    if samplers is None:
+        print('samplers is not none.')
+        samplers = world.samplers
+
+    for idx, sampler in enumerate(samplers):
+
+        if len(sampler.coordinates.shape) == 3:  # surface sampler, 2D list of points
+            sg_x_points = sampler.coordinates[:, :, 0]
+            sg_y_points = sampler.coordinates[:, :, 1]
+            sg_z_points = sampler.coordinates[:, :, 2]
+        else:  # a clist sampler, 1D list of points
+            # numpy.expand_dims
+            sg_x_points = sampler.coordinates[:, 0]
+            sg_y_points = sampler.coordinates[:, 1]
+            sg_z_points = sampler.coordinates[:, 2]
+
+        xmax = np.max((xmax, np.max(sg_x_points)))
+        xmin = np.min((xmin, np.min(sg_x_points)))
+        ymax = np.max((ymax, np.max(sg_y_points)))
+        ymin = np.min((ymin, np.min(sg_y_points)))
+        zmax = np.max((zmax, np.max(sg_z_points)))
+        zmin = np.min((zmin, np.min(sg_z_points)))
+
+        pressure_field = np.nan_to_num(np.abs(sampler.pressure_field))
+        pressure_field_peak = np.max(pressure_field)
+
+        # If there are a lot of points in the sampling grid then just display a subset of them.
+        if len(sg_x_points) > max_display_points_per_axis:
+            stepper = int(np.ceil(len(sg_x_points) / max_display_points_per_axis))
+
+            sg_x_points = sg_x_points[0::stepper]
+            sg_y_points = sg_y_points[0::stepper]
+            sg_z_points = sg_z_points[0::stepper]
+            pressure_field = pressure_field[0::stepper]
+
+        # prepare transparency map
+        # r=ravelled (1d-ized)
+        pressure_field_r = np.nan_to_num(np.abs(
+            pressure_field)).ravel()  # note that this is the already-reduced-resolution version of pressure_field
+        pressure_field_peak = np.max(pressure_field_r)
+        pressure_field_normalized_r = pressure_field_r * (1.0 / pressure_field_peak)
+        pressure_field_alpha_r = np.minimum(1.0, np.maximum(0, (pressure_field_normalized_r - transparent_threshold) / (
+                    opaque_threshold - transparent_threshold)))
+        # print(f'pressure_field_normalized_r.shape = {pressure_field_normalized_r.shape}')
+        pressure_field_colors_r = amplitude_colormap(pressure_field_normalized_r)
+        # print(f'pressure_field_colors_r.shape = {pressure_field_colors_r.shape}')
+        pressure_field_colors_r[:, 3] = pressure_field_alpha_r
+
+        sampling_points_amp = ha.scatter(
+            sg_x_points,
+            sg_y_points,
+            sg_z_points,
+            c=pressure_field_colors_r,
+            marker="o")
+
+    ha.set_xlabel('x-dimension[m]\npassive aperture')
+    ha.set_ylabel('y-dimension[m]\nactive aperture')
+    ha.set_zlabel('z-dimension[m]\ntarget depth')
+
+    # plt.axes('equal')
+    # create equal axes
+    # Create cubic bounding box to simulate equal aspect ratio
+    max_range = np.array([xmax - xmin, ymax - ymin, zmax - zmin]).max()
+    Xb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][0].flatten() + 0.5 * (xmax + xmin)
+    Yb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][1].flatten() + 0.5 * (ymax + ymin)
+    Zb = 0.5 * max_range * np.mgrid[-1:2:2, -1:2:2, -1:2:2][2].flatten() + 0.5 * (zmax + zmin)
+    # Comment or uncomment following both lines to test the fake bounding box:
+    for xb, yb, zb in zip(Xb, Yb, Zb):
+        ha.plot([xb], [yb], [zb], 'w')
+
+    if filename is not None:
+        plt.savefig(filename)
+        plt.close()
+    else:
+        plt.show()
+
 
 def visualize_3D_only(world=None,
                       samplers=(),
@@ -321,6 +461,8 @@ def visualize_3D_only(world=None,
         plt.close()
     else:
         plt.show()
+
+
 
 
 def plot_1D_pressure_vs_angle(world=None,
