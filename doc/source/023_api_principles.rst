@@ -45,8 +45,8 @@ Each of these folders has a different development 'time scale' and a different s
         |   |-->\
         |   |-->\**
         |
-        |---\2018_05_03_problem_1_subresults    [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults. Usefull
-        |--#\2018_05_03_problem_1_final_results [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses. Dump for
+        |---\2018_05_03_problem_1_subresults    [no git!] -- the "generated" files e.g. figures, generated datasets, temporary files, subresults, previews, e.t.c.
+        |--#\2018_05_03_problem_1_final_results [private git] -- the "publishable" results, e.g. final data sets, figures, notes, example code uses.
         |
         |---\2018_06_14_problem_2
         |---\2018_06_14_problem_2_subresults    [no git!]
@@ -69,6 +69,10 @@ The concept for the structure above is that each 'major module' should be small 
 
 As to the implementation and programming philosophy, see :ref:`023_api_principles:Api principles`
 
+Where to use Git?
+-----------------
+
+As a rule of thumb, treat Your personal time as expensive, and treat computer time as cheap. Use Git to secure the expensive things.
 
 ==============
 API principles
@@ -151,7 +155,6 @@ Remarks
 
 PEP8 short summary
 ------------------
-
 
 1. Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability. Python packages should also have short, all-lowercase names, although the use of underscores is discouraged.
 2. When an extension module written in C or C++ has an accompanying Python module that provides a higher level (e.g. more object oriented) interface, the C/C++ module has a leading underscore (e.g. _socket)

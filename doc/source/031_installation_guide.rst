@@ -15,16 +15,17 @@ Notable dependencies
 --------------------
 
 
-These are explained later in the walkthrough:
+These are explained later in the walk through:
 
 * pyopencl
-  * There is no plan to have pure python implementation, do not ask.
 * matplotlib
 * pyqtgraph
 * bugsnag
 * numpy
 * scipy
 * cmocean
+* appdirs  -- :code:`pip install appdirs`
+
 
 
 Instructions
@@ -54,10 +55,20 @@ These are instructions for mac:
 
 07. Activate the new environment:
 
+for Mac, the command may be:
+
 .. code-block:: bash
 
     source activate handybeam
 
+
+for Windows, the command may be:
+
+.. code-block:: bash
+
+    activate handybeam
+
+for other platforms, consult Conda documentation.
 
 08. Install jupyter and spyder **in this environment**. Note that even tough jupyter and spyder would normally launch without this, they might confuse which environment to run in. So we have to remind them by installing them again here.
 
@@ -70,12 +81,12 @@ These are instructions for mac:
 
 .. code-block:: bash
 
-    pip install bugsnag
+    pip install bugsnag appdirs vispy pyquaternion pyopengl
     conda install nb_conda_kernels matplotlib pyqtgraph numpy scipy pandas
     conda install -c conda-forge cmocean
 
 
-10. Install pyopencl. At this point, there might be some errors, depending on how is Your laptop set up. If they occur, please make a screenshot and send them to me.
+10. Install pyopencl. At this point, there might be some errors, depending on how is Your laptop set up. If they occur, you will have to somehow debug it and then come back here. In any case, make sure that pyopencl is installed correctly and you can run some examples.
 
 .. code-block:: bash
 
@@ -85,20 +96,11 @@ These are instructions for mac:
 Note that the common problem here is that the 'fully featured' drivers for either the CPU or GPU are not installed on Your system.
 You might want to bing for OpenCL drivers for Your hardware, e.g. `like this <https://www.bing.com/search?q=opencl+intel+drivers>`_
 
-11. Clone the repository from gitlab, or download it.
-
-This assumes that Your machine is properly registered for using gitlab. If it is not (SSH keys et cetera) - ask relevant person to help You to set up gitlab first.
-As of 2018-09, that person is `Lawrence Chan  @lawrence.chan <https://ultrahaptics.slack.com/team/U69GMSCKD>`_
+11. Clone the repository from github, or download it.
 
 .. code-block:: bash
 
-    git clone git@gitlab.ultrahaptics.com:arc/HandyBeam.git handybeam
-
-
-If Your machine is not set-up to use the company's gitlab, you can still download the handybeam from other sources.
-
-Ask me on slack and I'll send You a link or a zip file.
-
+    git clone https://github.com/ultrahaptics/HandyBeam.git handybeam_core_repo
 
 12. Select the Opencl compute device
 
@@ -121,7 +123,7 @@ At this time, there is no automatic selector implemented. You have to do this ma
 
 Your selection is stored in :code:`cl_platform_config.ini`.
 
-For the Ultrahaptics standard issue Macbook Pro (2018) it will typically be:
+For the Ultrahaptics standard issue Macbook Pro (2019) it will typically be:
 
 .. code-block:: ini
 
@@ -129,11 +131,37 @@ For the Ultrahaptics standard issue Macbook Pro (2018) it will typically be:
     use_platform = 0
     use_device = 2
 
+For a Windows platform with a high-power GPU, it will typically be:
+
+.. code-block:: ini
+
+    [what_to_use]
+    use_platform = 0
+    use_device = 0
+
+For other machines (Linux, Android e.t.c.) you need to be able to figure it for yourself.
+
+14. Next time You start Your terminal, be reminded that You need to 'activate the handybeam envinroment' first.
+
+for Mac, the command may be:
+
+.. code-block:: bash
+
+    source activate handybeam
+
+
+for Windows, the command may be:
+
+.. code-block:: bash
+
+    activate handybeam
+
+for other platforms, consult Conda documentation.
+
 
 14. Try the :code:`demos\basic_flat_field_.py`
 
 15. Try the :code:`demos\demo_mouse_control_field.py`
 
-Any problems - let me know, preferably with slack `@Jurek <https://ultrahaptics.slack.com/team/UB0RDJ24B>`_
 
 .. include:: footer_licence_note.rst
