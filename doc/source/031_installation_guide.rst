@@ -94,6 +94,7 @@ for other platforms, consult Conda documentation.
 
 
 Note that the common problem here is that the 'fully featured' drivers for either the CPU or GPU are not installed on Your system.
+
 You might want to bing for OpenCL drivers for Your hardware, e.g. `like this <https://www.bing.com/search?q=opencl+intel+drivers>`_
 
 11. Clone the repository from github, or download it.
@@ -102,11 +103,15 @@ You might want to bing for OpenCL drivers for Your hardware, e.g. `like this <ht
 
     git clone https://github.com/ultrahaptics/HandyBeam.git handybeam_core_repo
 
-12. Select the Opencl compute device
+12. Select the OpenCl compute device
 
 .. Warning:
 
     This section is important. Do not skip the understanding of it.
+
+.. ToDo::
+
+    This section might be outdated -- please take care. I will update and verify asap!
 
 HandyBeam uses OpenCL to accelerate the compute-intensive parts of the code.
 

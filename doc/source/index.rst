@@ -4,11 +4,6 @@
    contain the root `toctree` directive.
 
 
-.. ToDo::
-
-   Make the index more pro - like `Chainer <https://docs.chainer.org/en/latest/>`_
-
-
 =====
 Index
 =====
@@ -26,20 +21,28 @@ Go straight to :doc:`040_reference`
 
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Documents:
+   :maxdepth: 3
+   :caption: Theory:
 
    010_philosophy.rst
-   031_installation_guide.rst
    023_api_principles.rst
    011_wave_propagation_maths.rst
+   080_contributing.rst
+   081_contributors.rst
+
+----
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Practice:
+
+   031_installation_guide.rst
    021_implementation_details.rst
    024_R1_data_structures.rst
    019_data_collection.rst
    032_quick_start.rst
    040_reference.rst
-   080_contributing.rst
-   081_contributors.rst
 
 
 
@@ -54,6 +57,13 @@ Indices and tables
 ----
 
 .. include:: footer_licence_note.rst
+
+
+.. ToDo::
+
+   Make the index more pro - like `Chainer <https://docs.chainer.org/en/latest/>`_ with multiple sections.
+
+
 
 
 

@@ -176,9 +176,9 @@ class TxArray(RememberInstanceCreationInfo):
     def describe_element(self, idx):
         ed = self.tx_array_element_descriptor[idx, :]
         txt = "element {}: ".format(idx)+linesep
-        txt = txt + " >        (xyz) =({:0.1f}, {:0.1f}, {:0.1f})mm".format(ed[0]*1e3, ed[1]*1e3, ed[2]*1e3)+linesep
+        txt = txt + " >   (location) =({:0.1f}, {:0.1f}, {:0.1f})mm".format(ed[0]*1e3, ed[1]*1e3, ed[2]*1e3)+linesep
         txt = txt + " >    (normals) =({}, {}, {})".format(ed[3], ed[4], ed[5])+linesep
-        txt = txt + " > (dir coeffs) =(phase_c1:{}, | amp:({}, {}, {})".format(ed[6], ed[7], ed[8], ed[9])+linesep
+        txt = txt + " > (dir coeffs) =(phase_c1:{}, | amp:({}, {}, {}))".format(ed[6], ed[7], ed[8], ed[9])+linesep
         txt = txt + " >  amp setting ={}".format(ed[10]) + linesep
         txt = txt + " >        phase ={}".format(ed[11]) + linesep
         txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12], ed[13], ed[14], ed[15])+linesep

@@ -30,7 +30,7 @@ The contributions form multiple radiators undergo linear summation.
 
     In the actual implementation, the above equation is extended with a model of transducer directionality, and a model of attenuation in air, and where applicable, a model of time-domain impulse response. The core idea remains tough.
 
-The following simplyfying asumptions are made in most of handybeam (except where otherwise stated):
+The following simplifying assumptions are made in most of handybeam (except where otherwise stated):
 
 * The field is modelled as free-field, that is, no reflectors, no interfering probes e.t.c.; the boundary is at infinity and completely absorbing. see [#f3]_, [#f4]_ and [#f5]_
 
@@ -134,7 +134,6 @@ In other words, we follow a sensible SI unit system, augmented with some practic
 Radiator directivity model
 --------------------------
 
-
 Classic model of directivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -151,14 +150,22 @@ R1 Poly2 model
 The poly2 model, used in Handybeam R1, is described in detail in :code:`HN21_calibrate_transducer_model.ipynb` file. use :code:`jupyter notebook` to see it.
 
 
-Literature
-----------
+Related software packages
+-------------------------
 
 Pogo - finite element simulation package -- `pogo <http://www.pogo-fea.com/>`_
+
+K-Wave -- k-space pseudo spectral method - toolbox `k-wave <http://www.k-wave.org/documentation.php>`_
+
+Other Literature
+----------------
 
 Common string operations in Python - `see this. <https://docs.python.org/3/library/string.html#formatstrings>`_
 
 Sphinx and RST cheat sheet -- `see here. <https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html#the-csv-table-directive>`_
+
+
+
 
 ----
 
