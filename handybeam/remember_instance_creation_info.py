@@ -104,9 +104,10 @@ class RememberInstanceCreationInfo:
         except AttributeError:
             # raise error
             pass
-        if var is not self:
-            pass
-            # raise error
+        if 'var' in locals():
+            if var is not self:
+                pass
+                # raise error
 
     def __repr__(self):
         """ part of :code:`RememberInstanceCreationInfo`.
