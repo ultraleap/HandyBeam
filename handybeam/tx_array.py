@@ -34,7 +34,7 @@ class TxArray(RememberInstanceCreationInfo):
     Primarily holds the :code:`tx_array_element_descriptor`
 
     Attributes:
-        tx_array_element_descriptor: (numpy.array) compact buffer describing the array. See :ref:`024_R1_data_structures:tx_element_array_descriptor_a`
+        tx_array_element_descriptor: (numpy.array) compact buffer describing the array. See :ref:`b_tx_array_compact_descriptor:tx_element_array_descriptor_a`
         name: (string). user-readable string/descriptor
 
 
@@ -80,7 +80,7 @@ class TxArray(RememberInstanceCreationInfo):
                                   amplitude_ratio_setting: float = 1.0,
                                   phase_setting: float = 0.0
                          ):
-        ''' builds a single line of :ref:`024_R1_data_structures:tx_element_array_descriptor_a` buffer out of provided named parameters.
+        ''' builds a single line of :ref:`b_tx_array_compact_descriptor:tx_element_array_descriptor_a` buffer out of provided named parameters.
 
         Please note that the directivity defaults are set to match the murata transducer.
 
