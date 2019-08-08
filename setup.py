@@ -54,7 +54,7 @@ setup(
                 'PyQt5==5.12.2',
                 'vispy==0.5.3',
                 'Mako',
-                'Pybind11'
+                'Pybind11',
         ],
         test_suite='nose.collector',
         tests_require=['nose', 'nose-cover3'],
