@@ -47,11 +47,21 @@ class AbstractSampler(RememberInstanceCreationInfo):
         return handybeam.visualise.visualise_all_in_one(world=self.parent, sampler=self, filename=filename)
 
     @copy_docstring(handybeam.visualise.visualise_sampling_grid_and_array, prepend=True)
-    def visualise_sampling_grid_and_array(self, filename=None):
-
-        return handybeam.visualise.visualise_sampling_grid_and_array(world=self.parent,
-                                                                     sampler=self, filename=filename,
-                                                                     figsize=[15, 10], dpi=150)
+    def visualise_sampling_grid_and_array(self,
+                                          world=None,
+                                          sampler=None,
+                                          filename=None,
+                                          figsize=[15, 10],
+                                          dpi=150):
+        if world is None:
+            world = self.parent
+        if sampler is None:
+            sampler = self
+        return handybeam.visualise.visualise_sampling_grid_and_array(world=world,
+                                                                     sampler=sampler,
+                                                                     filename=filename,
+                                                                     figsize=figsize,
+                                                                     dpi=dpi)
 
     @copy_docstring(handybeam.visualise.visualise_sampling_grid, prepend=True)
     def visualise_sampling_grid(self, filename=None):
