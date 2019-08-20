@@ -16,6 +16,24 @@ phase_colormap = cmocean.cm.phase
 
 ## Functions
 
+def axisEqual3D(ax):
+    '''
+
+    makes the proportions of the distances equal - taken from
+
+    https://stackoverflow.com/questions/8130823/set-matplotlib-3d-plot-aspect-ratio
+
+    :param ax:
+    :return:
+    '''
+    extents = np.array([getattr(ax, 'get_{}lim'.format(dim))() for dim in 'xyz'])
+    sz = extents[:,1] - extents[:,0]
+    centers = np.mean(extents, axis=1)
+    maxsize = max(abs(sz))
+    r = maxsize/2
+    for ctr, dim in zip(centers, 'xyz'):
+        getattr(ax, 'set_{}lim'.format(dim))(ctr - r, ctr + r)
+
 def visualise_flat_tx_array(world = None,filename = None, figsize=[15,10], dpi=150 ):
   
     '''
@@ -168,6 +186,23 @@ def visualise_sampling_grid_and_array(world=None,sampler=None, filename=None, fi
     los['axes'].legend(prop={'size': 15},loc ='center left')
 
     los['axes'].set_title('Sampling grid and array coordinates', FontSize = 20)
+
+    # make sure the display has correct aspect ratio
+    max_extent_x = np.max(np.max(sg_x_points), np.max(arr_x_points))
+    min_extent_x = np.min(np.min(sg_x_points), np.min(arr_x_points))
+    max_extent_y = np.max(np.max(sg_y_points), np.max(arr_y_points))
+    min_extent_y = np.min(np.min(sg_y_points), np.min(arr_y_points))
+    max_extent_z = np.max(np.max(sg_z_points), np.max(arr_z_points))
+    min_extent_z = np.min(np.min(sg_z_points), np.min(arr_z_points))
+    max_extent = np.max([max_extent_x, max_extent_y, max_extent_z])
+    min_extent = np.min([min_extent_x, min_extent_y, min_extent_z])
+    print(f'max_extent_x={max_extent_x},max_extent_y={max_extent_x},max_extent_z={max_extent_x}')
+    print(f'min_extent_x={min_extent_x},max_extent_y={min_extent_x},max_extent_z={min_extent_x}')
+    print(f'max_extent={max_extent},min_extent={min_extent}')
+    los['axes'].set_xlim(min_extent, max_extent)
+    los['axes'].set_ylim(min_extent, max_extent)
+    los['axes'].set_zlim(min_extent, max_extent)
+
 
     if filename is not None:
         plt.savefig(filename)

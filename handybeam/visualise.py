@@ -16,6 +16,23 @@ phase_colormap = cmocean.cm.phase
 
 ## Functions
 
+def axisEqual3D(ax):
+    '''
+
+    makes the proportions of the distances equal - taken from
+
+    https://stackoverflow.com/questions/8130823/set-matplotlib-3d-plot-aspect-ratio
+
+    :param ax:
+    :return:
+    '''
+    extents = np.array([getattr(ax, 'get_{}lim'.format(dim))() for dim in 'xyz'])
+    sz = extents[:,1] - extents[:,0]
+    centers = np.mean(extents, axis=1)
+    maxsize = max(abs(sz))
+    r = maxsize/2
+    for ctr, dim in zip(centers, 'xyz'):
+        getattr(ax, 'set_{}lim'.format(dim))(ctr - r, ctr + r)
 
 def tx_array_basic(tx_array=None, filename=None, figsize=(4, 3), dpi=150, show=True):
     """ visualize the transmitter array, with dots where elements are located.
@@ -127,11 +144,15 @@ def visualise_sampling_grid(sampler=None, filename=None, figsize=[15,10], dpi=15
     los['axes'].legend(prop={'size': 15})
     los['axes'].set_title('Sampling grid coordinates', FontSize = 15)
 
+    axisEqual3D(los['axes'])
+
     if filename is not None:
         plt.savefig(filename)
         plt.close()
     else:
         plt.show()
+
+
 
 
 def visualise_sampling_grid_and_array(
@@ -197,6 +218,8 @@ def visualise_sampling_grid_and_array(
     los['axes'].legend(prop={'size': 15},loc ='center left')
 
     los['axes'].set_title('Sampling grid and array coordinates', FontSize = 20)
+
+    axisEqual3D(los['axes'])
 
     if filename is not None:
         plt.savefig(filename)
@@ -554,9 +577,7 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
     fig = pl.figure(figsize=figsize, dpi=dpi)
 
     los['amplitude'] = pl.subplot(gs[0, 0], projection='3d')
-    # plt.axis('equal')
     los['phase'] = pl.subplot(gs[0, 1], projection='3d')
-    # plt.axis('equal')
     los['trans_amp'] = pl.subplot(gs[1, 0])
     plt.axis('equal')
     los['trans_phase'] = pl.subplot(gs[1, 1])
@@ -627,6 +648,9 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
     los['phase'].set_title('Phase of the pressure field.', FontSize = 15,y=1.08)
     los['phase'].legend(loc=9, bbox_to_anchor=(0.5, -0.01),ncol = 2,prop={'size': 15})
 
+    axisEqual3D(los['amplitude'])
+    axisEqual3D(los['phase'])
+
     x0 = np.min(arr_x_points)
     xmax = np.max(arr_x_points)
 
@@ -645,8 +669,8 @@ def visualise_all_in_one(world=None,sampler=None,filename=None,figsize=(16,9),dp
     los['trans_phase'].set_xlabel('x [m]',FontSize  = 15 )
     los['trans_phase'].set_title('Phase distribution at the transducer plane.', FontSize = 15)
 
-    phase_cbar = plt.colorbar(trans_phase,ax = los['trans_phase'],cmap = phase_colormap)
-    phase_cbar.ax.set_ylabel('Radians',rotation = 0, y = 0,FontSize = 15)
+    phase_cbar = plt.colorbar(trans_phase, ax = los['trans_phase'], cmap = phase_colormap)
+    phase_cbar.ax.set_ylabel('Radians', rotation = 0, y = 0, FontSize = 15)
 
     trans_amp = los['trans_amp'].scatter(arr_x_points,arr_y_points,
                                 c = world.tx_array.tx_array_element_descriptor[:,10],
