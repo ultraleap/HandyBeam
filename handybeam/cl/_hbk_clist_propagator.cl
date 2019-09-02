@@ -98,6 +98,18 @@ __kernel void _hbk_clist_propagator(
 
                 float amplitude_distance_drop = recp_distance * medium_wavelength;
 
+                // ! Note: The air attenuation model is NOT INCLUDED here.
+                // If you want to include air attenuation, it would be approx. -1dB to -2dB per meter,
+                // note that the exact value depends heavily on the frequency, temperature and humidity,
+                // as per this paper:
+                // http://elibrary.lt/resursai/Mokslai/KTU/Ultragarsas/PDF%20straipsniai%2050-2004-Vol.1/50-2004-Vol.1_09-A.Vladisauskas.pdf
+                // and, as per this standard: (ISO 9613)
+                // https://www.iso.org/standard/20649.html
+                //
+                // example code:
+                // distance = 1.0/recp_distance; // because the distance is not calculated anywhere before
+                // amplitude_air_attenuation_drop = power(10,distance * attenuation_per_db_meter/20);
+
                 // Apply the HN50 directivity function here
                
                 float ca = 1.0 - cosine_of_angle_to_normal;
