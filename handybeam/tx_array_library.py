@@ -134,3 +134,49 @@ def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pi
         element_count_x * element_count_y)
 
     return this
+
+
+def from_system_xml(parent=None, file=None):
+    """
+    attempt to load a description of the array from an "Acoustic Renderer" xml file.
+    :param parent: set to local world.
+    :param file: file name to load. Must be an "Acoustic Renderer" compatible xml file.
+    :return:
+    """
+    import xml.etree.ElementTree as et
+
+    this = TxArray(parent)
+
+    try:
+        tree = et.parse(file)
+
+    except:
+        print("XML parsing error")
+
+    root = tree.getroot()
+
+    no_transducers = 0
+
+    for transducer in root.findall("./System/Transducers/Transducer"):
+        no_transducers += 1
+
+    this.tx_array_element_descriptor = np.zeros((no_transducers, 16), dtype=np.float32)
+
+    for transducer in root.findall("./System/Transducers/Transducer"):
+        element_id = int(transducer.get('Index'))
+        x_pos = float(transducer.get('Xmm')) * 1e-3
+        y_pos = float(transducer.get('Ymm')) * 1e-3
+        z_pos = float(transducer.get('Zmm')) * 1e-3
+        pol = transducer.get('ABX')
+
+        if (pol == 'X'):
+            # TODO: Check this works
+            amp_ratio = 0.0
+
+        else:
+            amp_ratio = 1.0
+
+        this.tx_array_element_descriptor[element_id, :] = \
+            this.generate_tx_array_element(x=x_pos, y=y_pos, amplitude_ratio_setting=amp_ratio)
+
+    return this
