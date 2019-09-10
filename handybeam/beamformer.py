@@ -9,14 +9,13 @@ A basic single-point-focus excitation solver is :meth:`handybeam.solver.Solver.s
 """
 # Imports
 import warnings
-warnings.warn('solver.py is obsolete - use beamformer.py instead')
 
 import handybeam.opencl_wrappers.solver_wrappers as solver_wrappers
 
 # Class
 
 
-class Solver:
+class beamformer:
     """" Contains the OpenCL subsystem for single focus solver.
     
     This class calls the OpenCL wrapper for the single focus solver. 
