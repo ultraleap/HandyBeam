@@ -34,7 +34,7 @@ __kernel void _hbk_clist_propagator(
                 unsigned int tx_idx = 0;
               
               
-                for (tx_idx=0; tx_idx<tx_count; tx_idx++)
+                for (tx_idx=0; tx_idx<tx_count; tx_idx++) // optimisation: track tx_pointer_base rather than tx_idx (increment by 16 instead of 1) -- will save on multiplication later.
                 { 
 
                 // Unpack the tx array descriptor - load data from global memory into registers, hopefully through a cache and broadcast.
@@ -89,7 +89,7 @@ __kernel void _hbk_clist_propagator(
                 
                 // Calculate the phase distance shift 
 
-                float phase_distance_shift = (float) tau  * medium_wavenumber * (1.0 / recp_distance);
+                float phase_distance_shift = (float) tau  * medium_wavenumber * (1.0 / recp_distance); // todo: take "1/recp_distance" out of here, and have a new register to memoize the distance, so that it can be used in attenuation calculation
 
                 // possibly edit this
                 float phase_distance_shift_wrapped = fmod(phase_distance_shift, (float) tau);
@@ -110,6 +110,7 @@ __kernel void _hbk_clist_propagator(
                 // distance = 1.0/recp_distance; // because the distance is not calculated anywhere before
                 // amplitude_air_attenuation_drop = power(10,distance * attenuation_per_db_meter/20);
 
+                // todo: instead of using "attenuation_per_db_meter/20" use "attenuation coefficient" that uses "phase_distance_shift" to reduce the count of multiplications needed
                 // Apply the HN50 directivity function here
                
                 float ca = 1.0 - cosine_of_angle_to_normal;
