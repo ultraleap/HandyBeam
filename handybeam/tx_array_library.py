@@ -180,3 +180,34 @@ def from_system_xml(parent=None, file=None):
             this.generate_tx_array_element(x=x_pos, y=y_pos, amplitude_ratio_setting=amp_ratio)
 
     return this
+
+
+def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None)
+
+    """
+    
+    .. code-block:: matlab
+    
+        function output = build_sunflower_round(array_size, array_spacing, emitterfunc)
+            % this function returns a focus_field object with a round sunflower arrangement with
+            % given inputs.
+            goldenRatio = (1+sqrt(5))/2;
+            ga = 360/(goldenRatio^2);
+            garad = ga*2*pi/360;
+            num = 1:array_size;
+            x = (array_spacing/2)*(4/pi)*sqrt(num).*sin(garad*num);
+            y = (array_spacing/2)*(4/pi)*sqrt(num).*cos(garad*num);
+            z = zeros(array_size,1)';
+            emitterlocs = [x;y;z];
+            emitternorms = [z;z;ones(array_size,1)'];
+            emitteramps = ones(array_size,1);
+            output = focus_field(emitterfunc, emitterlocs, emitternorms, emitteramps);
+        end
+
+    :param array_size: 
+    :param array_spacing: 
+    :param emitterfunc: 
+    :return: 
+    """
+
+    raise Exception('not translated from Matlab yet. Translate the code above.')
