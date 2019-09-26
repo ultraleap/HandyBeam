@@ -31,7 +31,6 @@ class ClistSampler(AbstractSampler):
         self.world = parent  
         self.pressure_field = None
         self.coordinates = np.zeros((0, 3), dtype=np.float32)
-        self.no_points = None
         self.local_work_size = local_work_size
 
     def find_clist_grid_volume(self):
@@ -61,6 +60,42 @@ class ClistSampler(AbstractSampler):
         # Find the volume.
 
         self.volume = x_length * y_length * z_length
+
+    @property
+    def bounding_box(self):
+        """estimate bounding box that contians all the points from the list"""
+
+        # Find the distance along the x-axis.
+
+        x_min = np.min(self.coordinates[:, 0])
+        x_max = np.max(self.coordinates[:, 0])
+        x_length = x_max - x_min
+
+        # Find the distance along the y-axis.
+
+        y_min = np.min(self.coordinates[:, 1])
+        y_max = np.max(self.coordinates[:, 1])
+        y_length = y_max - y_min
+
+        # Find the distance along the z-axis.
+
+        z_min = np.min(self.coordinates[:, 2])
+        z_max = np.max(self.coordinates[:, 2])
+        z_length = z_max - z_min
+
+        return (x_length, y_length, z_length)
+
+    @property
+    def estimated_volume(self):
+        '''Estimate the volume of the requested sampling grid.
+
+        The estimate is based on the extent of the bounding box
+
+                '''
+
+        bbox=self.bounding_box
+
+        return bbox[0]*bbox[1]*bbox[2]
 
     def add_sampling_points(self, x_list, y_list, z_list):
 
@@ -113,8 +148,10 @@ class ClistSampler(AbstractSampler):
                                                         print_performance_feedback=print_performance_feedback
                                                     )
         self.pressure_field = np.nan_to_num(kernel_output[:, 0] + np.complex(0, 1) * kernel_output[:, 1])
-        
-        self.no_points = len(self.coordinates[:,0])
+
+    @property
+    def no_points(self):
+        return len(self.coordinates[:, 0])
 
     def __repr__(self):
         """links to :meth:`__str__`"""
@@ -128,4 +165,5 @@ class ClistSampler(AbstractSampler):
 
         :return: a formatted string representing some fun fucts about this instance . . .
         """
-        return "This is a ToDo. Yup, nothing smart here yet."
+        bbox = self.bounding_box
+        return f"Coordinate list sampler, {self.no_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
