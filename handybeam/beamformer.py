@@ -15,7 +15,7 @@ import handybeam.opencl_wrappers.solver_wrappers as solver_wrappers
 # Class
 
 
-class beamformer:
+class Beamformer:
     """" Contains the OpenCL subsystem for single focus solver.
     
     This class calls the OpenCL wrapper for the single focus solver. 
@@ -36,7 +36,7 @@ class beamformer:
         self.parent = parent
         self.solver = solver_wrappers.Solver(parent=self.parent)
     
-    def single_focus_solver(self, x_focus, y_focus, z_focus, local_work_size=(1, 1, 1), print_performance_feedback=False):
+    def single_focal_point(self, x_focus, y_focus, z_focus, local_work_size=(1, 1, 1), print_performance_feedback=False):
         """ Solve excitation coefficients for a single focal point
         
         This method calls the OpenCL wrapper mixin class single_focus_solver which determines
