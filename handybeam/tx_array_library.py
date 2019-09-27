@@ -94,21 +94,21 @@ def USX(parent = None):
 
 def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
 
-    '''DESCRIPTION HERE
+    '''Classic 2D flat rectilinear array - that is, the elements are oriented along X,Y axes.
 
     Parameters
     ----------
 
     parent : handybeam world
-            DESCRIPTION HERE
+            please set to your world.
     element_count_x : int
-            DESCRIPTION HERE
+            Count of element along X axis
     element_count_y : int
-            DESCRIPTION HERE
+            Count of elements along Y axis
     element_pitch_x : float
-            DESCRIPTION HERE
+            Distance between elements along X axis
     element_pitch_y : float
-            DESCRIPTION HERE
+            Distance between elements along Y axis
         
     '''
     this = TxArray(parent)
