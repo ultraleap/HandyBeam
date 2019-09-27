@@ -2,6 +2,7 @@
 
 import numpy as np
 from handybeam.tx_array import TxArray
+import handybeam.tx_array
 
 ## Global variables
 
@@ -19,16 +20,15 @@ _tx_array_library__default_directivity_cos_power = 3.376
 ## Functions
 
 def single_element(parent = None):
-  
-    '''DESCRIPTION HERE
+    """A TxArray object built with just one transducer.
 
     Parameters
     ----------
 
     parent : handybeam world
-            DESCRIPTION HERE
+            Please provide your instance of world.
         
-    '''
+    """
 
     this = TxArray(parent)
     this.name = 'most basic single point'
@@ -71,20 +71,16 @@ def simple_linear(parent = None, element_count=16, element_pitch=7e-3):
         this.tx_array_element_descriptor[element_idx, :] = \
         this.generate_tx_array_element(x=loc_x, y=loc_y, amplitude_ratio_setting=1.0)
 
-
     return this
 
+
 def USX(parent = None):
+    """ A rectilinear array with settings to simulate the UltraLeap 'USX' hardware
 
-    '''DESCRIPTION HERE
+        :param parent:  the world to give to this array as parent
+        :return: a new :class:`handybeam.tx_array.TxArray` instance.
 
-    Parameters
-    ----------
-
-    parent : handybeam world
-            DESCRIPTION HERE
-        
-    '''
+    """
    
     return rectilinear(parent,
                             element_count_x=16,
@@ -93,8 +89,7 @@ def USX(parent = None):
                             element_pitch_y=__default_USX_element_spacing)
 
 def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
-
-    '''Classic 2D flat rectilinear array - that is, the elements are oriented along X,Y axes.
+    """Classic 2D flat rectilinear array - that is, the elements are oriented along X,Y axes.
 
     Parameters
     ----------
@@ -110,7 +105,7 @@ def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pi
     element_pitch_y : float
             Distance between elements along Y axis
         
-    '''
+    """
     this = TxArray(parent)
 
     total_element_count = element_count_x * element_count_y
