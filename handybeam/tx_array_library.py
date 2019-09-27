@@ -204,9 +204,9 @@ def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None)
             output = focus_field(emitterfunc, emitterlocs, emitternorms, emitteramps);
         end
 
-    :param array_size: 
-    :param array_spacing: 
-    :param emitterfunc: 
+    :param array_size: count of points to generate
+    :param array_spacing: set to 0.0102 for Murata in U7; set to 0.0105 for Murata in dragonfly, 
+    :param emitterfunc: most likely derelic, ignore
     :return: 
     """
 
