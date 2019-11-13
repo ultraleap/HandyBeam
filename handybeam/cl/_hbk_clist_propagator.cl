@@ -137,8 +137,6 @@ __kernel void _hbk_clist_propagator(
             
                 } 
 
-                // Output these pixel coordinates so that we can double check they match up with the python code. 
-              
                 unsigned int output_pointer_base = 2 * sampling_point_idx ;
 
                 cl_field[output_pointer_base+0] = pressure_re;
