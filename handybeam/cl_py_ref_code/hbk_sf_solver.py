@@ -69,5 +69,7 @@ def hbk_sf_solver_ref(
         tx_array_element_descriptor[tx_idx, 10] = 1
         tx_array_element_descriptor[tx_idx, 11] = - wrapped_wavelength
 
+    return tx_array_element_descriptor
+
          
          
