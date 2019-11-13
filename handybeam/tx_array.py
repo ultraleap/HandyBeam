@@ -35,7 +35,7 @@ class TxArray(RememberInstanceCreationInfo):
 
     Attributes:
         tx_array_element_descriptor: (numpy.array) compact buffer describing the array. See :ref:`b_tx_array_compact_descriptor:tx_element_array_descriptor_a`
-        name: (string). user-readable string/descriptor
+        name: (string). user-readable string/elements
 
 
     """
@@ -146,7 +146,7 @@ class TxArray(RememberInstanceCreationInfo):
 
         """
 
-        handybeam.visualise.tx_array_basic(self, figsize=figsize ,dpi=dpi)
+        handybeam.visualise.tx_array_basic(self, figsize=figsize, dpi=dpi)
 
     ## Read-only attributes 
 
@@ -184,4 +184,18 @@ class TxArray(RememberInstanceCreationInfo):
         txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12], ed[13], ed[14], ed[15])+linesep
         return txt
 
+    def apply_basic_trap_signature_x_split(self):
+        """ for all elements with x>0, inverses the phase"""
 
+        for idx in range(self.element_count):
+            # if x-coordinate is >0
+            if self.tx_array_element_descriptor[idx, 0]>0.0:
+                # add pi to phase
+                self.tx_array_element_descriptor[idx, 11]=self.tx_array_element_descriptor[idx, 11]+np.pi
+
+    def apply_basic_trap_signature_y_split(self):
+        for idx in range(self.element_count):
+            # if y-coordinate is >0
+            if self.tx_array_element_descriptor[idx, 1] > 0.0:
+                # add pi to phase
+                self.tx_array_element_descriptor[idx, 11] = self.tx_array_element_descriptor[idx, 11] + np.pi
