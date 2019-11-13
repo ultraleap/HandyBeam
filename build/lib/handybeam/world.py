@@ -24,10 +24,10 @@ Holds a description of things like:
 
 ## Imports
 
-import numpy as np
 import handybeam.bugcatcher
-import handybeam.tx_array_library
 import handybeam.opencl_wrappers.propagator_wrappers
+import handybeam.tx_array_library
+import numpy as np
 
 ## Global variables 
 
@@ -37,7 +37,7 @@ tau = 2*np.pi
 ## Class
 
 class World():
-    """ Root descriptor of the simulated universe
+    """ Root elements of the simulated universe
 
         Contains what is needed to quickly serve typical use cases for HandyBeam
 
