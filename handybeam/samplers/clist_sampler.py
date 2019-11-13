@@ -141,12 +141,14 @@ class ClistSampler(AbstractSampler):
 
         """
 
+
         kernel_output = self.parent.propagator.clist_propagator(
                                                         tx_array=self.parent.tx_array,
                                                         sampling_point_list=self.coordinates,
                                                         local_work_size= self.local_work_size,
                                                         print_performance_feedback=print_performance_feedback
                                                     )
+
         self.pressure_field = np.nan_to_num(kernel_output[:, 0] + np.complex(0, 1) * kernel_output[:, 1])
 
     @property

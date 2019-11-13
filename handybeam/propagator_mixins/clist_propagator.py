@@ -33,7 +33,7 @@ class ClistPropMixin():
     def clist_propagator(self,
                          tx_array: handybeam.tx_array.TxArray,
                          sampling_point_list=np.zeros((0, 3), dtype=np.float32),
-                         local_work_size=(128, 1, 1),
+                         local_work_size=(2, 1, 1),
                          print_performance_feedback=False
                          ):
 
@@ -56,6 +56,8 @@ class ClistPropMixin():
 
         """
 
+
+
         # Start the timer to measure wall time.
 
         t_start = timer()
@@ -75,8 +77,8 @@ class ClistPropMixin():
 
         # Create a buffer on the GPU to store the transducer data and copy the data from the CPU (tx_array.tx_array_element_descriptor)
         # to the GPU.
-
-        cl_tx_element_array_descriptor = cl.Buffer(self.cl_system.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR,hostbuf=tx_array.tx_array_element_descriptor)
+        py_tx_array_element_descriptor = np.float32(tx_array.tx_array_element_descriptor)
+        cl_tx_element_array_descriptor = cl.Buffer(self.cl_system.context, cl.mem_flags.READ_ONLY | cl.mem_flags.COPY_HOST_PTR,hostbuf=py_tx_array_element_descriptor)
         
         # Create a buffer on the GPU to store the sampling point data and copy the data from the CPU (sampling_point_list)
         # to the GPU.
@@ -111,7 +113,8 @@ class ClistPropMixin():
         # Copy the results from the GPU buffer to the associated CPU buffer. 
 
         cl_profiling_mem_copy_event = cl.enqueue_copy(self.cl_system.queue, py_out_buffer, cl_field)
-        
+
+
         # Block until the kernel event has completed and then until the copy event has completed. 
 
         cl_profiling_kernel_event.wait()     

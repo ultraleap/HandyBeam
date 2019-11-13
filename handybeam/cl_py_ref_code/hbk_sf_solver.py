@@ -43,7 +43,7 @@ def hbk_sf_solver_ref(
 
     # Loop through the transducers.
 
-    for tx_idx in range(len(tx_array_element_descriptor)):
+    for tx_idx in range(tx_array_element_descriptor.shape[0]):
 
         tx_x = tx_array_element_descriptor[tx_idx, 0]
         tx_y = tx_array_element_descriptor[tx_idx, 1]

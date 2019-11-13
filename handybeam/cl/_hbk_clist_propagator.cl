@@ -70,7 +70,7 @@ __kernel void _hbk_clist_propagator(
                 if (medium_wavenumber<recp_distance)
                 {
                     pressure_re = NAN;
-                    pressure_im = NAN;
+                    pressure_im = NAN; // magic number
                     break; 
                 }
 
@@ -83,7 +83,7 @@ __kernel void _hbk_clist_propagator(
                 if (cosine_of_angle_to_normal<0.0)
                 {
                     pressure_re = NAN;
-                    pressure_im = NAN;
+                    pressure_im = NAN; // magic number for "this pixel is behind a transducer"
                     break; 
                 }
                 
