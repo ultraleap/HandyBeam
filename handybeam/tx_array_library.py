@@ -177,7 +177,7 @@ def from_system_xml(parent=None, file=None):
     return this
 
 
-def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None)
+def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None):
 
     """
     

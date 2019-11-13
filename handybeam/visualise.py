@@ -37,7 +37,7 @@ def axisEqual3D(ax):
 def tx_array_basic(tx_array=None, filename=None, figsize=(4, 3), dpi=150, show=True):
     """ visualize the transmitter array, with dots where elements are located.
 
-    :param handybeam.tx_array.TxArray tx_array: reference to the array descriptor to visualize.
+    :param handybeam.tx_array.TxArray tx_array: reference to the array elements to visualize.
     :param filename: if set, save the figure contents to a file using :code:`plt.savefig(filename)`. If unset, do nothing.
     :param figsize: figure size for the :code:`plt.figure(figsize=xxx)` command.
     :param dpi: resolution for the :code:`plt.figure(dpi=xxx)` command.

@@ -48,7 +48,7 @@ tau = 2*np.pi
 
 
 class World(RememberInstanceCreationInfo):
-    """ Root descriptor of the simulated universe
+    """ Root elements of the simulated universe
 
     Contains what is needed to quickly serve typical use cases for HandyBeam.
 
