@@ -1,9 +1,11 @@
 # # Imports
 
 from timeit import default_timer as timer
+
+import handybeam.tx_array
 import numpy as np
 import pyopencl as cl
-import handybeam.tx_array
+
 
 # # Class
 
@@ -73,7 +75,7 @@ class SFSolverMixin():
 
         # Set global and local work sizes.
 
-        thread_group_count=min(no_transducers, 32) 
+        thread_group_count = min(no_transducers, 32)  # TODO: This is probably wrong, and may result in crashes when there is an usual count of transducers
         global_work_size = (no_transducers, 1, 1)
         local_work_size = (thread_group_count, 1, 1)
      
