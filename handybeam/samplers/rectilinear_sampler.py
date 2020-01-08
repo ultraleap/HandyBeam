@@ -36,7 +36,8 @@ class RectilinearSampler(AbstractSampler):
     def __init__(self,
                  parent=None,
                  normal_vector=np.array((0.0, 0.0, 1.0)),
-                 parallel_vector=np.array((0.0, 1.0, 0.0)),
+                 parallel_vector=None,
+                 up_vector=np.array((0.0, 1.0, 0.0)),
                  origin=np.array((0.0, 0.0, 200.0e-3)),
                  grid_spacing_per_wavelength=0.2,
                  grid_spacing_per_m=None,
@@ -55,8 +56,12 @@ class RectilinearSampler(AbstractSampler):
                   This is an instance of the handybeam world class.
         normal_vector : numpy array
                   This is the vector normal to the desired sampling grid.
+        up_vector : numpy array
+                  This is a vector parallel to the desired sampling grid. It orients the grid in 3D space.
+                  e.g. `np.array((0.0, 1.0, 0.0))`
         parallel_vector : numpy array
-                  This is a vector parallel to the desired sampling grid.
+                  obsolete: use "up_vector"
+                  e.g. `np.array((0.0, 1.0, 0.0))`
         origin : numpy array
                   This is a vector specifying the origin of the sampling grid.
         grid_spacing_per_wavelength : float
@@ -80,7 +85,9 @@ class RectilinearSampler(AbstractSampler):
 
         self.parent = parent
         self.normal_vector = normal_vector
-        self.parallel_vector = parallel_vector
+        if parallel_vector is not None:
+            raise Exception('parallel_vector is obsolete, use "up_vector" instead')
+        self.up_vector = up_vector
         self.vector_2 = None
         self.origin = origin
         self.local_work_size = local_work_size
@@ -153,27 +160,27 @@ class RectilinearSampler(AbstractSampler):
 
         # Rotate the parallel vector to get a new vector which is perpendicular to the normal and the parallel vector.
 
-        self.vector_2 = quaternion.rotate(self.parallel_vector)
+        self.vector_2 = quaternion.rotate(self.up_vector)
             
         # Find the norm of these vectors.
 
-        parallel_vector_norm = np.linalg.norm(self.parallel_vector) 
+        up_vector_norm = np.linalg.norm(self.up_vector)
         vector_2_norm = np.linalg.norm(self.vector_2)
             
         # Find the unit vectors.
 
-        unit_parallel_vector = (1/parallel_vector_norm)*self.parallel_vector
+        unit_up_vector = (1/up_vector_norm)*self.up_vector
 
         unit_vector_2 = (1/vector_2_norm)*self.vector_2
 
         # Compute the angle between these vectors to check that is equal to pi/2.
 
-        angle_1 = int(np.round(np.rad2deg(np.arccos(np.dot(unit_parallel_vector,unit_vector_2))),1))
+        angle_1 = int(np.round(np.rad2deg(np.arccos(np.dot(unit_up_vector, unit_vector_2))), 1))
 
         # Compute the angle between each of these vectors and the normal to ensure that they parameterise the plane perpendicular to the nromal. 
 
-        angle_2 = int(np.round(np.rad2deg(np.arccos( np.dot(self.parallel_vector,self.normal_vector) / (parallel_vector_norm*vector_2_norm) )),1))
-        angle_3 = int(np.round(np.rad2deg(np.arccos( np.dot(self.vector_2,self.normal_vector) / (parallel_vector_norm*vector_2_norm) )),1))
+        angle_2 = int(np.round(np.rad2deg(np.arccos( np.dot(self.up_vector, self.normal_vector) / (up_vector_norm*vector_2_norm))), 1))
+        angle_3 = int(np.round(np.rad2deg(np.arccos( np.dot(self.vector_2, self.normal_vector) / (up_vector_norm*vector_2_norm))), 1))
 
         # Throw error if they are not.
 
@@ -183,15 +190,15 @@ class RectilinearSampler(AbstractSampler):
 
         self.x_lim = np.float32(self.N_x/2) 
         self.y_lim = np.float32(self.N_y/2) 
-        self.vx1 = np.float32(self.parallel_vector[0])
-        self.vy1 = np.float32(self.parallel_vector[1])
-        self.vz1 = np.float32(self.parallel_vector[2])
+        self.vx1 = np.float32(self.up_vector[0])
+        self.vy1 = np.float32(self.up_vector[1])
+        self.vz1 = np.float32(self.up_vector[2])
         self.x0 = np.float32(self.origin[0])
         self.y0 = np.float32(self.origin[1])
         self.z0 = np.float32(self.origin[2])
-        self.vx2 = np.float32(np.round(self.vector_2[0],4))
-        self.vy2 = np.float32(np.round(self.vector_2[1],4))
-        self.vz2 = np.float32(np.round(self.vector_2[2],4))
+        self.vx2 = np.float32(np.round(self.vector_2[0], 4))
+        self.vy2 = np.float32(np.round(self.vector_2[1], 4))
+        self.vz2 = np.float32(np.round(self.vector_2[2], 4))
 
     def propagate(self,
                   print_performance_feedback=False,
