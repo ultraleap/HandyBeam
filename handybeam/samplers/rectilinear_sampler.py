@@ -123,6 +123,9 @@ class RectilinearSampler(AbstractSampler):
         self.coefficient_matrix = np.zeros((256, 256), dtype=np.complex)
         self.generate_propagation_parameters()
         self.find_rect_grid_area()
+        # create u,v coordinates around the x0,y0,z0
+        self.coordinates_u = np.linspace(-self.grid_extent_around_origin_x/2,self.grid_extent_around_origin_x/2, self.N_x)
+        self.coordinates_v = np.linspace(-self.grid_extent_around_origin_y / 2, self.grid_extent_around_origin_y/2, self.N_y)
 
     @property
     def extent(self):
@@ -156,9 +159,9 @@ class RectilinearSampler(AbstractSampler):
             
         # Define the quaternion required to rotate the parallel vector by an angle of pi/2. 
 
-        quaternion = Quaternion(axis=[unit_normal[0], unit_normal[1],unit_normal[2]], angle = tau/4)
+        quaternion = Quaternion(axis=[unit_normal[0], unit_normal[1], unit_normal[2]], angle = tau/4)
 
-        # Rotate the parallel vector to get a new vector which is perpendicular to the normal and the parallel vector.
+        # Rotate the up vector to get a new vector which is perpendicular to the normal and the parallel vector.
 
         self.vector_2 = quaternion.rotate(self.up_vector)
             
@@ -177,7 +180,7 @@ class RectilinearSampler(AbstractSampler):
 
         angle_1 = int(np.round(np.rad2deg(np.arccos(np.dot(unit_up_vector, unit_vector_2))), 1))
 
-        # Compute the angle between each of these vectors and the normal to ensure that they parameterise the plane perpendicular to the nromal. 
+        # Compute the angle between each of these vectors and the normal to ensure that they parameterise the plane perpendicular to the noromal.
 
         angle_2 = int(np.round(np.rad2deg(np.arccos( np.dot(self.up_vector, self.normal_vector) / (up_vector_norm*vector_2_norm))), 1))
         angle_3 = int(np.round(np.rad2deg(np.arccos( np.dot(self.vector_2, self.normal_vector) / (up_vector_norm*vector_2_norm))), 1))

@@ -88,7 +88,7 @@ def USX(parent = None):
                             element_pitch_x=__default_USX_element_spacing,
                             element_pitch_y=__default_USX_element_spacing)
 
-def rectilinear(parent = None,element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
+def rectilinear(parent = None, element_count_x=16, element_count_y=16, element_pitch_x=7e-3, element_pitch_y=7e-3):
     """Classic 2D flat rectilinear array - that is, the elements are oriented along X,Y axes.
 
     Parameters
