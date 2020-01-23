@@ -62,6 +62,10 @@ class ClistPropMixin():
 
         t_start = timer()
 
+        # make sure the point list is of the right shape and size
+        assert sampling_point_list.shape[1] == 3
+        assert sampling_point_list.dtype == np.float32
+
         # Determine the number of requested sampling points.
 
         sampling_point_count = sampling_point_list.shape[0]
