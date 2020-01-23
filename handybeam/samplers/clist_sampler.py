@@ -2,6 +2,7 @@
 
 import numpy as np
 from handybeam.samplers.abstract_sampler import AbstractSampler
+import warnings
 
 # Class
 
@@ -13,7 +14,7 @@ class ClistSampler(AbstractSampler):
 
     def __init__(self, parent=None, local_work_size=(128, 1, 1)):
 
-        '''This method intialises an instance of the ClistSampler class.
+        '''This method initializes an instance of the ClistSampler class.
 
         Parameters
         ----------
@@ -21,7 +22,7 @@ class ClistSampler(AbstractSampler):
         parent : handybeam_core.world.World
                 This is an instance of the handybeam world class. 
         local_work_size : tuple
-                This sets the local work size for the GPU, not recommended to change unless the user
+                This sets the local work size for the GPU. Not recommended to change unless the user
                 has experience with OpenCL and pyopencl.
 
         '''
@@ -152,8 +153,16 @@ class ClistSampler(AbstractSampler):
         self.pressure_field = np.nan_to_num(kernel_output[:, 0] + np.complex(0, 1) * kernel_output[:, 1])
 
     @property
+    def count_of_points(self):
+        if self.coordinates.shape == (3,):
+            warnings.warn('the coordinates must be of shape (n,3) where n is count of points')
+            return 1  # do return that one coordinate has been entered, but of wrong shape
+        return self.coordinates.shape[0]
+
+    @property
     def no_points(self):
-        return len(self.coordinates[:, 0])
+        warnings.warn('use "count of points" instead', warnings.DeprecationWarning)
+        return self.count_of_points
 
     def __repr__(self):
         """links to :meth:`__str__`"""
@@ -167,8 +176,8 @@ class ClistSampler(AbstractSampler):
 
         :return: a formatted string representing some fun facts about this instance . . .
         """
-        if self.no_points > 0:
+        if self.count_of_points > 0:
             bbox = self.bounding_box
-            return f"Coordinate list sampler, {self.no_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
+            return f"Coordinate list sampler, {self.count_of_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
         else:
             return f"Coordinate list sampler, no points. Add some points to sample at!"
