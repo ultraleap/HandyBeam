@@ -167,5 +167,8 @@ class ClistSampler(AbstractSampler):
 
         :return: a formatted string representing some fun fucts about this instance . . .
         """
-        bbox = self.bounding_box
-        return f"Coordinate list sampler, {self.no_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
+        if self.no_points>0:
+            bbox = self.bounding_box
+            return f"Coordinate list sampler, {self.no_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
+        else:
+            return f"Coordinate list sampler, no points. Add some points to sample at!"
