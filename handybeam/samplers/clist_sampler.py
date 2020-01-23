@@ -163,11 +163,11 @@ class ClistSampler(AbstractSampler):
         """
         .. ToDo:
 
-            write something usefull for this method.
+            write something useful for this method.
 
-        :return: a formatted string representing some fun fucts about this instance . . .
+        :return: a formatted string representing some fun facts about this instance . . .
         """
-        if self.no_points>0:
+        if self.no_points > 0:
             bbox = self.bounding_box
             return f"Coordinate list sampler, {self.no_points } points; bounding box: {bbox[0]*1e3:0.1f} x {bbox[1]*1e3:0.1f} x {bbox[2]*1e3:0.1f} mm"
         else:
