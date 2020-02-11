@@ -20,6 +20,8 @@ import handybeam .visualise
 
 from handybeam.misc import handyround
 from os import linesep
+import warnings
+warnings.warn('RectilinearSampler is deprecated, use CList sampler instead', DeprecationWarning)
 
 ## Global variables
 
@@ -80,7 +82,7 @@ class RectilinearSampler(AbstractSampler):
         align_grid_size_to_gpu : int
                   if set to true, the precise sampling density will be adjusted so that the count of pixels is a multiply of 256. This increases overall throughput of the GPU
         """
-
+        warnings.warn('RectilinearSampler is deprecated, use CList sampler instead', DeprecationWarning)
         super(RectilinearSampler, self).__init__()
 
         self.parent = parent

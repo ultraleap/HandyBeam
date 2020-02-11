@@ -10,7 +10,8 @@ where:
 """
 import numpy as np
 from handybeam.samplers.clist_sampler import ClistSampler
-
+import warnings
+warnings.warn('arcYZ is deprecated, use CList sampler instead', DeprecationWarning)
 
 class arcYZ(ClistSampler):
 
@@ -32,7 +33,7 @@ class arcYZ(ClistSampler):
                         has experience with OpenCL and pyopencl.
 
         '''
-
+        warnings.warn('arcYZ is deprecated, use CList sampler instead', DeprecationWarning)
         super(arcYZ, self).__init__(parent=world, local_work_size=local_work_size)
 
         self.coordinates = np.zeros((0, 3), dtype=np.float32)

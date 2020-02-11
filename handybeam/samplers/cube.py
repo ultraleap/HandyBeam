@@ -6,7 +6,7 @@ This is usefull for volumetric (3D voxels) visualisations and analysis
 """
 import numpy as np
 from handybeam.samplers.clist_sampler import ClistSampler
-
+import warnings
 
 class Cube(ClistSampler):
     def __init__(self,
@@ -40,7 +40,7 @@ class Cube(ClistSampler):
 
         self.coordinates = np.zeros((0, 3), dtype=np.float32)
         self.wavelength = self.world.medium_wavelength
-
+        warnings.warn('cube is deprecated, use CList sampler instead', DeprecationWarning)
         # create a sampling line, semi-circle around the array, to sample the field there
         tau = 2 * np.pi
         # store input parameters values

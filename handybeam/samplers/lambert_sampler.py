@@ -17,6 +17,8 @@ import numpy as np
 from handybeam.misc import copy_docstring
 from handybeam.samplers.abstract_sampler import AbstractSampler
 import handybeam.visualise
+import warnings
+warnings.warn('LambertSampler is deprecated, use CList sampler instead', DeprecationWarning)
 ## Global variables
 
 tau = 2*np.pi
@@ -58,8 +60,8 @@ class LambertSampler(AbstractSampler):
                 This sets the local work size for the GPU, not recommended to change unless the user
                 has experience with OpenCL and pyopencl.
         '''
-
-        super(LambertSampler,self).__init__()
+        warnings.warn('LambertSampler is deprecated, use CList sampler instead', DeprecationWarning)
+        super(LambertSampler, self).__init__()
 
         self.parent = parent
         self.origin = origin

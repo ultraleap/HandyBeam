@@ -5,8 +5,8 @@ from pyquaternion import Quaternion
 from handybeam.misc import copy_docstring
 from handybeam.samplers.abstract_sampler import AbstractSampler
 import handybeam.visualise
-
-
+import warnings
+warnings.warn('HexagonalSampler is deprecated, use CList sampler instead', DeprecationWarning)
 ## Global variables
 
 tau = 2*np.pi
@@ -53,8 +53,8 @@ class HexagonalSampler(AbstractSampler):
                 This sets the local work size for the GPU, not recommended to change unless the user
                 has experience with OpenCL and pyopencl.
         '''
-
-        super(HexagonalSampler,self).__init__()
+        warnings.warn('HexagonalSampler is deprecated, use CList sampler instead', DeprecationWarning)
+        super(HexagonalSampler, self).__init__()
 
         self.parent = parent
         self.normal_vector = normal_vector
