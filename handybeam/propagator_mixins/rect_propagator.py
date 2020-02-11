@@ -5,6 +5,9 @@ import numpy as np
 import pyopencl as cl
 import handybeam.tx_array
 
+import warnings
+warnings.warn('RectPropMixin is deprecated, use CList sampler instead', DeprecationWarning)
+
 # # Class
 
 
