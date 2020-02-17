@@ -199,3 +199,10 @@ class TxArray(RememberInstanceCreationInfo):
             if self.tx_array_element_descriptor[idx, 1] > 0.0:
                 # add pi to phase
                 self.tx_array_element_descriptor[idx, 11] = self.tx_array_element_descriptor[idx, 11] + np.pi
+
+    def set_directivity_coefficients(self, c0=318.5, c1=-628.4, c2=461.33):
+        self.tx_array_element_descriptor[:, 7] = c0
+        self.tx_array_element_descriptor[:, 8] = c1
+        self.tx_array_element_descriptor[:, 9] = c2
+
+
