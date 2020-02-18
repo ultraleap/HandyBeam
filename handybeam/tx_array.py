@@ -23,6 +23,7 @@ import handybeam.visualise
 from handybeam.remember_instance_creation_info import RememberInstanceCreationInfo
 from os import linesep
 
+
 ## Global variables
 
 ## Class
@@ -62,7 +63,7 @@ class TxArray(RememberInstanceCreationInfo):
         self._name = "default single-element array"
 
     def generate_empty_tx_element_descriptor(self):
-        
+
         '''DESCRIPTION HERE
 
         '''
@@ -79,7 +80,7 @@ class TxArray(RememberInstanceCreationInfo):
                                   directivity_amplitude_poly2_c2: float = 461.33,
                                   amplitude_ratio_setting: float = 1.0,
                                   phase_setting: float = 0.0
-                         ):
+                                  ):
         ''' builds a single line of :ref:`b_tx_array_compact_descriptor:tx_element_array_descriptor_a` buffer out of provided named parameters.
 
         Please note that the directivity defaults are set to match the murata transducer.
@@ -171,17 +172,19 @@ class TxArray(RememberInstanceCreationInfo):
 
         :return: basic information about this array
         """
-        return self.creation_text + linesep + "name string: " + self.__str__() + linesep + "count of elements: {}".format(self.tx_array_element_descriptor.shape[0])
+        return self.creation_text + linesep + "name string: " + self.__str__() + linesep + "count of elements: {}".format(
+            self.tx_array_element_descriptor.shape[0])
 
     def describe_element(self, idx):
         ed = self.tx_array_element_descriptor[idx, :]
-        txt = "element {}: ".format(idx)+linesep
-        txt = txt + " >   (location) =({:0.1f}, {:0.1f}, {:0.1f})mm".format(ed[0]*1e3, ed[1]*1e3, ed[2]*1e3)+linesep
-        txt = txt + " >    (normals) =({}, {}, {})".format(ed[3], ed[4], ed[5])+linesep
-        txt = txt + " > (dir coeffs) =(phase_c1:{}, | amp:({}, {}, {}))".format(ed[6], ed[7], ed[8], ed[9])+linesep
+        txt = "element {}: ".format(idx) + linesep
+        txt = txt + " >   (location) =({:0.1f}, {:0.1f}, {:0.1f})mm".format(ed[0] * 1e3, ed[1] * 1e3,
+                                                                            ed[2] * 1e3) + linesep
+        txt = txt + " >    (normals) =({}, {}, {})".format(ed[3], ed[4], ed[5]) + linesep
+        txt = txt + " > (dir coeffs) =(phase_c1:{}, | amp:({}, {}, {}))".format(ed[6], ed[7], ed[8], ed[9]) + linesep
         txt = txt + " >  amp setting ={}".format(ed[10]) + linesep
         txt = txt + " >        phase ={}".format(ed[11]) + linesep
-        txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12], ed[13], ed[14], ed[15])+linesep
+        txt = txt + " >       (nans) =({}, {}, {}, {}) ".format(ed[12], ed[13], ed[14], ed[15]) + linesep
         return txt
 
     def apply_basic_trap_signature_x_split(self):
@@ -189,9 +192,9 @@ class TxArray(RememberInstanceCreationInfo):
 
         for idx in range(self.element_count):
             # if x-coordinate is >0
-            if self.tx_array_element_descriptor[idx, 0]>0.0:
+            if self.tx_array_element_descriptor[idx, 0] > 0.0:
                 # add pi to phase
-                self.tx_array_element_descriptor[idx, 11]=self.tx_array_element_descriptor[idx, 11]+np.pi
+                self.tx_array_element_descriptor[idx, 11] = self.tx_array_element_descriptor[idx, 11] + np.pi
 
     def apply_basic_trap_signature_y_split(self):
         for idx in range(self.element_count):
@@ -201,8 +204,10 @@ class TxArray(RememberInstanceCreationInfo):
                 self.tx_array_element_descriptor[idx, 11] = self.tx_array_element_descriptor[idx, 11] + np.pi
 
     def set_directivity_coefficients(self, c0=318.5, c1=-628.4, c2=461.33):
-        self.tx_array_element_descriptor[:, 7] = c0
-        self.tx_array_element_descriptor[:, 8] = c1
-        self.tx_array_element_descriptor[:, 9] = c2
+        self.tx_array_element_descriptor[:, 7] = np.float32(c0)
+        self.tx_array_element_descriptor[:, 8] = np.float32(c1)
+        self.tx_array_element_descriptor[:, 9] = np.float32(c2)
 
-
+    def set_tx_amplitude(self, tx_idx=0, amplitude=1.0, phase=0.0):
+        self.tx_array_element_descriptor[tx_idx, 10] = np.float32(amplitude)
+        self.tx_array_element_descriptor[tx_idx, 11] = np.float32(phase)
