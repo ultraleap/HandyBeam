@@ -36,7 +36,7 @@ class Beamformer:
         self.parent = parent
         self.solver = solver_wrappers.Solver(parent=self.parent)
     
-    def single_focal_point(self, x_focus, y_focus, z_focus, local_work_size=(1, 1, 1), print_performance_feedback=False):
+    def single_focal_point(self, focus_xyz=None, x_focus=0.0, y_focus=0.0, z_focus=200e-3, local_work_size=(1, 1, 1), print_performance_feedback=False):
         """ Solve excitation coefficients for a single focal point
         
         This method calls the OpenCL wrapper mixin class single_focus_solver which determines
@@ -50,13 +50,21 @@ class Beamformer:
         y_focus : numpy float
                 This is the y-coordinate of the requested focal point position.
         z_focus : numpy float
-                This is the z-coordinate of the requested focal point position.          
+                This is the z-coordinate of the requested focal point position.
+
+        focus_xyz: tuple of xyz floats
+                If specified, this overrrides the separate "x_focus", "y_focus" and "z_focus" parameters.
         local_work_size : tuple
                 Tuple containing the local work sizes for the GPU.
         print_performance_feedback : boolean
                 Boolean value determining whether or not to output the GPU performance statistics.
         
         """
+        if focus_xyz is not None:
+            assert (focus_xyz.shape == (3,))
+            x_focus = focus_xyz[0]
+            y_focus = focus_xyz[1]
+            z_focus = focus_xyz[2]
 
         kernel_output = self.solver.single_focus_solver(    
                                                             self.parent.tx_array,
