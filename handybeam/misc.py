@@ -61,19 +61,52 @@ class HandyDict(dict):
 
 
     happily copypasted from https://stackoverflow.com/questions/2352181/how-to-use-a-dot-to-access-members-of-dictionary , and modified only slightly.
+
+    then, extended a bit.
+
+    then, a bit more, with optional reprstyler. See self.__repr__();
+    example reprstyler:
+
+    q=handybeam.dict(zap=None,bald=6.28)
+
+    def baldstyler(subject):
+        return f'baldness score: {subject.bald:0.3f}'
+
+    q.reprstyler=baldstyler
+
+    q
+
+    then, if you want a different styler for jupyter, and a different one for text-only, you can (optionally) override the reprstyler with reprstyler_html. It will only be used if _repr_html_ is called.
+
+    def baldstyler2(subject):
+        return f'<h1>baldness score: {subject.bald:0.3f}</h1>'
+    q.reprstyler_html = baldstyler2
+
+
+    You can still see the regular dict __repr__ (lists all keys/values) using
+    super(handybeam.dict,q).__repr__()
+
+
     """
-    def __init__(self, args={'True': True, 'False':False}):
+    def __init__(self, args={}, **kwargs):
         """ starts the instance.
 
         :param args: initial value in the dictionary. If not set, it initializes with a default value of :code:`{'True': True, 'False':False}`
         """
         super(HandyDict, self).__init__(args)
-        if isinstance(args, dict):
-            for k, v in args.items():
-                if not isinstance(v, dict):
-                    self[k] = v
-                else:
-                    self.__setattr__(k, HandyDict(v))
+        if args is not None:
+            if isinstance(args, dict):
+                for k, v in args.items():
+                    if not isinstance(v, dict):
+                        self[k] = v
+                    else:
+                        self.__setattr__(k, HandyDict(v))
+
+        # add a hard-coded value "reprstyler". This will be used to redirect repr to the given function
+
+        self.update({'reprstyler': None})
+        for key, value in kwargs.items():
+            self.update({key: value})
 
     def __getattr__(self, attr):
         """ responds to :code:`answer=dict.attribute`"""
@@ -96,6 +129,46 @@ class HandyDict(dict):
         """ ? I don't know what this does."""
         super(HandyDict, self).__delitem__(key)
         del self.__dict__[key]
+
+    def __repr__(self):
+        """
+        If available, calls the reprstyler. If not available,just calls the default __repr__()
+        """
+        if self.reprstyler is not None:
+            try:
+                return self.reprstyler(self)
+            except Exception as E:
+                print(E)
+                print('-- falling back to super...')
+                return super(HandyDict, self).__repr__()
+        else:  # if reprstyler not set
+            return super(HandyDict, self).__repr__()
+
+    def __str__(self):
+        """ just wrap to self.__repr__()"""
+        return self.__repr__()
+
+    def _repr_html_(self):
+        if self.reprstyler_html is not None:
+            try:
+                return self.reprstyler_html(self)
+            except Exception as E:
+                print(E)
+                print('-- falling back to super.__repr__() --')
+                return super(HandyDict, self).__repr__()  # note that dict has no _repr_html_() to call.
+        else:  # if reprstyler_html not set
+            # at this point, if reprstyler is set, use it. Otherwise it will fall back too early and all Jupyter output would be bad.
+            if self.reprstyler is not None:
+                try:
+                    return self.reprstyler(self)
+                except Exception as E:
+                    print(E)
+                    print('-- falling back to super...')
+                    return super(HandyDict, self).__repr__()
+            else:  # if reprstyler not set
+                return super(HandyDict, self).__repr__()
+
+
 
 
 # pylint: disable = C0301

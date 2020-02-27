@@ -27,4 +27,9 @@ __all__ = [
 ]
 
 
+"""
+shortcut to make it easier to use HandyDict as the primary data structure
+"""
+from .misc import HandyDict as dict
+
 
