@@ -164,9 +164,9 @@ class World(RememberInstanceCreationInfo):
         txt = f"{txt}sound velocity of {self.sound_velocity:0.1f}m/s, "
         txt = f"{txt}frequency {self.frequency * 1e-3:0.1f}kHz, "
         txt = f"{txt}medium_wavelength of {self.medium_wavelength * 1e3:0.3f}mm, "
-        txt = f"{txt}wavenumber {self.medium_wavenumber:0.3f}, {len(self.samplers)} sampler(s)"
+        txt = f"{txt}wavenumber {self.medium_wavenumber:0.3f}, {len(self.samplers)} sampler(s). "
         for idx, sampler in enumerate(self.samplers):
-            txt = f"{txt}sampler {idx}: {str(sampler)}"
+            txt = f"{txt}Sampler {idx}: {str(sampler)}"
 
         if self.tx_array is not None:
             txt = f"{txt}{linesep}Tx array: {self.tx_array}"
