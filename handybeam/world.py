@@ -26,6 +26,10 @@ Holds a description of things like:
     Time to grow up.
     See `this tutorial <https://docs.python.org/3/howto/logging-cookbook.html>`_
 
+.. TODO::
+
+    remove .creation_text and depreciate RememberInstanceCreationInfo altogether.
+
 """
  
 
@@ -155,7 +159,8 @@ class World(RememberInstanceCreationInfo):
 
     def __str__(self):
         """ returns a short info about this world."""
-        txt = f"{self.creation_text}{linesep}handybeam.world.World() with "
+        #txt = f"{self.creation_text}{linesep}handybeam.world.World() with "
+        txt = f"handybeam.world.World() with "
         txt = f"{txt}sound velocity of {self.sound_velocity:0.1f}m/s, "
         txt = f"{txt}frequency {self.frequency * 1e-3:0.1f}kHz, "
         txt = f"{txt}medium_wavelength of {self.medium_wavelength * 1e3:0.3f}mm, "

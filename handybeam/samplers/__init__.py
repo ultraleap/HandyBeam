@@ -13,3 +13,5 @@ __all__ = [
             'lambert_sampler',
             'rectilinear_sampler'
             ]
+
+from . import clist_sampler
