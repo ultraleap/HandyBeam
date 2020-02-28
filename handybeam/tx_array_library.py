@@ -148,6 +148,7 @@ def from_v3(parent = None, coordinates=np.array(np.empty(shape=(0,6),dtype=np.fl
                 ynormal=coordinates[idx, 4],
                 znormal=coordinates[idx, 5],
                 amplitude_ratio_setting=1.0)
+    this.set_name('imported from HandyBeam3')
     return this
 
 def from_system_xml(parent=None, file=None):
