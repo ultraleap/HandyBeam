@@ -130,6 +130,25 @@ def rectilinear(parent = None, element_count_x=16, element_count_y=16, element_p
 
     return this
 
+def from_v3(parent = None, coordinates=np.array(np.empty(shape=(0,6),dtype=np.float32)),name='imported',):
+    """
+    this converts V3-style coordinates to handybeam2 txarray
+    """
+    this = TxArray(parent)
+    total_element_count = coordinates.shape[0]
+    this.tx_array_element_descriptor = np.zeros((total_element_count, 16), dtype=np.float32)
+
+    for idx in range(total_element_count):
+        this.tx_array_element_descriptor[idx, :] = \
+            this.generate_tx_array_element(
+                x=coordinates[idx, 0],
+                y=coordinates[idx, 1],
+                z=coordinates[idx, 2],
+                xnormal=coordinates[idx, 3],
+                ynormal=coordinates[idx, 4],
+                znormal=coordinates[idx, 5],
+                amplitude_ratio_setting=1.0)
+    return this
 
 def from_system_xml(parent=None, file=None):
     """
@@ -177,6 +196,9 @@ def from_system_xml(parent=None, file=None):
     return this
 
 
+
+
+
 def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None):
 
     """
@@ -206,3 +228,6 @@ def build_sunflower_round(array_size=None, array_spacing=None, emitterfunc=None)
     """
 
     raise Exception('not translated from Matlab yet. Translate the code above.')
+
+
+
