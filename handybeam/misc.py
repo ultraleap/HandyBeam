@@ -91,7 +91,7 @@ class HandyDict(dict):
     def __init__(self, args={}, **kwargs):
         """ starts the instance.
 
-        :param args: initial value in the dictionary. If not set, it initializes with a default value of :code:`{'True': True, 'False':False}`
+        :param args: initial value in the dictionary.
         """
         super(HandyDict, self).__init__(args)
         if args is not None:

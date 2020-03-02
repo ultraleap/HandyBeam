@@ -1,8 +1,18 @@
+from .misc import HandyDict as dict
+from . import world
+from . import beamformer
+from . import samplers
+
 """
 
 This module contains all the submodules for the handybeam software package.
 
 """
+
+"""
+shortcut to make it easier to use HandyDict as the primary data structure
+"""
+
 
 name = "handybeam"
 
@@ -15,7 +25,7 @@ __all__ = [
     'translator',
     'tx_array',
     'tx_array_library',
-    'visiualize',
+    'visualise',
     'world',
     'cl',
     'cl_py_ref_code',
@@ -27,12 +37,5 @@ __all__ = [
 ]
 
 
-"""
-shortcut to make it easier to use HandyDict as the primary data structure
-"""
-from .misc import HandyDict as dict
 
-from .import world
-from . import beamformer
-from . import samplers
 
