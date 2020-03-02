@@ -168,6 +168,14 @@ class HandyDict(dict):
             else:  # if reprstyler not set
                 return super(HandyDict, self).__repr__()
 
+    # turns out that these two methods are essential to enable pickling of this object
+    #  https://stackoverflow.com/questions/2049849/why-cant-i-pickle-this-object
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
+
 
 
 
