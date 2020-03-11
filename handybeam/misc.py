@@ -9,6 +9,17 @@ Some of them might be awaiting refactoring or deletion.
 
 import numpy as np
 from warnings import warn
+from os import path
+import warnings
+from os import mkdir as mkdir_os
+
+def mkdir(new_dir='data'):
+    try:
+        if not path.exists(new_dir):
+            mkdir(new_dir)
+    except FileExistsError:
+        warnings.warn(f'could not make the dir {new_dir}', UserWarning, stacklevel=2 )
+
 
 def copy_docstring(from_function, separator="\n", prepend=True):
     """ Decorator. Copies the docstring of `from_function` into the decorated function.
