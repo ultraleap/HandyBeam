@@ -8,7 +8,7 @@ Some of them might be awaiting refactoring or deletion.
 """
 
 import numpy as np
-
+from warnings import warn
 
 def copy_docstring(from_function, separator="\n", prepend=True):
     """ Decorator. Copies the docstring of `from_function` into the decorated function.
@@ -55,7 +55,7 @@ def handyround(value, base=64):
 class HandyDict(dict):
     """Provides matlab-like setting/storage of items in a dict (dictionary)
 
-    q=HandyDict()
+    q=handybeam.dict()
     q.new_key = 'Hello world!'
     print(q.new_key)
 
@@ -104,12 +104,28 @@ class HandyDict(dict):
 
         # add a hard-coded value "reprstyler". This will be used to redirect repr to the given function
 
-        self.update({'reprstyler': None})
+        self.update({'reprstyler': None})  # Note: do not depend on this key being in the dictionary -- I might decide to not put it in as default
         for key, value in kwargs.items():
             self.update({key: value})
 
     def __getattr__(self, attr):
         """ responds to :code:`answer=dict.attribute`"""
+        answer = self.get(attr)
+        if answer is None:
+            # skip warning if jupyter tries to access some typical methods
+            if attr not in ('_ipython_canary_method_should_not_exist_',
+                            '_ipython_display_',
+                            '_repr_mimebundle_',
+                            'reprstyler_html',
+                            '_repr_markdown_',
+                            '_repr_svg_',
+                            '_repr_png_',
+                            '_repr_pdf_',
+                            '_repr_jpeg_',
+                            '_repr_latex_',
+                            '_repr_json_',
+                            '_repr_javascript_'):
+                warn(f'no key "{attr}" in this dictionary',stacklevel=2)
         return self.get(attr)
 
     def __setattr__(self, key, value):
@@ -152,8 +168,8 @@ class HandyDict(dict):
         if self.reprstyler_html is not None:
             try:
                 return self.reprstyler_html(self)
-            except Exception as E:
-                print(E)
+            except Exception as reprstyler_html_fail:
+                print(reprstyler_html_fail)
                 print('-- falling back to super.__repr__() --')
                 return super(HandyDict, self).__repr__()  # note that dict has no _repr_html_() to call.
         else:  # if reprstyler_html not set
@@ -161,8 +177,8 @@ class HandyDict(dict):
             if self.reprstyler is not None:
                 try:
                     return self.reprstyler(self)
-                except Exception as E:
-                    print(E)
+                except Exception as reprstyler_fail:
+                    print(reprstyler_fail)
                     print('-- falling back to super...')
                     return super(HandyDict, self).__repr__()
             else:  # if reprstyler not set
