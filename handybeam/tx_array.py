@@ -208,6 +208,20 @@ class TxArray(RememberInstanceCreationInfo):
         self.tx_array_element_descriptor[:, 8] = np.float32(c1)
         self.tx_array_element_descriptor[:, 9] = np.float32(c2)
 
-    def set_tx_amplitude(self, tx_idx=0, amplitude=1.0, phase=0.0):
+    def set_tx_amplitude(self, tx_idx=0, amplitude=1.0, phase=None):
         self.tx_array_element_descriptor[tx_idx, 10] = np.float32(amplitude)
-        self.tx_array_element_descriptor[tx_idx, 11] = np.float32(phase)
+        if phase is not None:
+            self.tx_array_element_descriptor[tx_idx, 11] = np.float32(phase)
+
+    def get_tx_phase(self, tx_idx=0):
+        return self.tx_array_element_descriptor[tx_idx, 11]
+
+    def set_tx_phase(self, tx_idx=0, phase = 0.0):
+        self.tx_array_element_descriptor[tx_idx,11] = np.float32(phase)
+
+    def get_all_phases(self):
+        return self.tx_array_element_descriptor[:, 11]
+
+    def set_all_phases(self, phases=None):
+        if phases is not None:
+            self.tx_array_element_descriptor[:, 11] = phases
