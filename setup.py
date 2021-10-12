@@ -47,7 +47,7 @@ setup(
                 'pyopencl==2018.2.5',
                 'cmocean==2.0',
                 'matplotlib==3.1.0',
-                'opencv-python==4.1.0.25',
+                'opencv-python==4.1.1.26',
                 'pyquaternion==0.9.5',
                 'jupyter==1.0.0',
                 'PyOpenGL==3.1.0',
