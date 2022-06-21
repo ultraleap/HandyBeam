@@ -39,7 +39,7 @@ setup(
                     'handybeam.translator_mixins'],
         install_requires=[
                 'markdown==3.1.1',
-                'numpy==1.16.4',
+                'numpy==1.22.0',
                 'pybind11==2.2.4',
                 'mako==1.0.12',
                 'pyparsing==2.4.0',
